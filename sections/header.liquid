@@ -97,38 +97,52 @@
 
 <header class="site-header">
   <!-- Upper Header -->
-  <div class="kd-upper-header" style="background-color : {{ settings.upper_header_bg }}">
+  <div class="upper-header" style="background-color: {{ settings.upper_header_bg }}">
     <div class="container text-center">
-      <p>{{ settings.upper_header_text }}</p>
+      <p>{{ settings.upper_header_text | default: "Welcome to Snuggle Duds!" }}</p>
     </div>
   </div>
 
-  <!-- Logo area -->
+  <!-- Middle Header (Logo & Contact Info) -->
+  <div class="main-header">
+    <div class="container">
+      <div class="logo">
+        {% if settings.logo %}
+          <img src="{{ settings.logo | img_url: '250x' }}" alt="{{ shop.name }}">
+        {% else %}
+          <h1>{{ shop.name }}</h1>
+        {% endif %}
+      </div>
 
-  <div class="kd-middle-header">
-    <div class="row justify-center">
-      <div></div>
-      <div><img src="{{ settings.logo | img_url: '250x' }}" alt="{{ shop.name }}"></div>
-      <div>
-        <div class="header-icons">
-          <a href="{{ routes.account_url }}">👤</a>
-          <a href="/wishlist">❤️</a>
-          <a href="{{ routes.cart_url }}">🛒 ({{ cart.item_count }})</a>
-        </div>
+      <!-- Contact Info -->
+      <div class="contact-info">
+        <p>
+          📞 <a href="tel:{{ settings.contact_phone }}">{{ settings.contact_phone }}</a> |
+          📍 {{ settings.contact_location }}
+        </p>
+      </div>
+
+      <!-- Icons (Account, Wishlist, Cart) -->
+      <div class="header-icons">
+        <a href="{{ routes.account_url }}">👤</a>
+        <a href="/wishlist">❤️</a>
+        <a href="{{ routes.cart_url }}">🛒 ({{ cart.item_count }})</a>
       </div>
     </div>
   </div>
 
   <!-- Navigation -->
-  <div>
+  <div class="nav-container">
     <div class="container">
       <nav class="site-nav">
         <ul>
-          {% for link in linklists['main-menu'].links %}
-            <li>
-              <a href="{{ link.url }}">{{ link.title }}</a>
-            </li>
-          {% endfor %}
+          {% if linklists.main-menu.links.size > 0 %}
+            {% for link in linklists.main-menu.links %}
+              <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {% endfor %}
+          {% else %}
+            <li>No Menu Items Found</li>
+          {% endif %}
         </ul>
       </nav>
     </div>
