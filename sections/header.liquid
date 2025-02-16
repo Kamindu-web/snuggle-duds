@@ -96,7 +96,6 @@
 </style>
 
 <header class="site-header">
-
   <!-- Upper Header -->
   <div class="kd-upper-header" style="background-color : {{ settings.upper_header_bg }}">
     <div class="container text-center">
@@ -108,54 +107,30 @@
 
   <div class="kd-middle-header">
     <div class="row justify-center">
-
+      <div></div>
+      <div><img src="{{ settings.logo | img_url: '250x' }}" alt="{{ shop.name }}"></div>
+      <div>
+        <div class="header-icons">
+          <a href="{{ routes.account_url }}">👤</a>
+          <a href="/wishlist">❤️</a>
+          <a href="{{ routes.cart_url }}">🛒 ({{ cart.item_count }})</a>
+        </div>
+      </div>
     </div>
   </div>
-  
 
   <!-- Navigation -->
-
-
-  
-  <!-- Upper Header -->
-  <div class="upper-header">
+  <div>
     <div class="container">
-      <p>{{ settings.upper_header_text }}</p>
-      <div class="contact-info">
-        📞 <a href="tel:{{ settings.contact_phone }}">{{ settings.contact_phone }}</a> |
-        📍 {{ settings.contact_location }}
-      </div>
-    </div>
-  </div>
-
-  <!-- Main Header -->
-  <div class="main-header">
-    <div class="container">
-      <!-- Logo -->
-      <div class="logo">
-        <a href="{{ routes.root_url }}">
-          <img src="{{ settings.logo | img_url: '250x' }}" alt="{{ shop.name }}">
-        </a>
-      </div>
-
-      <!-- Navigation Menu -->
       <nav class="site-nav">
         <ul>
-          {% for link in linklists.main-menu.links %}
-            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+          {% for link in linklists['main-menu'].links %}
+            <li>
+              <a href="{{ link.url }}">{{ link.title }}</a>
+            </li>
           {% endfor %}
         </ul>
       </nav>
-
-      <!-- Icons (Account, Wishlist, Cart) -->
-      <div class="header-icons">
-        <a href="{{ routes.account_url }}">👤</a>
-        <a href="/wishlist">❤️</a>
-        <a href="{{ routes.cart_url }}">🛒 ({{ cart.item_count }})</a>
-      </div>
-
-      <!-- Mobile Menu Button -->
-      <button class="menu-toggle">☰</button>
     </div>
   </div>
 
