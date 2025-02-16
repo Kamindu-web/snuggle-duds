@@ -1,6 +1,116 @@
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "text",
+      "id": "upper_header_text",
+      "label": "Upper Header Text",
+      "default": "Welcome to Snuggle Duds!"
+    },
+    {
+      "type": "color",
+      "id": "upper_header_bg",
+      "label": "Upper Header Background Color",
+      "default": "#487575"
+    },
+    {
+      "type": "text",
+      "id": "contact_phone",
+      "label": "Contact Phone",
+      "default": "+61 234 567 890"
+    },
+    {
+      "type": "text",
+      "id": "contact_location",
+      "label": "Contact Location",
+      "default": "Sydney, Australia"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  /* Upper Header */
+  .upper-header {
+    background-color: {{ settings.upper_header_bg }};
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    font-size: 14px;
+  }
+  .upper-header .contact-info {
+    float: right;
+  }
+
+  /* Main Header */
+  .main-header {
+    background: #fff;
+    padding: 15px 0;
+    border-bottom: 1px solid #ddd;
+  }
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .logo img {
+    max-width: 150px;
+  }
+  .site-nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+  }
+  .site-nav a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+  }
+  .header-icons a {
+    margin-left: 15px;
+    font-size: 18px;
+    text-decoration: none;
+  }
+  .menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 24px;
+  }
+  @media (max-width: 768px) {
+    .site-nav {
+      display: none;
+    }
+    .menu-toggle {
+      display: block;
+    }
+  }
+</style>
+
 <header class="site-header">
-  <div class="container">
-    <div class="header-inner">
+  
+  <!-- Upper Header -->
+  <div class="upper-header">
+    <div class="container">
+      <p>{{ settings.upper_header_text }}</p>
+      <div class="contact-info">
+        📞 <a href="tel:{{ settings.contact_phone }}">{{ settings.contact_phone }}</a> |
+        📍 {{ settings.contact_location }}
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Header -->
+  <div class="main-header">
+    <div class="container">
       <!-- Logo -->
       <div class="logo">
         <a href="{{ routes.root_url }}">
@@ -17,16 +127,16 @@
         </ul>
       </nav>
 
-      <!-- Cart Icon -->
-      <div class="cart">
-        <a href="{{ routes.cart_url }}">
-          🛒 ({{ cart.item_count }})
-        </a>
+      <!-- Icons (Account, Wishlist, Cart) -->
+      <div class="header-icons">
+        <a href="{{ routes.account_url }}">👤</a>
+        <a href="/wishlist">❤️</a>
+        <a href="{{ routes.cart_url }}">🛒 ({{ cart.item_count }})</a>
       </div>
 
       <!-- Mobile Menu Button -->
       <button class="menu-toggle">☰</button>
     </div>
   </div>
+
 </header>
- 
