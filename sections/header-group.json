@@ -40,7 +40,7 @@
       "type": "header",
       "settings": {
         "upper_header_text": "Welcome to Snuggle Duds!",
-        "upper_header_bg": "#487575",
+        "upper_header_bg": "#5b9798",
         "contact_phone": "+61 234 567 890",
         "contact_location": "Sydney, Australia"
       }
