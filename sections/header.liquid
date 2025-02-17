@@ -35,71 +35,95 @@
 }
 {% endschema %}
 
-<style>
-  /* Upper Header */
-  .upper-header {
-    background-color: {{ settings.upper_header_bg }};
-    color: #fff;
-    text-align: center;
-    padding: 10px 0;
-    font-size: 14px;
-  }
-  .upper-header .contact-info {
-    float: right;
-  }
+<div class="kd-header">
 
-  /* Main Header */
-  .main-header {
-    background: #fff;
-    padding: 15px 0;
-    border-bottom: 1px solid #ddd;
-  }
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .logo img {
-    max-width: 150px;
-  }
-  .site-nav ul {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-  }
-  .site-nav a {
-    text-decoration: none;
-    color: #333;
-    font-weight: bold;
-  }
-  .header-icons a {
-    margin-left: 15px;
-    font-size: 18px;
-    text-decoration: none;
-  }
-  .menu-toggle {
-    display: none;
-    background: none;
-    border: none;
-    font-size: 24px;
-  }
-  @media (max-width: 768px) {
-    .site-nav {
-      display: none;
-    }
-    .menu-toggle {
-      display: block;
-    }
-  }
-</style>
+  <!-- upper header -->
+  <div class="upper-header" style="background-color: {{ section.settings.upper_header_bg }}">
+      <div class="container p-2">
+          <p class="text-center mb-0 text-white">{{ settings.upper_header_text | default: "Welcome to Snuggle Duds!" }}</p>
+      </div>
+  </div>
+
+  <!-- middle header -->
+  <div class="middle-header">
+      <div class="container">
+          <div class="row align-items-center py-3">
+              <div class="col-md-5">
+                  <ul class="d-flex column-gap-4 p-0 justify-content-center justify-content-md-start mb-0">
+                      <li class="list-unstyled">
+                          <a href="#" class="text-decoration-none text-small text-greay">
+                              <img src="{{'img/phone-icon.svg' | asset_url}}" />&nbsp; +612345667890</a>
+                      </li>
+                      <li class="list-unstyled">
+                          <a href="#" class="text-decoration-none text-small text-greay">
+                              <img src="{{'img/map-marker.svg' | asset_url}}" />&nbsp; Sydney, Australia</a>
+                      </li>
+                  </ul>
+              </div>
+              <div class="col-md-2 text-center d-none d-md-block">
+                  <a href="#"><img class="main-logo" src="{{'img/logo.svg' | asset_url}}" /></a>
+              </div>
+              <div class="col-md-5 d-none d-md-block">
+                  <ul class="d-flex justify-content-end column-gap-4">
+                      <li class="list-unstyled"><a href="#"><img src="{{'img/user.svg' | asset_url}} " /></a></li>
+                      <li class="list-unstyled"><a href="#"><img src="{{'img/heart.svg' | asset_url}} " /></a></li>
+                      <li class="list-unstyled"><a href="#"><img src="{{'img/cart.svg' | asset_url}} " /></a></li>
+                  </ul>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <!-- bottom header -->
+  <div class="bottom-header border-top border-md border-black">
+      <div class="py-1 py-md-3">
+
+          <!-- Navigation -->
+          <nav class="navbar navbar-expand-lg">
+              <div class="container">
+
+                  <div class="d-md-none d-flex align-items-center justify-content-between w-100">
+                      <!-- logo -->
+                      <a href="#"><img class="main-logo" src="{{'img/logo.svg' | asset_url }}" /></a>
+
+                      <!-- Hamburger Toggle Button -->
+                      <button class="navbar-toggler ml-auto" type="button" data-bs-toggle="collapse"
+                          data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                          aria-label="Toggle navigation">
+                          <span class="navbar-toggler-icon"></span>
+                      </button>
+                  </div>
+
+
+                  <!-- Navigation Links -->
+                  <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                      <ul class="navbar-nav gap-md-5">
+                          <li class="nav-item">
+                              <a class="nav-link active" href="#">Home</a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link" href="#">About</a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link" href="#">Services</a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link" href="#">Contact</a>
+                          </li>
+                      </ul>
+                  </div>
+              </div>
+          </nav>
+      </div>
+  </div>
+
+</div>
 
 <header class="site-header">
   <!-- Upper Header -->
   <div class="upper-header" style="background-color: {{ section.settings.upper_header_bg }}">
     <div class="container text-center">
-      <p>{{ settings.upper_header_text | default: "Welcome to Snuggle Duds!" }}</p>
+      <p class="w-100 text-center mb-0">{{ settings.upper_header_text | default: "Welcome to Snuggle Duds!" }}</p>
     </div>
   </div>
 

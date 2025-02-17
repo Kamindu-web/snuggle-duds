@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+</head>
+
+<body>
+
+    <style>
+        * {
+            font-family: inter;
+            color: #4d4a47;
+        }
+
+        .main-logo {
+            width: 90px;
+        }
+
+        .text-small {
+            font-size: 14px;
+        }
+
+        .text-greay {
+            color: #4d4a47;
+        }
+
+        .upper-header p {
+            font-size: 14px;
+        }
+
+        @media(max-width : 767px) {
+            .main-logo {
+                width: 80px;
+            }
+        }
+    </style>
+
+    <!-- =========================header================================ -->
+    <!-- header -->
+    <div class="kd-header">
+
+        <!-- upper header -->
+        <div class="upper-header" style="background-color: #5B9798;">
+            <div class="container p-2">
+                <p class="text-center mb-0 text-white">Lorem ipsum dolor sit amet</p>
+            </div>
+        </div>
+
+        <!-- middle header -->
+        <div class="middle-header">
+            <div class="container">
+                <div class="row align-items-center py-3">
+                    <div class="col-md-5">
+                        <ul class="d-flex column-gap-4 p-0 justify-content-center justify-content-md-start mb-0">
+                            <li class="list-unstyled">
+                                <a href="#" class="text-decoration-none text-small text-greay">
+                                    <img src="../assets/img/phone-icon.svg" />&nbsp; +612345667890</a>
+                            </li>
+                            <li class="list-unstyled">
+                                <a href="#" class="text-decoration-none text-small text-greay">
+                                    <img src="../assets/img/map-marker.svg" />&nbsp; Sydney, Australia</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-2 text-center d-none d-md-block">
+                        <a href="#"><img class="main-logo" src="../assets/img/logo.svg" /></a>
+                    </div>
+                    <div class="col-md-5 d-none d-md-block">
+                        <ul class="d-flex justify-content-end column-gap-4">
+                            <li class="list-unstyled"><a href="#"><img src="../assets/img/user.svg" /></a></li>
+                            <li class="list-unstyled"><a href="#"><img src="../assets/img/heart.svg" /></a></li>
+                            <li class="list-unstyled"><a href="#"><img src="../assets/img/cart.svg" /></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- bottom header -->
+        <div class="bottom-header border-top border-md border-black">
+            <div class="py-1 py-md-3">
+
+                <!-- Navigation -->
+                <nav class="navbar navbar-expand-lg">
+                    <div class="container">
+
+                        <div class="d-md-none d-flex align-items-center justify-content-between w-100">
+                            <!-- logo -->
+                            <a href="#"><img class="main-logo" src="../assets/img/logo.svg" /></a>
+
+                            <!-- Hamburger Toggle Button -->
+                            <button class="navbar-toggler ml-auto" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                                aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                        </div>
+
+
+                        <!-- Navigation Links -->
+                        <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                            <ul class="navbar-nav gap-md-5">
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="#">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">About</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Services</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Contact</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- =========================header================================ -->
+
+    
+        <!-- ==========================slider area=========================== -->
+        <style>
+            /* Full-width container */
+            .swiper-container {
+                width: 100%;
+                max-width: 100vw; /* Adjust based on your design */
+                margin: auto;
+                overflow: hidden;
+            }
+    
+            /* Slide Styling */
+            .swiper-slide {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                background-size: cover;
+                background-position: center;
+                border-radius: 10px;
+            }
+    
+            /* Adjust slide size */
+            .swiper-slide img {
+                width: 100%;
+                height: auto;
+                border-radius: 10px;
+            }
+    
+            /* Navigation Buttons */
+            .swiper-button-prev,
+            .swiper-button-next {
+                color: #fff; /* Change color if needed */
+                background: rgba(0, 0, 0, 0.3);
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+            }
+    
+            .swiper-button-prev:hover,
+            .swiper-button-next:hover {
+                background: rgba(0, 0, 0, 0.5);
+            }
+    
+            /* Pagination */
+            .swiper-pagination-bullet {
+                background: #fff;
+                opacity: 0.7;
+            }
+    
+            .swiper-pagination-bullet-active {
+                background: #000;
+                opacity: 1;
+            }
+        </style>
+        <section class="slider">
+            <div class="swiper-container">
+                <div class="swiper mySwiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <img src="../assets/img/slide-1.jpg" alt="Slide 1">
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="../assets/img/slide-1.jpg" alt="Slide 2">
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="../assets/img/slide-1.jpg" alt="Slide 3">
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="../assets/img/slide-1.jpg" alt="Slide 4">
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="../assets/img/slide-1.jpg" alt="Slide 5">
+                        </div>
+                    </div>
+    
+                    <!-- Navigation Arrows -->
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+    
+                    <!-- Pagination -->
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+        </section>
+    
+        <!-- =======================slider area===================== -->
+
+
+    <!-- ====================footer====================================== -->
+
+    <style>
+        .kd-orange-btn {
+            background-color: #EBBD6F;
+            color: #4d4a47;
+            display: flex;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .footer-newsletter {
+            background: #A7B9BD
+        }
+
+        .text-xsm {
+            font-size: 13px;
+        }
+
+        .blue-btn {
+            padding: 12px 25px;
+            color: #4d4a47;
+            background-color: #A7B9BD;
+            border-radius: 8px;
+            text-decoration: none;
+        }
+    </style>
+
+
+    <section class="kd-footer">
+
+        <!-- newsletter area -->
+        <div class="footer-newsletter py-4 px-5 mx-md-0">
+            <div class="container">
+                <div class="row justify-content-lg-between">
+                    <div class="col-md-6 ">
+                        <p class="text-start mb-md-0">Sign up to Snuggle Rewards and get $10 off your first online
+                            order,
+                            earn
+                            points
+                            every time you shop
+                            and more!</p>
+                    </div>
+                    <div class="col-md-6 ">
+                        <form>
+                            <div class="row align-items-center justify-content-end">
+                                <div class="col-md-4 mb-3 mb-md-0">
+                                    <input type="text" class="form-control w-100">
+                                </div>
+                                <div class="col-md-4 mb-3 mb-md-0">
+                                    <input type="text" class="form-control w-100">
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="submit" class="btn kd-orange-btn w-100">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- footer links -->
+        <div class="footer-links">
+            <div class="container p-3">
+                <div class="row flex-column-reverse flex-md-row">
+                    <div class="col-md-7">
+
+                        <hr class="d-md-none">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <p class="text-xsm text-greay "><b>Customer Care</b></p>
+                                <ul class="p-0">
+                                    <li class="list-unstyled"><a class="text-xsm text-greay text-decoration-none "
+                                            href="">Delivery & Returns</a></li>
+                                    <li class="list-unstyled"><a class="text-xsm text-greay text-decoration-none "
+                                            href="">FAQs</a></li>
+                                    <li class="list-unstyled"><a class="text-xsm text-greay text-decoration-none "
+                                            href="">Gift Cards</a></li>
+                                    <li class="list-unstyled"><a class="text-xsm text-greay text-decoration-none "
+                                            href="">Gift Wrap</a></li>
+                                    <li class="list-unstyled"><a class="text-xsm text-greay text-decoration-none "
+                                            href="">Gift Registry</a></li>
+                                    <li class="list-unstyled"><a class="text-xsm text-greay text-decoration-none "
+                                            href="">Stores</a></li>
+                                    <li class="list-unstyled"><a class="text-xsm text-greay text-decoration-none "
+                                            href="">Snuggle Rewards</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-md-4">
+                                <p class="text-xsm text-greay "><b>Company</b></p>
+                                <ul class="p-0">
+                                    <li class="list-unstyled"><a class="text-xsm text-greay text-decoration-none "
+                                            href="">About Us</a></li>
+                                    <li class="list-unstyled"><a class="text-xsm text-greay text-decoration-none "
+                                            href="">Our story</a></li>
+                                    <li class="list-unstyled"><a class="text-xsm text-greay text-decoration-none "
+                                            href="">Wholesale</a></li>
+                                    <li class="list-unstyled"><a class="text-xsm text-greay text-decoration-none "
+                                            href="">Contact Us</a></li>
+                                    <li class="list-unstyled"><a class="text-xsm text-greay text-decoration-none "
+                                            href="">Partnerships</a></li>
+                                    <li class="list-unstyled"><a class="text-xsm text-greay text-decoration-none "
+                                            href="">Pure Parenthood Podcast</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-md-4">
+                                <p class="text-xsm text-greay "><b>Got a Question?</b></p>
+                                <ul class="p-0">
+                                    <li class="list-unstyled"><a class="text-xsm text-greay text-decoration-none "
+                                            href="">Live Chat With Us</a></li>
+                                    <li class="list-unstyled"><a class="text-xsm text-greay text-decoration-none "
+                                            href="">Monday - Friday</a></li>
+                                    <li class="list-unstyled"><a class="text-xsm text-greay text-decoration-none "
+                                            href="">Hours: 9:00am - 5:00pm</a></li>
+                                    <li class="list-unstyled"><a class="text-xsm text-greay text-decoration-none "
+                                            href="">Email: online@purebaby.com.au</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5 mb-4 md-mb-0">
+                        <div class="size-guide d-flex justify-content-center align-items-center flex-column">
+                            <img class="d-block" src="../assets/img/size-guide.svg" />
+                            <b class="text-small">Not sure about size</b>
+                            <p class="text-xsm">If you need help selecting a size, please refer to our size chart.</p>
+                            <a class="blue-btn text-small">SEE SIZE GUIDE</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- footer copyright -->
+        <div class="footer-copyright border-top border-black p-3 text-center">
+            <p class="mb-0 text-center text-xsm">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                tempor
+                incididunt</p>
+        </div>
+
+    </section>
+
+    <!-- ====================footer====================================== -->
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" defer="defer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        var swiper = new Swiper(".mySwiper", {
+            slidesPerView: 1, /* Ensures 15% visibility of previous & next slides */
+            centeredSlides: true,
+            loop: true,
+            spaceBetween: 20, /* Adjusts spacing */
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            breakpoints: {
+                768: {
+                    slidesPerView: 1.6, /* Adjusts for tablets */
+                },
+                1024: {
+                    slidesPerView: 1.3, /* Adjusts for desktop */
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
