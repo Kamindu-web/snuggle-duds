@@ -14,35 +14,39 @@
     "footer": {
       "type": "footer",
       "blocks": {
+        "customer_care_k98iGi": {
+          "type": "customer_care",
+          "settings": {
+            "title": "Customer Care",
+            "footer_links": "footer-column-one"
+          }
+        },
         "got_a_question_EQJDJt": {
           "type": "got_a_question",
           "settings": {
+            "title": "Company",
             "footer_links": "footer-column-3"
           }
         },
         "company_fK6RCk": {
           "type": "company",
           "settings": {
+            "title": "Got a Question?",
             "footer_links": "footer-column-2"
-          }
-        },
-        "customer_care_k98iGi": {
-          "type": "customer_care",
-          "settings": {
-            "footer_links": "footer-column-one"
           }
         }
       },
       "block_order": [
+        "customer_care_k98iGi",
         "got_a_question_EQJDJt",
-        "company_fK6RCk",
-        "customer_care_k98iGi"
+        "company_fK6RCk"
       ],
       "settings": {
         "newsletter_text": "Sign up to Snuggle Rewards and get $10 off your first online order, earn points every time you shop and more!",
-        "newsletter_bg": "#A7B9BD",
+        "newsletter_bg": "#a7b9bd",
         "size_chart_title": "Not sure about size",
         "size_chart_text": "If you need help selecting a size, please refer to our size chart.",
+        "size_chart_img": "shopify://shop_images/47613c93ee5f98398029ddd23e0993861f3baca6-1128x523_1.png",
         "footer_copyright": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
       }
     }
