@@ -15,11 +15,11 @@
         "main_slide_QnizHy": {
           "type": "main_slide",
           "settings": {
-            "title_sub_text": "",
-            "title": "",
-            "description": "",
-            "link": "",
-            "btn_title": "",
+            "title_sub_text": "Lorem Ipsum Dolor Sir Amet",
+            "title": "Lorem Ipsum Dolor Sir Amet",
+            "description": "Lorem Ipsum Dolor Sir Ametaasfrertert Lorem Ipsum Dolor Sir Amet",
+            "link": "#",
+            "btn_title": "SHOP NOW",
             "background_img": "shopify://shop_images/slide-1.jpg"
           }
         }
