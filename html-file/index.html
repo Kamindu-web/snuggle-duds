@@ -138,7 +138,7 @@
         <!-- ==========================slider area=========================== -->
         <style>
             /* Full-width container */
-            .swiper-container {
+            .kd-main-slider-container {
                 width: 100%;
                 max-width: 100vw; /* Adjust based on your design */
                 margin: auto;
@@ -146,7 +146,7 @@
             }
     
             /* Slide Styling */
-            .swiper-slide {
+            .kd-main-slider-container .swiper-slide {
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -157,15 +157,15 @@
             }
     
             /* Adjust slide size */
-            .swiper-slide img {
+            .kd-main-slider-container .swiper-slide img {
                 width: 100%;
                 height: auto;
                 border-radius: 10px;
             }
     
             /* Navigation Buttons */
-            .swiper-button-prev,
-            .swiper-button-next {
+            .kd-main-slider-container .swiper-button-prev,
+            .kd-main-slider-container .swiper-button-next {
                 color: #fff; /* Change color if needed */
                 background: rgba(0, 0, 0, 0.3);
                 width: 50px;
@@ -173,24 +173,24 @@
                 border-radius: 50%;
             }
     
-            .swiper-button-prev:hover,
-            .swiper-button-next:hover {
+            .kd-main-slider-container .swiper-button-prev:hover,
+            .kd-main-slider-container .swiper-button-next:hover {
                 background: rgba(0, 0, 0, 0.5);
             }
     
             /* Pagination */
-            .swiper-pagination-bullet {
+            .kd-main-slider-container .swiper-pagination-bullet {
                 background: #fff;
                 opacity: 0.7;
             }
     
-            .swiper-pagination-bullet-active {
+           .kd-main-slider-container .swiper-pagination-bullet-active {
                 background: #000;
                 opacity: 1;
             }
         </style>
         <section class="slider">
-            <div class="swiper-container">
+            <div class="swiper-container kd-main-slider-container">
                 <div class="swiper mySwiper">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
