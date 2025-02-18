@@ -14,14 +14,28 @@
     "footer": {
       "type": "footer",
       "blocks": {
+        "got_a_question_EQJDJt": {
+          "type": "got_a_question",
+          "settings": {
+            "footer_links": "footer-column-3"
+          }
+        },
+        "company_fK6RCk": {
+          "type": "company",
+          "settings": {
+            "footer_links": "footer-column-2"
+          }
+        },
         "customer_care_k98iGi": {
           "type": "customer_care",
           "settings": {
-            "footer_links": ""
+            "footer_links": "footer-column-one"
           }
         }
       },
       "block_order": [
+        "got_a_question_EQJDJt",
+        "company_fK6RCk",
         "customer_care_k98iGi"
       ],
       "settings": {
