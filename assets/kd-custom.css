@@ -87,10 +87,15 @@ html {
 }
 
 /* Adjust slide size */
-.kd-main-slider-container .swiper-slide img {
+.kd-main-slider-container .slide-inner {
     width: 100%;
-    height: auto;
-    border-radius: 10px;
+    min-height: 650px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
 }
 
 /* Navigation Buttons */
