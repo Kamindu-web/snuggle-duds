@@ -46,6 +46,7 @@
         "newsletter_bg": "#a7b9bd",
         "size_chart_title": "Not sure about size",
         "size_chart_text": "If you need help selecting a size, please refer to our size chart.",
+        "size_chart_img": "shopify://shop_images/size-guide.svg",
         "footer_copyright": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
       }
     }
