@@ -65,9 +65,9 @@
               </div>
               <div class="col-md-5 d-none d-md-block">
                   <ul class="d-flex justify-content-end column-gap-4">
-                      <li class="list-unstyled"><a href="#"><img src="{{'user.svg' | asset_url}} " /></a></li>
-                      <li class="list-unstyled"><a href="#"><img src="{{'heart.svg' | asset_url}} " /></a></li>
-                      <li class="list-unstyled"><a href="#"><img src="{{'cart.svg' | asset_url}} " /></a></li>
+                      <li class="list-unstyled"><a href="{{ routes.account_url }}"><img src="{{'user.svg' | asset_url}} " /></a></li>
+                      <li class="list-unstyled"><a href="/wishlist"><img src="{{'heart.svg' | asset_url}} " /></a></li>
+                      <li class="list-unstyled"><a href="{{ routes.cart_url }}"><img src="{{'cart.svg' | asset_url}} " /></a></li>
                   </ul>
               </div>
           </div>
@@ -84,7 +84,7 @@
 
                   <div class="d-md-none d-flex align-items-center justify-content-between w-100">
                       <!-- logo -->
-                      <a href="#"><img class="main-logo" src="{{'logo.svg' | asset_url }}" /></a>
+                      <a href="#"><img class="main-logo" src="{{ section.settings.logo | img_url: '90x' }}" /></a>
 
                       <!-- Hamburger Toggle Button -->
                       <button class="navbar-toggler ml-auto" type="button" data-bs-toggle="collapse"
@@ -98,18 +98,13 @@
                   <!-- Navigation Links -->
                   <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                       <ul class="navbar-nav gap-md-5">
-                          <li class="nav-item">
-                              <a class="nav-link active" href="#">Home</a>
-                          </li>
-                          <li class="nav-item">
-                              <a class="nav-link" href="#">About</a>
-                          </li>
-                          <li class="nav-item">
-                              <a class="nav-link" href="#">Services</a>
-                          </li>
-                          <li class="nav-item">
-                              <a class="nav-link" href="#">Contact</a>
-                          </li>
+                          {% if linklists.main-menu.links.size > 0 %}
+                            {% for link in linklists.main-menu.links %}
+                              <li class="nav-item"><a class="nav-link active" href="{{ link.url }}">{{ link.title }}</a></li>
+                            {% endfor %}
+                          {% else %}
+                            <li>No Menu Items Found</li>
+                          {% endif %}
                       </ul>
                   </div>
               </div>
