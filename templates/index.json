@@ -69,6 +69,13 @@
       "type": "collecion-carousel",
       "settings": {}
     },
+    "featured_collection_2_columns_wemJdj": {
+      "type": "featured-collection-2-columns",
+      "settings": {
+        "collection_1": "",
+        "collection_2": ""
+      }
+    },
     "featured_collection": {
       "type": "featured-collection",
       "settings": {
@@ -207,6 +214,7 @@
   "order": [
     "slideshow_3rXGWD",
     "collecion_carousel_zXpBja",
+    "featured_collection_2_columns_wemJdj",
     "featured_collection",
     "collage",
     "video",
