@@ -213,3 +213,68 @@ div:empty{
 }
 
 /* ====================collections carousel================ */
+
+/* ============two columns featured collections============ */
+
+.kd-2-feature-cols-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+}
+
+.kd-2-feature-cols-wrapper {
+    display: flex;
+    width: 100%;
+    max-width: 100vw;
+}
+
+.kd-2-feature-cols-item {
+    width: 50%;
+    height: 500px;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding: 30px;
+    position: relative;
+}
+
+.kd-2-feature-cols-content {
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: right;
+}
+
+.kd-2-feature-cols-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.kd-2-feature-cols-btn {
+    display: inline-block;
+    padding: 10px 15px;
+    background: #fff;
+    color: #000;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+.kd-2-feature-cols-btn:hover {
+    background: #f2f2f2;
+}
+
+.kd-2-feature-cols-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* ============two columns featured collections============ */

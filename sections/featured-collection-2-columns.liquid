@@ -1,0 +1,58 @@
+{% schema %}
+{
+  "name": "featured collections cols",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection_1",
+      "label": "Select First Collection"
+    },
+    {
+      "type": "image_picker",
+      "id": "collection_1_bg",
+      "label": "First Collection Background Image (Optional)"
+    },
+    {
+      "type": "collection",
+      "id": "collection_2",
+      "label": "Select Second Collection"
+    },
+    {
+      "type": "image_picker",
+      "id": "collection_2_bg",
+      "label": "Second Collection Background Image (Optional)"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured collections cols"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="kd-2-feature-cols-container">
+  <div class="kd-2-feature-cols-wrapper">
+    
+    <!-- First Collection -->
+    <div class="kd-2-feature-cols-item" style="background-image: url('{% if section.settings.collection_1_bg %}{{ section.settings.collection_1_bg | img_url: 'master' }}{% else %}{{ section.settings.collection_1.image | img_url: 'master' }}{% endif %}');">
+      <a href="{{ section.settings.collection_1.url }}" class="kd-2-feature-cols-link">
+        <div class="kd-2-feature-cols-content">
+          <h3 class="kd-2-feature-cols-title">{{ section.settings.collection_1.title }}</h3>
+          <span class="kd-2-feature-cols-btn">Shop Now</span>
+        </div>
+      </a>
+    </div>
+    
+    <!-- Second Collection -->
+    <div class="kd-2-feature-cols-item" style="background-image: url('{% if section.settings.collection_2_bg %}{{ section.settings.collection_2_bg | img_url: 'master' }}{% else %}{{ section.settings.collection_2.image | img_url: 'master' }}{% endif %}');">
+      <a href="{{ section.settings.collection_2.url }}" class="kd-2-feature-cols-link">
+        <div class="kd-2-feature-cols-content">
+          <h3 class="kd-2-feature-cols-title">{{ section.settings.collection_2.title }}</h3>
+          <span class="kd-2-feature-cols-btn">Shop Now</span>
+        </div>
+      </a>
+    </div>
+    
+  </div>
+</div>
