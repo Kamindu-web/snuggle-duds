@@ -1,32 +1,4 @@
-{% comment %} <section class="slider">
-  <div class="swiper-container kd-main-slider-container">
-    <div class="swiper mySwiper kd-slider">
-      <div class="swiper-wrapper">
-        {% for block in section.blocks %}
-          {% if block.type == 'main_slide' %}
-            <div class="swiper-slide kd-single-slide">
-              <div class="slide-inner" style="background-image : url('{{ block.settings.background_img | img_url : 'master' }}')">
-                <div class="slide-content">
-                <h3 class="subtitle">{{ block.settings.title_sub_text }}</h3>
-                <h2 class="main-title">{{ block.settings.title }}</h2>
-                <p class="description">{{ block.settings.description }}</p>
-                <a class="btn slider-btn" href="{{ block.settings.link }}">{{ block.settings.btn_title }}</a>
-                </div>
-              </div>
-            </div>
-          {% endif %}
-        {% endfor %}
-      </div>
 
-      <!-- Navigation Arrows -->
-      <div class="swiper-button-next kd-slider-next-btn"></div>
-      <div class="swiper-button-prev kd-slider-prev-btn"></div>
-
-      <!-- Pagination -->
-      <div class="swiper-pagination kd-slider-pagination"></div>
-    </div>
-  </div>
-</section> {% endcomment %}
 
 <section class="slider">
   <div class="swiper-container kd-main-slider-container">
