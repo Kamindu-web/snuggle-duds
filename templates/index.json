@@ -72,8 +72,8 @@
     "featured_collection_2_columns_wemJdj": {
       "type": "featured-collection-2-columns",
       "settings": {
-        "collection_1": "",
-        "collection_2": ""
+        "collection_1": "frontpage",
+        "collection_2": "sample-collection-1"
       }
     },
     "featured_collection": {
