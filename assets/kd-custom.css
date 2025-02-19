@@ -3,6 +3,10 @@ html {
     font-size: 16px;
 }
 
+div:empty{
+    display: block !important;
+}
+
 * {
     font-family: inter;
     color: #4d4a47;

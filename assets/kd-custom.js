@@ -7,10 +7,7 @@ var swiper = new Swiper(".kd-slider", {
     watchSlidesProgress: true,
     watchSlidesVisibility: true,
     centerInsufficientSlides: true,
-    autoplay: {
-        delay: 3000,
-        disableOnInteraction: false,
-    },
+ 
     navigation: {
         nextEl: ".kd-slider-next-btn",
         prevEl: ".kd-slider-prev-btn",
@@ -37,9 +34,6 @@ var swiper = new Swiper(".kd-slider", {
             }, 500);
         },
         resize: function () {
-            this.update();
-        },
-        slideChangeTransitionEnd: function () {
             this.update();
         }
     }
