@@ -33,14 +33,15 @@ var swiper = new Swiper(".kd-slider", {
         init: function () {
             setTimeout(() => {
                 this.update();
-                this.slideToLoop(0, 0); // Ensures autoplay starts correctly
+                this.slideToLoop(0, 0);
             }, 500);
         },
         resize: function () {
             this.update();
         },
         slideChangeTransitionEnd: function () {
-            this.update(); // Forces slide visibility recalculation after autoplay
+            this.update();
+            setTimeout(() => this.update(), 100); // Extra update ensures visibility
         }
     }
 });
