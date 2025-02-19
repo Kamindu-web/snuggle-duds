@@ -1,5 +1,5 @@
 var swiper = new Swiper(".kd-slider", {
-    slidesPerView: 1.3,  
+    slidesPerView: 1.3,
     centeredSlides: true,
     loop: true,
     spaceBetween: 20,
@@ -32,12 +32,15 @@ var swiper = new Swiper(".kd-slider", {
     on: {
         init: function () {
             setTimeout(() => {
-                this.update(); 
-                this.slideToLoop(0, 0); // Ensures the slider resets properly
-            }, 500); // Small delay to ensure Shopify has loaded assets
+                this.update();
+                this.slideToLoop(0, 0); // Ensures autoplay starts correctly
+            }, 500);
         },
         resize: function () {
             this.update();
+        },
+        slideChangeTransitionEnd: function () {
+            this.update(); // Forces slide visibility recalculation after autoplay
         }
     }
 });
