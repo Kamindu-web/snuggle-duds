@@ -1,4 +1,4 @@
-{% comment %} <section class="slider">
+<section class="slider">
   <div class="swiper-container kd-main-slider-container">
     <div class="swiper mySwiper kd-slider">
       <div class="swiper-wrapper">
@@ -26,102 +26,7 @@
       <div class="swiper-pagination kd-slider-pagination"></div>
     </div>
   </div>
-</section> {% endcomment %}
-
-<section class="slider">
-  <div class="swiper-container kd-main-slider-container">
-      <div class="swiper mySwiper kd-slider">
-          <div class="swiper-wrapper">
-            {% for block in section.blocks %}
-              {% if block.type == 'main_slide' %}
-                <div class="swiper-slide">
-                  <img src="{{ block.settings.background_img | img_url : 'master' }}" alt="Slide 1">
-              </div>
-              {% endif %}
-            {% endfor %}
-
-          </div>
-
-          <!-- Navigation Arrows -->
-          <div class="swiper-button-next"></div>
-          <div class="swiper-button-prev"></div>
-
-          <!-- Pagination -->
-          <div class="swiper-pagination"></div>
-      </div>
-  </div>
 </section>
-
-<div id="swiper-shadow-container"></div>
-
-<script>
-  window.addEventListener("load", function () {
-    // Create a Shadow DOM to isolate Swiper
-    const container = document.getElementById("swiper-shadow-container");
-    const shadow = container.attachShadow({ mode: "open" });
-
-    // Inject Swiper's HTML into Shadow DOM
-    shadow.innerHTML = `
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
-        <div class="swiper kd-slider">
-            <div class="swiper-wrapper">
-                ${document.querySelector(".swiper-wrapper").innerHTML}
-            </div>
-            <div class="swiper-button-next kd-slider-next-btn"></div>
-            <div class="swiper-button-prev kd-slider-prev-btn"></div>
-            <div class="swiper-pagination kd-slider-pagination"></div>
-        </div>
-    `;
-
-    // Load Swiper inside the Shadow DOM
-    const script = document.createElement("script");
-    script.src = "https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js";
-    script.onload = function () {
-        const swiper = new Swiper(shadow.querySelector(".kd-slider"), {
-            slidesPerView: 1.3,
-            centeredSlides: true,
-            loop: true,
-            spaceBetween: 20,
-            autoplay: {
-                delay: 3000,
-                disableOnInteraction: false,
-            },
-            navigation: {
-                nextEl: shadow.querySelector(".kd-slider-next-btn"),
-                prevEl: shadow.querySelector(".kd-slider-prev-btn"),
-            },
-            pagination: {
-                el: shadow.querySelector(".kd-slider-pagination"),
-                clickable: true,
-            },
-            breakpoints: {
-                768: { slidesPerView: 1.5, spaceBetween: 15 },
-                1024: { slidesPerView: 1.3, spaceBetween: 20 }
-            },
-            on: {
-                slideChangeTransitionEnd: function () {
-                    // Manually adjust next/prev slides
-                    setTimeout(() => {
-                        let slides = shadow.querySelectorAll(".swiper-slide");
-                        slides.forEach(slide => slide.classList.remove("swiper-slide-prev", "swiper-slide-next"));
-                        let activeSlide = shadow.querySelector(".swiper-slide-active");
-                        if (activeSlide) {
-                            let prevSlide = activeSlide.previousElementSibling || slides[slides.length - 1];
-                            let nextSlide = activeSlide.nextElementSibling || slides[0];
-
-                            prevSlide.classList.add("swiper-slide-prev");
-                            nextSlide.classList.add("swiper-slide-next");
-                        }
-                    }, 100);
-                }
-            }
-        });
-    };
-
-    shadow.appendChild(script);
-});
-
-</script>
 
 {% schema %}
 {
