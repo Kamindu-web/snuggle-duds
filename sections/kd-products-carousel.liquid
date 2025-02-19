@@ -1,0 +1,78 @@
+{% schema %}
+{
+  "name": "Product Carousel Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "carousel_title",
+      "label": "Carousel Title",
+      "default": "Our Products"
+    },
+    {
+      "type": "select",
+      "id": "product_source",
+      "label": "Select Product Source",
+      "options": [
+        { "value": "best_seller", "label": "Best Sellers" },
+        { "value": "featured", "label": "Featured Products" },
+        { "value": "selected", "label": "Selected Products" }
+      ],
+      "default": "best_seller"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Select Product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "custom_product",
+          "label": "Select Product"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Carousel Section"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="kd-prods-car-container">
+  <h2 class="kd-prods-car-title">{{ section.settings.carousel_title }}</h2>
+  <div class="swiper kd-prods-car-swiper">
+    <div class="swiper-wrapper">
+      {% assign products = collections['all'].products %}
+      {% if section.settings.product_source == "best_seller" %}
+        {% assign products = collections['all'].products | sort: 'best_selling' %}
+      {% elsif section.settings.product_source == "featured" %}
+        {% assign products = collections['all'].products | sort: 'featured' %}
+      {% elsif section.settings.product_source == "selected" %}
+        {% assign products = section.blocks | map: 'settings' | map: 'custom_product' %}
+      {% endif %}
+      
+      {% for product in products limit: 10 %}
+        <div class="swiper-slide kd-prods-car-item">
+          <div class="kd-prods-car-image-wrapper">
+            <img src="{{ product.featured_image | img_url: 'large' }}" alt="{{ product.title }}" class="kd-prods-car-image">
+            <button class="kd-prods-car-favorite-btn" data-product-id="{{ product.id }}">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="kd-prods-car-heart">
+                <path d="M20.8 4.6c-2.3-2.3-6.1-2.3-8.4 0l-.4.4-.4-.4c-2.3-2.3-6.1-2.3-8.4 0-2.3 2.3-2.3 6.1 0 8.4l8.4 8.4 8.4-8.4c2.3-2.3 2.3-6.1 0-8.4z"></path>
+              </svg>
+            </button>
+          </div>
+          <h3 class="kd-prods-car-title">{{ product.title }}</h3>
+          <p class="kd-prods-car-price">{{ product.price | money }}</p>
+          <a href="{{ product.url }}" class="kd-prods-car-btn">Shop Now</a>
+        </div>
+      {% endfor %}
+    </div>
+    <div class="swiper-button-next kd-prods-car-next"></div>
+    <div class="swiper-button-prev kd-prods-car-prev"></div>
+    <div class="swiper-pagination kd-prods-car-pagination"></div>
+  </div>
+</div>
+

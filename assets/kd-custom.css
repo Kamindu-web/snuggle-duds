@@ -278,3 +278,71 @@ div:empty{
 } 
 
 /* ============two columns featured collections============ */
+
+/* ====================products carousel============== */
+
+
+.kd-prods-car-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+    text-align: center;
+}
+.kd-prods-car-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+.kd-prods-car-item {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    text-align: center;
+    background: #fff;
+    position: relative;
+}
+.kd-prods-car-image-wrapper {
+    position: relative;
+    width: 100%;
+}
+.kd-prods-car-image {
+    width: 100%;
+    border-radius: 10px;
+}
+.kd-prods-car-favorite-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+.kd-prods-car-heart {
+    stroke: #333;
+    width: 24px;
+    height: 24px;
+    transition: fill 0.3s, stroke 0.3s;
+}
+.kd-prods-car-favorite-btn.active .kd-prods-car-heart {
+    fill: red;
+    stroke: red;
+}
+.kd-prods-car-price {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 10px;
+}
+.kd-prods-car-btn {
+    padding: 8px 15px;
+    background: #000;
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+.kd-prods-car-btn:hover {
+    background: #333;
+}
+/* ====================products carousel============== */
