@@ -129,4 +129,32 @@ div:empty{
     opacity: 1;
 }
 
+.kd-single-slide .slide-content{
+    padding: 0 60px;
+    text-align: left;
+    color: white;
+}
+
+.kd-single-slide .subtitle{
+    color: white;
+}
+
+.kd-single-slide .main-title{
+    font-size: 60px;
+    font-weight: bold;
+    color: white;
+}
+
+.kd-single-slide .description{
+    color: white;
+}
+
+.kd-single-slide .slider-btn{
+    background: #C3D8D3;
+    color: white;
+    text-transform: uppercase;
+    padding: 10px 45px !important;
+    border-radius: 10px;
+}
+
 /* ==============main slider=============== */
