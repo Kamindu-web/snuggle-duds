@@ -29,19 +29,35 @@ var swiper = new Swiper(".kd-slider", {
             spaceBetween: 20
         }
     }
-    // ,
-    // on: {
-    //     init: function () {
-    //         setTimeout(() => {
-    //             this.update();
-    //             this.slideToLoop(0, 0);
-    //         }, 500);
-    //     },
-    //     resize: function () {
-    //         this.update();
-    //     },
-    //     slideChangeTransitionEnd: function () {
-    //         this.update();
-    //     }
-    // }
+  
+});
+
+// collection carousel
+
+document.addEventListener("DOMContentLoaded", function () {
+    var kdCollectionSwiper = new Swiper(".kd-collection-swiper", {
+        slidesPerView: 1,
+        spaceBetween: 20,
+        loop: true,
+        autoplay: {
+            delay: 3000,
+            disableOnInteraction: false,
+        },
+        navigation: {
+            nextEl: ".kd-collection-swiper-next",
+            prevEl: ".kd-collection-swiper-prev",
+        },
+        pagination: {
+            el: ".kd-collection-swiper-pagination",
+            clickable: true,
+        },
+        breakpoints: {
+            768: {
+                slidesPerView: 2,
+            },
+            1024: {
+                slidesPerView: 4,
+            }
+        }
+    });
 });

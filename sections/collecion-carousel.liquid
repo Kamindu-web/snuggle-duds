@@ -1,0 +1,43 @@
+{% schema %}
+{
+  "name": "Collection Carousel",
+  "settings": [
+  ],
+  "presets": [
+    {
+      "name": "Collection Carousel"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="kd-collection-carousel-container">
+  <div class="swiper kd-collection-swiper">
+    <div class="swiper-wrapper">
+      {% for collection in collections %}
+        <div class="swiper-slide kd-collection-slide">
+          <a href="{{ collection.url }}" class="kd-collection-link">
+            {% if collection.image %}
+              <img src="{{ collection.image | img_url: 'master' }}" alt="{{ collection.title }}" class="kd-collection-image">
+            {% else %}
+              <img src="https://via.placeholder.com/250" alt="Placeholder" class="kd-collection-image">
+            {% endif %}
+            <h3 class="kd-collection-title">{{ collection.title }}</h3>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+    
+    <!-- Navigation Arrows -->
+    <div class="swiper-button-next kd-collection-swiper-next"></div>
+    <div class="swiper-button-prev kd-collection-swiper-prev"></div>
+    
+    <!-- Pagination -->
+    <div class="swiper-pagination kd-collection-swiper-pagination"></div>
+  </div>
+</div>
+
+<style>
+
+</style>
+
