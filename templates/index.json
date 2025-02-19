@@ -79,7 +79,7 @@
     "kd_products_carousel_aKRQfV": {
       "type": "kd-products-carousel",
       "settings": {
-        "carousel_title": "Our Products",
+        "carousel_title": "Featured Products",
         "product_source": "featured"
       }
     },
