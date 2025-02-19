@@ -23,6 +23,17 @@
             "background_img": "shopify://shop_images/slide-1.jpg"
           }
         },
+        "main_slide_iqAb4k": {
+          "type": "main_slide",
+          "settings": {
+            "title_sub_text": "Lorem Ipsum Dolor Sir Amet",
+            "title": "Lorem Ipsum Dolor Sir Amet",
+            "description": "Lorem Ipsum Dolor Sir Ametaasfrertert Lorem Ipsum Dolor Sir Amet",
+            "link": "#",
+            "btn_title": "SHOP NOW",
+            "background_img": "shopify://shop_images/slide-3.jpg"
+          }
+        },
         "main_slide_YT9q6M": {
           "type": "main_slide",
           "settings": {
@@ -48,6 +59,7 @@
       },
       "block_order": [
         "main_slide_QnizHy",
+        "main_slide_iqAb4k",
         "main_slide_YT9q6M",
         "main_slide_XXnpaG"
       ],
