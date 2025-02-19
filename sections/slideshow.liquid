@@ -1,4 +1,4 @@
-<section class="slider">
+{% comment %} <section class="slider">
   <div class="swiper-container kd-main-slider-container">
     <div class="swiper mySwiper kd-slider">
       <div class="swiper-wrapper">
@@ -25,6 +25,30 @@
       <!-- Pagination -->
       <div class="swiper-pagination kd-slider-pagination"></div>
     </div>
+  </div>
+</section> {% endcomment %}
+
+<section class="slider">
+  <div class="swiper-container kd-main-slider-container">
+      <div class="swiper mySwiper">
+          <div class="swiper-wrapper">
+            {% for block in section.blocks %}
+              {% if block.type == 'main_slide' %}
+                <div class="swiper-slide">
+                  <img src="{{ block.settings.background_img | img_url : 'master' }}" alt="Slide 1">
+              </div>
+              {% endif %}
+            {% endfor %}
+
+          </div>
+
+          <!-- Navigation Arrows -->
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+
+          <!-- Pagination -->
+          <div class="swiper-pagination"></div>
+      </div>
   </div>
 </section>
 
