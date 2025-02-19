@@ -41,7 +41,19 @@ var swiper = new Swiper(".kd-slider", {
         },
         slideChangeTransitionEnd: function () {
             this.update();
-            setTimeout(() => this.update(), 100); // Extra update ensures visibility
+            setTimeout(() => {
+                let slides = document.querySelectorAll(".swiper-slide");
+                slides.forEach((slide) => slide.classList.remove("swiper-slide-prev", "swiper-slide-next"));
+
+                let activeSlide = document.querySelector(".swiper-slide-active");
+                if (activeSlide) {
+                    let prevSlide = activeSlide.previousElementSibling || slides[slides.length - 1];
+                    let nextSlide = activeSlide.nextElementSibling || slides[0];
+
+                    prevSlide.classList.add("swiper-slide-prev");
+                    nextSlide.classList.add("swiper-slide-next");
+                }
+            }, 100);
         }
     }
 });
