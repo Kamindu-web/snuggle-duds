@@ -3,6 +3,10 @@ var swiper = new Swiper(".kd-slider", {
     centeredSlides: true,
     loop: true,
     spaceBetween: 20, /* Adjusts spacing */
+    autoplay: {
+        delay: 3000,  /* Autoplay delay set to 3000ms (3 seconds) */
+        disableOnInteraction: false, /* Continues autoplay after user interaction */
+    },
     navigation: {
         nextEl: ".kd-slider-next-btn",
         prevEl: ".kd-slider-prev-btn",
