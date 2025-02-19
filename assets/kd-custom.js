@@ -1,15 +1,15 @@
 var swiper = new Swiper(".kd-slider", {
-    slidesPerView: 1.3,  /* Ensures partial visibility of next/prev slides */
-    centeredSlides: true, /* Ensures the active slide is centered */
-    loop: true, /* Enables infinite loop */
-    spaceBetween: 20, /* Adjust spacing */
-    initialSlide: 1, /* Starts from the second slide */
-    watchSlidesProgress: true, /* Ensures correct rendering */
-    watchSlidesVisibility: true, /* Keeps track of visibility */
-    centerInsufficientSlides: true, /* Fixes centering issue when fewer slides are present */
+    slidesPerView: 1.3,  
+    centeredSlides: true,
+    loop: true,
+    spaceBetween: 20,
+    initialSlide: 1,
+    watchSlidesProgress: true,
+    watchSlidesVisibility: true,
+    centerInsufficientSlides: true,
     autoplay: {
-        delay: 3000,  /* Autoplay delay set to 3000ms (3 seconds) */
-        disableOnInteraction: false, /* Keeps autoplay running after interaction */
+        delay: 3000,
+        disableOnInteraction: false,
     },
     navigation: {
         nextEl: ".kd-slider-next-btn",
@@ -21,20 +21,23 @@ var swiper = new Swiper(".kd-slider", {
     },
     breakpoints: {
         768: {
-            slidesPerView: 1.5, /* Adjusts for tablets */
+            slidesPerView: 1.5,
             spaceBetween: 15
         },
         1024: {
-            slidesPerView: 1.3, /* Adjusts for desktops */
+            slidesPerView: 1.3,
             spaceBetween: 20
         }
     },
     on: {
         init: function () {
-            this.update();  /* Ensures proper visibility on load */
+            setTimeout(() => {
+                this.update(); 
+                this.slideToLoop(0, 0); // Ensures the slider resets properly
+            }, 500); // Small delay to ensure Shopify has loaded assets
         },
         resize: function () {
-            this.update(); /* Fixes layout on window resize */
+            this.update();
         }
     }
 });
