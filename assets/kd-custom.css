@@ -273,7 +273,7 @@ html body .swiper-button-next {
 
 .kd-2-feature-cols-item {
     width: 50%;
-    height: 500px;
+    height: 580px;
     background-size: cover;
     background-position: center;
     display: flex;
@@ -284,7 +284,7 @@ html body .swiper-button-next {
 }
 
 .kd-2-feature-cols-content {
-    background: rgba(0, 0, 0, 0.6);
+    /* background: rgba(0, 0, 0, 0.6); */
     color: #fff;
     padding: 20px;
     border-radius: 5px;
@@ -292,19 +292,19 @@ html body .swiper-button-next {
 }
 
 .kd-2-feature-cols-title {
-    font-size: 24px;
+    font-size: 35px;
     font-weight: bold;
     margin-bottom: 10px;
 }
 
 .kd-2-feature-cols-btn {
     display: inline-block;
-    padding: 10px 15px;
+    padding: 10px 35px;
+    border-radius: 10px;
     background: #fff;
     color: #000;
     font-weight: bold;
     text-transform: uppercase;
-    border-radius: 3px;
     cursor: pointer;
     transition: background 0.3s ease-in-out;
 }
@@ -327,14 +327,19 @@ html body .swiper-button-next {
     width: 100%;
     max-width: 1200px;
     margin: auto;
-    padding: 20px;
+    padding: 60px 20px;
     text-align: center;
 }
 
+.kd-prods-car-swiper{
+    padding: 0 70px;
+}
+
 .kd-prods-car-title {
-    font-size: 24px;
+    font-size: 50px;
+    line-height: 1;
     font-weight: bold;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 .kd-prods-car-item {
@@ -482,4 +487,10 @@ html body .swiper-button-next {
     }
 
     /* ====================collections carousel================ */
+
+    /* =====================products carousel========== */
+    .kd-prods-car-swiper{
+        padding: 0;
+    }
+    /* =====================products carousel========== */
 }
