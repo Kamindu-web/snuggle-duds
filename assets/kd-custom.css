@@ -342,6 +342,10 @@ html body .swiper-button-next {
     margin-bottom: 30px;
 }
 
+.kd-prods-car-single-title{
+    font-size: 24px;
+}
+
 .kd-prods-car-item {
     padding: 10px;
     border: 1px solid #ccc;
