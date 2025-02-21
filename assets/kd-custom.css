@@ -3,7 +3,7 @@ html {
     font-size: 16px;
 }
 
-div:empty{
+div:empty {
     display: block !important;
 }
 
@@ -103,23 +103,33 @@ div:empty{
     position: relative;
 }
 
-.kd-slide-overlay{
+.kd-slide-overlay {
     position: absolute;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
+    background: #00000061;
+    border-radius: 20px;
 }
 
 /* Navigation Buttons */
 .kd-main-slider-container .swiper-button-prev,
 .kd-main-slider-container .swiper-button-next {
     color: #fff;
-    /* Change color if needed */
-    background: rgba(0, 0, 0, 0.3);
+    background: #0000004d;
     width: 50px;
     height: 50px;
     border-radius: 50%;
+    font-size: 20px;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+}
+
+.kd-main-slider-container .swiper-button-prev:after,
+.kd-main-slider-container .swiper-button-next:after {
+    font-size: 25px;
 }
 
 .kd-main-slider-container .swiper-button-prev:hover,
@@ -138,7 +148,7 @@ div:empty{
     opacity: 1;
 }
 
-.kd-single-slide .slide-content{
+.kd-single-slide .slide-content {
     padding: 0 60px;
     text-align: left;
     color: white;
@@ -146,21 +156,21 @@ div:empty{
     position: relative;
 }
 
-.kd-single-slide .subtitle{
+.kd-single-slide .subtitle {
     color: white;
 }
 
-.kd-single-slide .main-title{
+.kd-single-slide .main-title {
     font-size: 60px;
     font-weight: bold;
     color: white;
 }
 
-.kd-single-slide .description{
+.kd-single-slide .description {
     color: white;
 }
 
-.kd-single-slide .slider-btn{
+.kd-single-slide .slider-btn {
     background: #C3D8D3;
     color: white;
     text-transform: uppercase;
@@ -206,7 +216,8 @@ div:empty{
     text-align: center;
 }
 
-.kd-collection-swiper-next, .kd-collection-swiper-prev {
+.kd-collection-swiper-next,
+.kd-collection-swiper-prev {
     color: #000;
     background: rgba(0, 0, 0, 0.2);
     width: 40px;
@@ -214,7 +225,8 @@ div:empty{
     border-radius: 50%;
 }
 
-.kd-collection-swiper-next:hover, .kd-collection-swiper-prev:hover {
+.kd-collection-swiper-next:hover,
+.kd-collection-swiper-prev:hover {
     background: rgba(0, 0, 0, 0.5);
 }
 
@@ -286,7 +298,7 @@ div:empty{
 .kd-2-feature-cols-link {
     text-decoration: none;
     color: inherit;
-} 
+}
 
 /* ============two columns featured collections============ */
 
@@ -300,11 +312,13 @@ div:empty{
     padding: 20px;
     text-align: center;
 }
+
 .kd-prods-car-title {
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 20px;
 }
+
 .kd-prods-car-item {
     padding: 10px;
     border: 1px solid #ccc;
@@ -313,14 +327,17 @@ div:empty{
     background: #fff;
     position: relative;
 }
+
 .kd-prods-car-image-wrapper {
     position: relative;
     width: 100%;
 }
+
 .kd-prods-car-image {
     width: 100%;
     border-radius: 10px;
 }
+
 .kd-prods-car-favorite-btn {
     position: absolute;
     top: 10px;
@@ -329,21 +346,25 @@ div:empty{
     border: none;
     cursor: pointer;
 }
+
 .kd-prods-car-heart {
     stroke: #333;
     width: 24px;
     height: 24px;
     transition: fill 0.3s, stroke 0.3s;
 }
+
 .kd-prods-car-favorite-btn.active .kd-prods-car-heart {
     fill: red;
     stroke: red;
 }
+
 .kd-prods-car-price {
     font-size: 16px;
     color: #555;
     margin-bottom: 10px;
 }
+
 .kd-prods-car-btn {
     padding: 8px 15px;
     background: #000;
@@ -353,9 +374,11 @@ div:empty{
     border-radius: 5px;
     transition: background 0.3s;
 }
+
 .kd-prods-car-btn:hover {
     background: #333;
 }
+
 /* ====================products carousel============== */
 
 
@@ -375,14 +398,21 @@ div:empty{
 /* ===========================mobile breakpoint=============================== */
 /* =========================================================================== */
 
-@media(max-width : 767px){
+@media(max-width : 767px) {
 
-    .kd-main-slider-container .slide-inner{
+    /* =======================main slider area============== */
+
+    .kd-main-slider-container .slide-inner {
         min-height: 480px;
+        border-radius: 0;
     }
-    
-    .kd-single-slide .slide-content{
-        padding: 0 20px;
+
+    .kd-slide-overlay {
+        border-radius: 0;
+    }
+
+    .kd-single-slide .slide-content {
+        padding: 0 40px;
     }
 
     .kd-single-slide .main-title {
@@ -391,4 +421,28 @@ div:empty{
         font-weight: 700;
         color: #fff;
     }
+
+    .kd-main-slider-container .swiper-button-prev,
+    .kd-main-slider-container .swiper-button-next {
+        width: 35px;
+        height: 35px;
+    }
+
+    .kd-main-slider-container .swiper-button-prev {
+        left: 0;
+    }
+
+    .kd-main-slider-container .swiper-button-next {
+        right: 0;
+    }
+
+    .kd-main-slider-container .swiper-button-prev:after,
+    .kd-main-slider-container .swiper-button-next:after {
+        font-size: 20px;
+    }
+
+
+
+
+    /* =======================main slider area============== */
 }
