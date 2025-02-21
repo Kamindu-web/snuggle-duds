@@ -49,6 +49,11 @@ div:empty {
     font-size: 14px !important;
 }
 
+h2 {
+    font-size: 50px;
+    margin-bottom: 30px;
+    line-height: 1;
+}
 
 /* =================header=============== */
 
@@ -114,8 +119,8 @@ div:empty {
 }
 
 /* Navigation Buttons */
-.kd-main-slider-container .swiper-button-prev,
-.kd-main-slider-container .swiper-button-next {
+.swiper-button-prev,
+.swiper-button-next {
     color: #fff;
     background: #0000004d;
     width: 50px;
@@ -127,13 +132,13 @@ div:empty {
     align-items: center;
 }
 
-.kd-main-slider-container .swiper-button-prev:after,
-.kd-main-slider-container .swiper-button-next:after {
+.swiper-button-prev:after,
+.swiper-button-next:after {
     font-size: 25px;
 }
 
-.kd-main-slider-container .swiper-button-prev:hover,
-.kd-main-slider-container .swiper-button-next:hover {
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
     background: rgba(0, 0, 0, 0.5);
 }
 
@@ -154,6 +159,7 @@ div:empty {
     color: white;
     z-index: 2;
     position: relative;
+    max-width: 40%;
 }
 
 .kd-single-slide .subtitle {
@@ -164,6 +170,7 @@ div:empty {
     font-size: 60px;
     font-weight: bold;
     color: white;
+    line-height: 1;
 }
 
 .kd-single-slide .description {
@@ -171,7 +178,7 @@ div:empty {
 }
 
 .kd-single-slide .slider-btn {
-    background: #C3D8D3;
+    background: #5B9798;
     color: white;
     text-transform: uppercase;
     padding: 10px 45px !important;
@@ -186,7 +193,7 @@ div:empty {
     width: 100%;
     max-width: 1200px;
     margin: auto;
-    padding: 20px;
+    padding: 60px 20px;
 }
 
 .kd-collection-swiper .kd-collection-slide {
@@ -400,6 +407,16 @@ div:empty {
 
 @media(max-width : 767px) {
 
+    /* =====================global styles============= */
+
+    h2 {
+        font-size: 35px;
+        margin-bottom: 30px;
+        line-height: 1;
+    }
+
+    /* =====================global styles============= */
+
     /* =======================main slider area============== */
 
     .kd-main-slider-container .slide-inner {
@@ -413,6 +430,7 @@ div:empty {
 
     .kd-single-slide .slide-content {
         padding: 0 40px;
+        max-width: 100%;
     }
 
     .kd-single-slide .main-title {
@@ -422,22 +440,22 @@ div:empty {
         color: #fff;
     }
 
-    .kd-main-slider-container .swiper-button-prev,
-    .kd-main-slider-container .swiper-button-next {
+    .swiper-button-prev,
+    .swiper-button-next {
         width: 35px;
         height: 35px;
     }
 
-    .kd-main-slider-container .swiper-button-prev {
+    .swiper-button-prev {
         left: 0;
     }
 
-    .kd-main-slider-container .swiper-button-next {
+    .swiper-button-next {
         right: 0;
     }
 
-    .kd-main-slider-container .swiper-button-prev:after,
-    .kd-main-slider-container .swiper-button-next:after {
+    .swiper-button-prev:after,
+    .swiper-button-next:after {
         font-size: 20px;
     }
 
