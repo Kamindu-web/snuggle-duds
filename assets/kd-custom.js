@@ -1,5 +1,5 @@
 var swiper = new Swiper('.kd-slider', {
-  slidesPerView: 1.3,
+  slidesPerView: 1,
   centeredSlides: true,
   loop: true,
   spaceBetween: 20,

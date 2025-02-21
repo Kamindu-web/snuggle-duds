@@ -6,6 +6,7 @@
           {% if block.type == 'main_slide' %}
             <div class="swiper-slide kd-single-slide">
               <div class="slide-inner" style="background-image : url('{{ block.settings.background_img | img_url : 'master' }}')">
+                <div class="kd-slide-overlay"></div>
                 <div class="slide-content">
                 <h3 class="subtitle">{{ block.settings.title_sub_text }}</h3>
                 <h2 class="main-title">{{ block.settings.title }}</h2>

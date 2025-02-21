@@ -100,6 +100,15 @@ div:empty{
     display: flex;
     align-items: center;
     justify-content: flex-start;
+    position: relative;
+}
+
+.kd-slide-overlay{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
 }
 
 /* Navigation Buttons */
@@ -133,6 +142,8 @@ div:empty{
     padding: 0 60px;
     text-align: left;
     color: white;
+    z-index: 2;
+    position: relative;
 }
 
 .kd-single-slide .subtitle{
@@ -346,3 +357,38 @@ div:empty{
     background: #333;
 }
 /* ====================products carousel============== */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* =========================================================================== */
+/* ===========================mobile breakpoint=============================== */
+/* =========================================================================== */
+
+@media(max-width : 767px){
+
+    .kd-main-slider-container .slide-inner{
+        min-height: 480px;
+    }
+    
+    .kd-single-slide .slide-content{
+        padding: 0 20px;
+    }
+
+    .kd-single-slide .main-title {
+        font-size: 45px;
+        line-height: 1.1;
+        font-weight: 700;
+        color: #fff;
+    }
+}
