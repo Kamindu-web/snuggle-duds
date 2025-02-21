@@ -203,7 +203,7 @@ html body .swiper-button-next {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 0 70px;
+    /* padding: 0 70px; */
 }
 
 .kd-collection-image {
@@ -474,9 +474,6 @@ html body .swiper-button-next {
 
     /* ====================collections carousel================ */
 
-    .kd-collection-swiper{
-        padding: 0;
-    }
 
     /* ====================collections carousel================ */
 }
