@@ -331,9 +331,6 @@ html body .swiper-button-next {
     text-align: center;
 }
 
-.kd-prods-car-swiper{
-    padding: 0 70px;
-}
 
 .kd-prods-car-title {
     font-size: 50px;
@@ -343,12 +340,12 @@ html body .swiper-button-next {
 }
 
 .kd-prods-car-single-title{
-    font-size: 24px;
+    font-size: 18px;
 }
 
 .kd-prods-car-item {
-    padding: 10px;
-    border: 1px solid #ccc;
+    /* padding: 10px; */
+    /* border: 1px solid #ccc; */
     border-radius: 10px;
     text-align: center;
     background: #fff;
@@ -356,6 +353,8 @@ html body .swiper-button-next {
 }
 
 .kd-prods-car-image-wrapper {
+    border: 1px solid #ccc;
+    padding: 10px;
     position: relative;
     width: 100%;
 }
