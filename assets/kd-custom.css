@@ -267,7 +267,7 @@ html body .swiper-button-next {
 
 .kd-2-feature-cols-wrapper {
     display: flex;
-    width: 100%;
+    width: 90%;
     max-width: 100vw;
 }
 
@@ -325,15 +325,15 @@ html body .swiper-button-next {
 
 .kd-prods-car-container {
     width: 100%;
-    max-width: 1200px;
+    /* max-width: 1200px; */
     margin: auto;
     padding: 60px 20px;
     text-align: center;
 }
 
-.kd-prods-car-swiper{
+/* .kd-prods-car-swiper{
     padding: 0 70px;
-}
+} */
 
 
 .kd-prods-car-title {
