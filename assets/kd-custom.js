@@ -76,10 +76,6 @@ document.addEventListener('DOMContentLoaded', function () {
       nextEl: '.kd-prods-car-next',
       prevEl: '.kd-prods-car-prev',
     },
-    pagination: {
-      el: '.kd-prods-car-pagination',
-      clickable: true,
-    },
     breakpoints: {
       768: { slidesPerView: 2 },
       1024: { slidesPerView: 4 },
