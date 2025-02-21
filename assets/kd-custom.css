@@ -339,7 +339,7 @@ html body .swiper-button-next {
 .kd-prods-car-title {
     font-size: 50px;
     line-height: 1;
-    font-weight: bold;
+    /* font-weight: bold; */
     margin-bottom: 30px;
 }
 
