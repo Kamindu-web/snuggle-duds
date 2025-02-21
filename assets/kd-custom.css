@@ -1,6 +1,7 @@
 /* ================global styles============== */
 html {
     font-size: 16px;
+    font-family: inter;
 }
 
 div:empty {
@@ -49,7 +50,7 @@ div:empty {
     font-size: 14px !important;
 }
 
-h2 {
+html body h2 {
     font-size: 50px;
     margin-bottom: 30px;
     line-height: 1;
@@ -202,6 +203,7 @@ html body .swiper-button-next {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding: 0 70px;
 }
 
 .kd-collection-image {
@@ -221,6 +223,7 @@ html body .swiper-button-next {
     font-size: 18px;
     font-weight: bold;
     text-align: center;
+    font-family: inter;
 }
 
 .kd-collection-swiper-next,
@@ -240,6 +243,11 @@ html body .swiper-button-next {
 .kd-collection-swiper-pagination {
     position: absolute;
     bottom: 10px;
+}
+
+.kd-collection-link{
+    text-decoration: none;
+    color: inherit;
 }
 
 /* ====================collections carousel================ */
@@ -409,7 +417,7 @@ html body .swiper-button-next {
 
     /* =====================global styles============= */
 
-    h2 {
+    html body h2 {
         font-size: 35px;
         margin-bottom: 30px;
         line-height: 1;
@@ -463,4 +471,12 @@ html body .swiper-button-next {
 
 
     /* =======================main slider area============== */
+
+    /* ====================collections carousel================ */
+
+    .kd-collection-swiper{
+        padding: 0;
+    }
+
+    /* ====================collections carousel================ */
 }
