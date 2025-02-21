@@ -331,6 +331,10 @@ html body .swiper-button-next {
     text-align: center;
 }
 
+.kd-prods-car-swiper{
+    padding: 0 70px;
+}
+
 
 .kd-prods-car-title {
     font-size: 50px;
@@ -341,27 +345,30 @@ html body .swiper-button-next {
 
 .kd-prods-car-single-title{
     font-size: 18px;
+    margin-top: 20px;
 }
 
 .kd-prods-car-item {
     /* padding: 10px; */
     /* border: 1px solid #ccc; */
-    border-radius: 10px;
+    /* border-radius: 10px; */
     text-align: center;
     background: #fff;
     position: relative;
+    box-sizing: border-box;
 }
 
 .kd-prods-car-image-wrapper {
     border: 1px solid #ccc;
-    padding: 10px;
+    padding: 15px;
     position: relative;
     width: 100%;
+    border-radius: 10px
 }
 
 .kd-prods-car-image {
     width: 100%;
-    border-radius: 10px;
+    /* border-radius: 10px; */
 }
 
 .kd-prods-car-favorite-btn {
@@ -393,12 +400,17 @@ html body .swiper-button-next {
 
 .kd-prods-car-btn {
     padding: 8px 15px;
-    background: #000;
+    background: #5b9798;
     color: #fff;
     text-decoration: none;
     font-weight: bold;
-    border-radius: 5px;
+    border-radius: 8px;
     transition: background 0.3s;
+    height: 30px;
+    min-width: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .kd-prods-car-btn:hover {
