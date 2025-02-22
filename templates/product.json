@@ -152,7 +152,8 @@
     "product_suggestions_HJDWbg": {
       "type": "product-suggestions",
       "settings": {
-        "heading": "Comple the look"
+        "heading": "Comple the look",
+        "fallback_collection": "frontpage"
       }
     }
   },
