@@ -61,16 +61,14 @@
   }
 </style>
 
-<media-gallery
-  id="MediaGallery-{{ section.id }}"
-  role="region"
+<media-gallery id="MediaGallery-{{ section.id }}" role="region"
   {% if section.settings.enable_sticky_info %}
     class="product__column-sticky"
   {% endif %}
   aria-label="{{ 'products.product.media.gallery_viewer' | t }}"
-  data-desktop-layout="flex"      <!-- Custom indicator for flex layout -->
-  data-mobile-layout="carousel"     <!-- Custom indicator for mobile carousel -->
-  data-lightbox="true"              <!-- Enable lightbox functionality -->
+  data-desktop-layout="flex" 
+  data-mobile-layout="carousel"   
+  data-lightbox="true"            
 >
   <div id="GalleryStatus-{{ section.id }}" class="visually-hidden" role="status"></div>
   <slider-component id="GalleryViewer-{{ section.id }}" class="slider-mobile-gutter">
