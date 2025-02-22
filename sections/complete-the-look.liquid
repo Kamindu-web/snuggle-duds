@@ -1,8 +1,29 @@
-{% comment %}
-  Section: Complete The Look
-  Displays products from the same collection (global collection if available, otherwise fallback from settings)
-  Excludes the current product and shows up to 3 products in a 3-column grid.
-{% endcomment %}
+{% schema %}
+{
+  "name": "Complete The Look",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section Heading",
+      "default": "Complete The Look"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Fallback Collection (if no collection context)",
+      "default": ""
+    }
+  ],
+  "presets": [
+    {
+      "name": "Complete The Look",
+      "category": "Product"
+    }
+  ]
+}
+{% endschema %}
+
 
 {% assign current_collection = collection %}
 {% if current_collection == blank and section.settings.collection != blank %}
@@ -41,27 +62,3 @@
   </section>
 {% endif %}
 
-{% schema %}
-{
-  "name": "Complete The Look",
-  "settings": [
-    {
-      "type": "text",
-      "id": "heading",
-      "label": "Section Heading",
-      "default": "Complete The Look"
-    },
-    {
-      "type": "collection",
-      "id": "collection",
-      "label": "Fallback Collection (if no collection context)",
-      "default": ""
-    }
-  ],
-  "presets": [
-    {
-      "name": "Complete The Look"
-    }
-  ]
-}
-{% endschema %}
