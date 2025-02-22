@@ -1,177 +1,199 @@
 <section class="kd-footer">
   <!-- Newsletter area -->
   <div class="footer-newsletter py-4 px-5 mx-md-0" style="background-color: {{ section.settings.newsletter_bg }};">
-      <div class="container">
-          <div class="row justify-content-lg-between">
-              <div class="col-md-6">
-                  <p class="text-start mb-md-0">{{ section.settings.newsletter_text }}</p>
+    <div class="container">
+      <div class="row justify-content-lg-between">
+        <div class="col-md-6">
+          <p class="text-start mb-md-0">{{ section.settings.newsletter_text }}</p>
+        </div>
+        <div class="col-md-6">
+          {% form 'customer' %}
+            <div class="row align-items-center justify-content-end">
+              <div class="col-md-4 mb-3 mb-md-0">
+                <input
+                  type="text"
+                  class="form-control w-100"
+                  name="contact[first_name]"
+                  placeholder="First Name"
+                  required
+                >
               </div>
-              <div class="col-md-6">
-                  {% form 'customer' %}
-                      <div class="row align-items-center justify-content-end">
-                          <div class="col-md-4 mb-3 mb-md-0">
-                              <input type="text" class="form-control w-100" name="contact[first_name]" placeholder="First Name" required>
-                          </div>
-                          <div class="col-md-4 mb-3 mb-md-0">
-                              <input type="email" class="form-control w-100" name="contact[email]" placeholder="Email Address" required>
-                          </div>
-                          <div class="col-md-3">
-                              <input type="submit" class="btn kd-orange-btn w-100" value="Subscribe">
-                          </div>
-                      </div>
-                  {% endform %}
+              <div class="col-md-4 mb-3 mb-md-0">
+                <input
+                  type="email"
+                  class="form-control w-100"
+                  name="contact[email]"
+                  placeholder="Email Address"
+                  required
+                >
               </div>
-          </div>
+              <div class="col-md-3">
+                <input type="submit" class="btn kd-orange-btn w-100" value="Subscribe">
+              </div>
+            </div>
+          {% endform %}
+        </div>
       </div>
+    </div>
   </div>
 
   <!-- Footer links -->
   <div class="footer-links">
-      <div class="container p-3">
-          <div class="row flex-column-reverse flex-md-row">
-              <div class="col-md-7">
-                  <hr class="d-md-none">
-                  <div class="row">
-                      {% for block in section.blocks %}
-                          <div class="col-md-4">
-                              <p class="text-xsm text-greay"><b>{{ block.settings.title }}</b></p>
-                              <ul class="p-0">
-                                  {% for link in linklists[block.settings.footer_links].links %}
-                                      <li class="list-unstyled">
-                                          <a class="text-xsm text-greay text-decoration-none" href="{{ link.url }}">{{ link.title }}</a>
-                                      </li>
-                                  {% endfor %}
-                              </ul>
-                          </div>
-                      {% endfor %}
+    <div class="container p-5">
+      <div class="row flex-column-reverse flex-md-row">
+        <div class="col-md-7">
+          <hr class="d-md-none">
+          <div class="row">
+            {% for block in section.blocks %}
+              <div class="col-md-4">
+                <p class="text-xsm text-greay">
+                  <b>{{ block.settings.title }}</b>
+                </p>
+                <ul class="p-0">
+                  {% for link in linklists[block.settings.footer_links].links %}
+                    <li class="list-unstyled">
+                      <a class="text-xsm text-greay text-decoration-none" href="{{ link.url }}">{{ link.title }}</a>
+                    </li>
+                  {% endfor %}
+                </ul>
+
+                {% if forloop.last %}
+                  <div class="kd-social-media">
+                    <!-- Example social icons -->
+                    <a href="https://www.facebook.com/share/19q9juH9Lr/" class="me-2"><img width="20" height="20" src="{{ 'fb-icon.png' | asset_url }}"/></a>
+                    <a href="https://www.instagram.com/snuggledudsoffical?igsh=ZnpvMDNjdm1iZHlw" class="me-2"><img width="20" height="20" src="{{ 'insta-icon.png' | asset_url }}"/></a>
                   </div>
+                {% endif %}
               </div>
-              <div class="col-md-5 mb-4 md-mb-0">
-                  <div class="size-guide d-flex justify-content-center align-items-center flex-column">
-                      {% if section.settings.size_chart_img %}
-                          <img class="d-block" src="{{ section.settings.size_chart_img | img_url: 'master' }}" alt="Size Guide">
-                      {% endif %}
-                      <b class="text-small">{{ section.settings.size_chart_title }}</b>
-                      <p class="text-xsm">{{ section.settings.size_chart_text }}</p>
-                      <a class="blue-btn text-small">SEE SIZE GUIDE</a>
-                  </div>
-              </div>
+            {% endfor %}
           </div>
+        </div>
+        <div class="col-md-5 mb-4 md-mb-0">
+          <div class="size-guide d-flex justify-content-center align-items-center flex-column">
+            {% if section.settings.size_chart_img %}
+              <img class="d-block" src="{{ section.settings.size_chart_img | img_url: 'master' }}" alt="Size Guide">
+            {% endif %}
+            <b class="text-small">{{ section.settings.size_chart_title }}</b>
+            <p class="text-xsm">{{ section.settings.size_chart_text }}</p>
+            <a class="blue-btn text-small">SEE SIZE GUIDE</a>
+          </div>
+        </div>
       </div>
+    </div>
   </div>
 
   <!-- Footer copyright -->
   <div class="footer-copyright border-top border-black p-3 text-center">
-      <p class="mb-0 text-center text-xsm">{{ section.settings.footer_copyright }}</p>
+    <p class="mb-0 text-center text-xsm">{{ section.settings.footer_copyright }}</p>
   </div>
 </section>
 
 {% schema %}
 {
-"name": "Footer",
-"settings": [
-  {
-    "type": "textarea",
-    "id": "newsletter_text",
-    "label": "Newsletter Text",
-    "default": "Sign up to Snuggle Rewards and get $10 off your first online order, earn points every time you shop and more!"
-  },
-  {
-    "type": "color",
-    "id": "newsletter_bg",
-    "label": "Newsletter Background Color",
-    "default": "#A7B9BD"
-  },
-  {
-    "type": "text",
-    "id": "size_chart_title",
-    "label": "Size Chart Title",
-    "default": "Not sure about size"
-  },
-  {
-    "type": "text",
-    "id": "size_chart_text",
-    "label": "Size Chart Text",
-    "default": "If you need help selecting a size, please refer to our size chart."
-  },
-  {
-    "type": "image_picker",
-    "id": "size_chart_img",
-    "label": "Size Chart Image"
-  },
-  {
-    "type": "text",
-    "id": "footer_copyright",
-    "label": "Copyright Text",
-    "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
-  }
-],
-"blocks": [
-  {
-    "type": "customer_care",
-    "name": "Customer Care",
-    "settings": [
-      {
-        "type": "text",
-        "id": "title",
-        "label": "Title"
-      },
-      {
-        "type": "link_list",
-        "id": "footer_links",
-        "label": "Customer Care Links"
-      }
-    ]
-  },
-  {
-    "type": "company",
-    "name": "Company",
-    "settings": [
-      {
-        "type": "text",
-        "id": "title",
-        "label": "Title"
-      },
-      {
-        "type": "link_list",
-        "id": "footer_links",
-        "label": "Company Links"
-      }
-    ]
-  },
-  {
-    "type": "got_a_question",
-    "name": "Got a Question",
-    "settings": [
-      {
-        "type": "text",
-        "id": "title",
-        "label": "Title"
-      },
-      {
-        "type": "link_list",
-        "id": "footer_links",
-        "label": "Got a Question Links"
-      }
-    ]
-  }
-],
-"presets": [
-  {
-    "name": "Footer",
-    "category": "Footer",
-    "blocks": [
-      {
-        "type": "customer_care"
-      },
-      {
-        "type": "company"
-      },
-      {
-        "type": "got_a_question"
-      }
-    ]
-  }
-]
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "newsletter_text",
+      "label": "Newsletter Text",
+      "default": "Sign up to Snuggle Rewards and get $10 off your first online order, earn points every time you shop and more!"
+    },
+    {
+      "type": "color",
+      "id": "newsletter_bg",
+      "label": "Newsletter Background Color",
+      "default": "#A7B9BD"
+    },
+    {
+      "type": "text",
+      "id": "size_chart_title",
+      "label": "Size Chart Title",
+      "default": "Not sure about size"
+    },
+    {
+      "type": "text",
+      "id": "size_chart_text",
+      "label": "Size Chart Text",
+      "default": "If you need help selecting a size, please refer to our size chart."
+    },
+    {
+      "type": "image_picker",
+      "id": "size_chart_img",
+      "label": "Size Chart Image"
+    },
+    {
+      "type": "text",
+      "id": "footer_copyright",
+      "label": "Copyright Text",
+      "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "customer_care",
+      "name": "Customer Care",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "link_list",
+          "id": "footer_links",
+          "label": "Customer Care Links"
+        }
+      ]
+    },
+    {
+      "type": "company",
+      "name": "Company",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "link_list",
+          "id": "footer_links",
+          "label": "Company Links"
+        }
+      ]
+    },
+    {
+      "type": "got_a_question",
+      "name": "Got a Question",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "link_list",
+          "id": "footer_links",
+          "label": "Got a Question Links"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Footer",
+      "category": "Footer",
+      "blocks": [
+        {
+          "type": "customer_care"
+        },
+        {
+          "type": "company"
+        },
+        {
+          "type": "got_a_question"
+        }
+      ]
+    }
+  ]
 }
 {% endschema %}
