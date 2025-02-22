@@ -506,7 +506,14 @@ html body .swiper-button-next {
 }   
 
 .kd-collection-title{
-    margin: 0;
+    margin: 0 !important;
+    font-size: 45px;
+    font-weight: 400;
+}
+
+.kd-collection-description p{
+    font-size: 14px;
+    color: black; 
 }
 
 
