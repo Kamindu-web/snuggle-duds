@@ -516,6 +516,15 @@ html body .swiper-button-next {
     color: black; 
 }
 
+.kd-collection-products-container{
+    width: 80%;
+    padding: 40px 20px;
+}
+
+.kd-collection-product-grid-ul li{
+    padding: 12px;
+}
+
 
 
 
@@ -650,4 +659,17 @@ html body .swiper-button-next {
 
 
     /* =========================single product============== */
+
+    /* ==============collections page===================== */
+    .kd-collection-products-container{
+        width: 100%;
+        padding: 40px 20px;
+    }
+    
+    .kd-collection-product-grid-ul li{
+        padding: 12px;
+    }
+
+    /* ==============collections page===================== */
+    
 }
