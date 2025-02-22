@@ -1,0 +1,67 @@
+{% comment %}
+  Section: Complete The Look
+  Displays products from the same collection (global collection if available, otherwise fallback from settings)
+  Excludes the current product and shows up to 3 products in a 3-column grid.
+{% endcomment %}
+
+{% assign current_collection = collection %}
+{% if current_collection == blank and section.settings.collection != blank %}
+  {% assign current_collection = collections[section.settings.collection] %}
+{% endif %}
+
+{% if current_collection and current_collection.products.size > 1 %}
+  <style>
+    .complete-the-look-section {
+      margin: 40px 0;
+    }
+    .complete-the-look-heading {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 1.75em;
+    }
+    .complete-the-look-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+  </style>
+
+  <section class="complete-the-look-section">
+    <h2 class="complete-the-look-heading">{{ section.settings.heading }}</h2>
+    <div class="complete-the-look-grid">
+      {% assign count = 0 %}
+      {% for related_product in current_collection.products %}
+        {% if related_product.id != product.id %}
+          {% render 'card-product', product: related_product %}
+          {% assign count = count | plus: 1 %}
+          {% if count == 3 %}{% break %}{% endif %}
+        {% endif %}
+      {% endfor %}
+    </div>
+  </section>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Complete The Look",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section Heading",
+      "default": "Complete The Look"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Fallback Collection (if no collection context)",
+      "default": ""
+    }
+  ],
+  "presets": [
+    {
+      "name": "Complete The Look"
+    }
+  ]
+}
+{% endschema %}
