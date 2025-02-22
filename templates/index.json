@@ -83,6 +83,15 @@
         "product_source": "featured"
       }
     },
+    "instagram_cta_Ez4HYJ": {
+      "type": "instagram-cta",
+      "settings": {
+        "main_img": "shopify://shop_images/32483.jpg",
+        "title": "View Us On Instagram",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
+        "link": "https://www.instagram.com/snuggledudsoffical?igsh=ZnpvMDNjdm1iZHlw"
+      }
+    },
     "kd_products_carousel_akiMga": {
       "type": "kd-products-carousel",
       "settings": {
@@ -96,6 +105,7 @@
     "collecion_carousel_zXpBja",
     "featured_collection_2_columns_wemJdj",
     "kd_products_carousel_aKRQfV",
+    "instagram_cta_Ez4HYJ",
     "kd_products_carousel_akiMga"
   ]
 }
