@@ -9,7 +9,7 @@
 
 {% assign current_collection = blank %}
 {% if product.metafields.custom.product_category and product.metafields.custom.product_category.size > 0 %}
-    {% assign current_collection = product.metafields.custom.product_category.first %}
+    {% assign current_collection = product.metafields.custom.product_category %}
 {% elsif collection %}
   {% assign current_collection = collection %}
 {% elsif section.settings.fallback_collection != blank %}
@@ -20,9 +20,10 @@
   {% for field in product.metafields.custom %}
     <p>Key: {{ field.first }} / Value: {{ field.last }}</p>
   {% endfor %}
-  {% assign first_col = product.metafields.custom.product_category.first %}
-<p>Collection Title: {{ first_col.title }}</p>
-<p>Collection URL: {{ first_col.url }}</p>
+  {% assign coll_handle = product.metafields.custom.product_category | strip %}
+  {% assign current_collection = collections[coll_handle] %}
+  Collection Title: {{ current_collection.title }}
+  Collection URL: {{ current_collection.url }}
 
     
 
