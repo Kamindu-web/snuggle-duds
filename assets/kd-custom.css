@@ -465,6 +465,25 @@ html body .swiper-button-next {
     text-align: center;
 }
 
+.kd-single-prod-card{
+    background: transparent;
+    border: none !important;
+}
+
+.kd-card-media-wrapper{
+    padding : 10px;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+}
+
+.kd-single-prod-card .card__heading a{
+    font-size: 20px !important;
+}
+
+.kd-single-prod-card .card-information{
+    text-align: center !important; 
+}
+
 /* =========================single product============== */
 
 
