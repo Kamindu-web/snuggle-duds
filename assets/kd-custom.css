@@ -461,6 +461,11 @@ html body .swiper-button-next {
     border-radius: 15px;
 }
 
+.kd-insta-btn{
+    max-width: 200px;
+    margin: auto;
+}
+
 
 /* ===================instagram cta====================== */
 
