@@ -56,6 +56,24 @@ html body h2 {
     line-height: 1;
 }
 
+html body .shopify-payment-button__button--unbranded{
+    background-color: #5B9798;
+    border-color: #5B9798;
+}
+
+html body .button , html body .button{
+    border-radius: 10px;
+}
+
+html body .product-form__submit.button , html body .product-form__submit.button{
+    border: 1px solid #5B9798;
+}
+
+
+html body .product-form__submit.button:before , html body .product-form__submit.button:after{
+    display: none
+}
+
 /* =================header=============== */
 
 .main-logo {
