@@ -447,7 +447,7 @@ html body .swiper-button-next {
 /* =========================single product============== */
 
 .kd-products-wrapper {
-    max-width: 80%;
+    max-width: 80%; 
 }
 
 .kd-product-media-list .product-media-container {
@@ -457,11 +457,11 @@ html body .swiper-button-next {
 .kd-recomandations-wrapper{
     margin-top: 40px;
     padding: 20px;
-    background: #eaf1ef;
+    background: #eaf1ef !important;
 }
 
 .kd-related-prods-title{
-    font-size: 45px;
+    font-size: 45px !important;
     text-align: center;
 }
 
@@ -572,7 +572,7 @@ html body .swiper-button-next {
     }
 
     .kd-related-prods-title{
-        font-size: 30px;
+        font-size: 30px !important;
     }
 
 
