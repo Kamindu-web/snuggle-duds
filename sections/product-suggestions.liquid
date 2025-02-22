@@ -1,13 +1,18 @@
 {% comment %}
   Product Suggestions Section
-  - Displays "Complete The Look" / related products from the same collection.
-  - Uses the current collection if available; otherwise, it falls back to a collection set in settings.
+  - Displays "Complete The Look" / related products from a collection.
+  - Prioritizes the collection(s) assigned via the product metafield "custom.product_category".
+  - Falls back to the global collection if available; otherwise, uses a fallback collection set in section settings.
   - Excludes the current product.
   - Shows up to 3 products in a 3‑column grid.
 {% endcomment %}
 
-{% assign current_collection = collection %}
-{% if current_collection == blank and section.settings.fallback_collection != blank %}
+{% assign current_collection = blank %}
+{% if product.metafields.custom.product_category and product.metafields.custom.product_category.value.size > 0 %}
+  {% assign current_collection = product.metafields.custom.product_category.value[0] %}
+{% elsif collection %}
+  {% assign current_collection = collection %}
+{% elsif section.settings.fallback_collection != blank %}
   {% assign current_collection = collections[section.settings.fallback_collection] %}
 {% endif %}
 
