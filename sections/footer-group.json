@@ -21,25 +21,25 @@
             "footer_links": "footer-column-one"
           }
         },
-        "got_a_question_EQJDJt": {
-          "type": "got_a_question",
-          "settings": {
-            "title": "Company",
-            "footer_links": "footer-column-3"
-          }
-        },
         "company_fK6RCk": {
           "type": "company",
           "settings": {
-            "title": "Got a Question?",
+            "title": "Company",
             "footer_links": "footer-column-2"
+          }
+        },
+        "got_a_question_EQJDJt": {
+          "type": "got_a_question",
+          "settings": {
+            "title": "Got a Question?",
+            "footer_links": "footer-column-3"
           }
         }
       },
       "block_order": [
         "customer_care_k98iGi",
-        "got_a_question_EQJDJt",
-        "company_fK6RCk"
+        "company_fK6RCk",
+        "got_a_question_EQJDJt"
       ],
       "settings": {
         "newsletter_text": "Sign up to Snuggle Rewards and get $10 off your first online order, earn points every time you shop and more!",
