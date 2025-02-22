@@ -476,6 +476,10 @@ html body .swiper-button-next {
     overflow: hidden;
 }
 
+.kd-single-prod-card .card__heading{
+    text-align: center;
+}
+
 .kd-single-prod-card .card__heading a{
     font-size: 20px !important;
 }
