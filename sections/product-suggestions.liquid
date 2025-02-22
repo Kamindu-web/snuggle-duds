@@ -22,7 +22,6 @@
   {% endfor %}
   {% assign coll_handle = product.metafields.custom.product_category | strip %}
   {% assign current_collection = collections[coll_handle] %}
-  {{ coll_handle }}
   Collection Title: {{ current_collection.title }}
   Collection URL: {{ current_collection.url }}
 
