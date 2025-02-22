@@ -420,7 +420,12 @@ html body .swiper-button-next {
 /* ====================products carousel============== */
 
 
+/* =========================single product============== */
 
+
+.kd-produclt-img-slide .product-media-container{
+    width: 100% !important;
+}
 
 
 
