@@ -36,7 +36,6 @@ var swiper = new Swiper('.kd-slider', {
 document.addEventListener('DOMContentLoaded', function () {
   var kdCollectionSwiper = new Swiper('.kd-collection-swiper', {
     slidesPerView: 1,
-    centeredSlides: true,
     spaceBetween: 20,
     loop: true,
     autoplay: {
@@ -65,24 +64,38 @@ document.addEventListener('DOMContentLoaded', function () {
 // products carousel
 
 document.addEventListener('DOMContentLoaded', function () {
-  var kdProdsCarSwiper = new Swiper('.kd-prods-car-swiper', {
-    slidesPerView: 1,
-    centeredSlides: true,
-    spaceBetween: 20,
-    loop: true,
-    autoplay: {
-      delay: 3000,
-      disableOnInteraction: false,
-    },
-    navigation: {
-      nextEl: '.kd-prods-car-next',
-      prevEl: '.kd-prods-car-prev',
-    },
-    breakpoints: {
-      768: { slidesPerView: 2 },
-      1024: { slidesPerView: 5 },
-    },
-  });
+   // Get the number of slides from the slider container
+   var slideCount = document.querySelectorAll('.kd-prods-car-swiper .swiper-slide').length;
+  
+   // Calculate dynamic slides per view for desktop and tablet breakpoints
+   var slidesDesktop = Math.min(5, slideCount);
+   var slidesTablet = Math.min(2, slideCount); // Adjust as needed
+   
+   var kdProdsCarSwiper = new Swiper('.kd-prods-car-swiper', {
+     slidesPerView: 1,
+     centeredSlides: true,
+     centeredSlidesBounds: true,
+     centerInsufficientSlides: true,
+     initialSlide: 0,
+     spaceBetween: 20,
+     loop: true,
+     autoplay: {
+       delay: 3000,
+       disableOnInteraction: false,
+     },
+     navigation: {
+       nextEl: '.kd-prods-car-next',
+       prevEl: '.kd-prods-car-prev',
+     },
+     breakpoints: {
+       768: {
+         slidesPerView: slidesTablet
+       },
+       1024: {
+         slidesPerView: slidesDesktop
+       }
+     }
+   });
 
   document.querySelectorAll('.kd-prods-car-favorite-btn').forEach(function (btn) {
     btn.addEventListener('click', function () {
