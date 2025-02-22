@@ -58,7 +58,13 @@ html body h2 {
 
 html body .shopify-payment-button__button--unbranded{
     background-color: #5B9798;
-    border-color: #5B9798;
+    border: 1px solid #5B9798;
+    border-radius: 10px;
+}
+
+html body .shopify-payment-button__button--unbranded:hover{
+    background-color: black;
+    border-color: black;
 }
 
 html body .button , html body .button{
@@ -70,7 +76,7 @@ html body .product-form__submit.button , html body .product-form__submit.button{
 }
 
 
-html body .product-form__submit.button:before , html body .product-form__submit.button:after{
+html body .product-form__submit.button:before , html body .product-form__submit.button:after , html body .shopify-payment-button__button--unbranded:before , html body .shopify-payment-button__button--unbranded:after{
     display: none
 }
 
