@@ -147,18 +147,10 @@
         "padding_top": 36,
         "padding_bottom": 28
       }
-    },
-    "product_suggestions_HJDWbg": {
-      "type": "product-suggestions",
-      "settings": {
-        "heading": "Comple the look",
-        "fallback_collection": ""
-      }
     }
   },
   "order": [
     "main",
-    "related-products",
-    "product_suggestions_HJDWbg"
+    "related-products"
   ]
 }
