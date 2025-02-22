@@ -151,7 +151,9 @@
     },
     "product_suggestions_HJDWbg": {
       "type": "product-suggestions",
-      "settings": {}
+      "settings": {
+        "heading": "Comple the look"
+      }
     }
   },
   "order": [
