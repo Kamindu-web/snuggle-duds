@@ -526,6 +526,10 @@ html body .swiper-button-next {
         max-width: 100%;
     }
 
+    .kd-products-wrapper .product{
+        overflow: hidden !important;
+    }
+
 
     /* =========================single product============== */
 }
