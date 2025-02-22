@@ -477,7 +477,7 @@ html body .swiper-button-next {
 }
 
 .kd-single-prod-card .card__heading{
-    text-align: center;
+    text-align: center !important;
 }
 
 .kd-single-prod-card .card__heading a{
