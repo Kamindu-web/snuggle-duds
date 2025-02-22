@@ -580,6 +580,7 @@ html body .swiper-button-next {
     .kd-2-feature-cols-item{
         height: 400px;
         padding: 20px;
+        width: 100%;
     }
 
     .kd-2-feature-cols-title{
