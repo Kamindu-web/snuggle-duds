@@ -36,6 +36,7 @@ var swiper = new Swiper('.kd-slider', {
 document.addEventListener('DOMContentLoaded', function () {
   var kdCollectionSwiper = new Swiper('.kd-collection-swiper', {
     slidesPerView: 1,
+    centeredSlides: true,
     spaceBetween: 20,
     loop: true,
     autoplay: {
@@ -66,6 +67,7 @@ document.addEventListener('DOMContentLoaded', function () {
 document.addEventListener('DOMContentLoaded', function () {
   var kdProdsCarSwiper = new Swiper('.kd-prods-car-swiper', {
     slidesPerView: 1,
+    centeredSlides: true,
     spaceBetween: 20,
     loop: true,
     autoplay: {
@@ -78,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function () {
     },
     breakpoints: {
       768: { slidesPerView: 2 },
-      1024: { slidesPerView: 6 },
+      1024: { slidesPerView: 5 },
     },
   });
 
