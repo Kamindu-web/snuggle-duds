@@ -491,6 +491,24 @@ html body .swiper-button-next {
 /* =========================single product============== */
 
 
+/* ====================collections======================== */
+.kd-collections-banner{
+    background: #eaf1ef !important;
+    min-height: 180px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.kd-collections-banner .collection-hero__inner {
+    width: 100%;
+    text-align: center;
+}   
+
+.kd-collection-title{
+    margin: 0;
+}
+
 
 
 
