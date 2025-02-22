@@ -1,0 +1,48 @@
+
+<section class="kd-insta-cta-wrapper">
+    <div class="row">
+        <div class="col-md-6">
+            <img class="kd-insta-main-img" src="{{ section.settings.main_img : img_url "master" }}"/>
+        </div>
+        <div class="col-md-6">
+            <div class="kd-insta-content text-center">
+                <h2>{{ section.settings.title }}</h2>
+                <p>{{section.settings.description }}</p>
+                <a class="btn kd-orange-btn" href="{{ section.settings.link }}"></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% schema %}
+{
+  "name": "Instagram CTA",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "main_img",
+      "label": "Main Image"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Instagram CTA"
+    }
+  ]
+}
+{% endschema %}
