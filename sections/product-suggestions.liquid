@@ -16,7 +16,14 @@
   {% assign current_collection = collections[section.settings.fallback_collection] %}
 {% endif %}
 
-{{ product.metafields | json }}
+{% for col in product.metafields.custom.product_category %}
+    <p>Collection Title: {{ col.title }}</p>
+    <p>Collection URL: {{ col.url }}</p>
+  {% endfor %}
+  {% for field in product.metafields.custom %}
+    <p>Key: {{ field.first }} / Value: {{ field.last }}</p>
+  {% endfor %}
+    
 
 {% if current_collection and current_collection.products.size > 1 %}
   <style>
