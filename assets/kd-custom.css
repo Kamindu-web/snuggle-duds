@@ -505,7 +505,7 @@ html body .swiper-button-next {
     text-align: center;
 }   
 
-.kd-collection-title{
+.kd-collection-main-title{
     margin: 0 !important;
     font-size: 45px;
     font-weight: 400;
@@ -517,7 +517,7 @@ html body .swiper-button-next {
 }
 
 .kd-collection-products-container .collection {
-    width: 80%;
+    /* width: 80%; */
     padding: 40px 20px;
 }
 
