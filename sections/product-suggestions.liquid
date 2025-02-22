@@ -8,13 +8,15 @@
 {% endcomment %}
 
 {% assign current_collection = blank %}
-{% if product.metafields.custom.product_category and product.metafields.custom.product_category.value.size > 0 %}
+{% if product.metafields.custom.product_category and product.metafields.custom.product_category.size > 0 %}
   {% assign current_collection = product.metafields.custom.product_category.value[0] %}
 {% elsif collection %}
   {% assign current_collection = collection %}
 {% elsif section.settings.fallback_collection != blank %}
   {% assign current_collection = collections[section.settings.fallback_collection] %}
 {% endif %}
+
+{{ product.metafields | json }}
 
 {% if current_collection and current_collection.products.size > 1 %}
   <style>
