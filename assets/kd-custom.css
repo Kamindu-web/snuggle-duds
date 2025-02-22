@@ -516,7 +516,7 @@ html body .swiper-button-next {
     color: black; 
 }
 
-.kd-collection-products-container{
+.kd-collection-products-container .collection {
     width: 80%;
     padding: 40px 20px;
 }
@@ -661,7 +661,7 @@ html body .swiper-button-next {
     /* =========================single product============== */
 
     /* ==============collections page===================== */
-    .kd-collection-products-container{
+    .kd-collection-products-container .collection {
         width: 100%;
         padding: 40px 20px;
     }
