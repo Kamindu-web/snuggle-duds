@@ -101,18 +101,14 @@
 
               {%- when 'title' -%}
                 <div class="product__title kd-product-title" {{ block.shopify_attributes }}>
-                  <ul class="kd-product-collections">
-                    {% for collection in collections %}
-                      {% if collection.products contains product %}
-                        <li>
-                          <a href="{{ collection.url }}">{{ collection.title }}</a>
-                        </li>
-                      {% endif %}
-                    {% endfor %}
-                  </ul>
-  
-                  test
-                  
+                  {% if collection %}
+                    <ul class="kd-product-collections">
+                      <li>
+                        <a href="{{ collection.url }}">{{ collection.title }}</a>
+                      </li>
+                    </ul>
+                  {% endif %}
+
                   <h1>{{ product.title | escape }}</h1>
                   <a href="{{ product.url }}" class="product__title">
                     <h2 class="h1">
