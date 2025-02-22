@@ -444,6 +444,25 @@ html body .swiper-button-next {
 
 /* ====================products carousel============== */
 
+/* ===================instagram cta====================== */
+.kd-insta-cta-wrapper{
+    width: 90vw;
+    margin: auto;
+}
+
+.kd-insta-main-img{
+    width: 100%;
+}
+
+.kd-insta-content{
+    padding: 50px 30px;
+    background: #eaf1ef;
+    margin-left: -146px;
+    border-radius: 15px;
+}
+
+
+/* ===================instagram cta====================== */
 
 /* =========================single product============== */
 
@@ -636,6 +655,29 @@ html body .swiper-button-next {
     }
 
     /* =====================products carousel========== */
+
+    /* ===================instagram cta====================== */
+.kd-insta-cta-wrapper{
+    width: 100vw;
+    margin: auto;
+}
+
+.kd-insta-main-img{
+    width: 100%;
+}
+
+.kd-insta-content{
+    padding: 50px 30px;
+    background: #eaf1ef;
+    margin-left: 0;
+    border-radius: 15px;
+    width: 80%;
+    margin: auto;
+    margin-top: -100px;
+}
+
+
+/* ===================instagram cta====================== */
 
 
     /* =========================single product============== */
