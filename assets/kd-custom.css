@@ -532,8 +532,8 @@ html body .swiper-button-next {
     }
 
     .kd-single-slide .main-title {
-        font-size: 45px;
-        line-height: 1.1;
+        font-size: 40px;
+        line-height: 38px;
         font-weight: 700;
         color: #fff;
     }
@@ -558,9 +558,9 @@ html body .swiper-button-next {
     }
 
 
-
-
     /* =======================main slider area============== */
+
+
 
     /* ====================collections carousel================ */
 
@@ -570,7 +570,31 @@ html body .swiper-button-next {
 
     /* ====================collections carousel================ */
 
+    /* =====================two columns section================== */
+
+    .kd-2-feature-cols-wrapper{
+        flex-flow: column;
+        row-gap: 20px;
+    }
+
+    .kd-2-feature-cols-item{
+        height: 400px;
+        padding: 20px;
+    }
+
+    .kd-2-feature-cols-title{
+        font-size: 30px;
+        line-height: 30px;
+    }
+
+    /* =====================two columns section================== */
+
     /* =====================products carousel========== */
+
+    .kd-prods-car-title{
+        font-size: 32px;
+        line-height: 32px;
+    }
     .kd-prods-car-swiper {
         padding: 0;
     }
