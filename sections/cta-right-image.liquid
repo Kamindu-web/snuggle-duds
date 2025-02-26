@@ -1,0 +1,53 @@
+{% schema %}
+{
+  "name": "CTA Right Image",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "main_img",
+      "label": "Main Image"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Link"
+    },
+    {
+        "type": "text",
+        "id": "btn_class",
+        "label": "Button css class"
+    }
+  ],
+  "presets": [
+    {
+      "name": "CTA Right Image"
+    }
+  ]
+}
+{% endschema %}
+
+<section class="kd-right-cta-wrapper">
+    <div class="row align-items-center">
+        
+        <div class="col-md-6">
+            <div class="kd-right-cta-content text-center">
+                <h2>{{ section.settings.title }}</h2>
+                <p>{{section.settings.description }}</p>
+                <a class="btn kd-orange-btn kd-insta-btn" href="{{ section.settings.link }}" target="_blank">Open Instagram</a>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <img class="kd-right-main-img" src="{{ section.settings.main_img | img_url : "master" }}"/>
+        </div>
+    </div>
+</section>
