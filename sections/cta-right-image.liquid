@@ -26,6 +26,11 @@
         "type": "text",
         "id": "btn_class",
         "label": "Button css class"
+    },
+    {
+        "type": "text",
+        "id": "btn_title",
+        "label": "Button Title"
     }
   ],
   "presets": [
@@ -43,7 +48,7 @@
             <div class="kd-right-cta-content text-center">
                 <h2>{{ section.settings.title }}</h2>
                 <p>{{section.settings.description }}</p>
-                <a class="btn kd-orange-btn kd-insta-btn" href="{{ section.settings.link }}" target="_blank">Open Instagram</a>
+                <a class="btn kd-orange-btn kd-insta-btn" href="{{ section.settings.link }}" target="_blank">{{btn_title}}</a>
             </div>
         </div>
         <div class="col-md-6">
