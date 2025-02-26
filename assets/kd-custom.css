@@ -497,6 +497,7 @@ html body .swiper-button-next {
     margin-right: -146px;
     border-radius: 15px;
     z-index: 2;
+    position: relative;
 }
 
 /* =====================right side image cta============ */
