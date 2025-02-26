@@ -90,7 +90,8 @@
         "title": "Don't Know the Correct Size?",
         "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
         "link": "#",
-        "btn_class": "open-size-chart"
+        "btn_class": "open-size-chart",
+        "btn_title": "Open Size Chart"
       }
     },
     "kd_products_carousel_akiMga": {
