@@ -647,6 +647,7 @@ html body .swiper-button-next {
     display: flex;
     justify-content: center;
     align-items: center;
+    min-width: 100vw;
 }
 
 /* ==============page banner */
