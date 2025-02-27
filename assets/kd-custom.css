@@ -813,8 +813,8 @@ html body .swiper-button-next {
 
     /* ==============size guide=========================== */
     .close-size-guide{
-        left: 10px;
-        top: -20px;
+        right: 10px;
+        top: -60px;
     }
     /* ==============size guide=========================== */
 }
