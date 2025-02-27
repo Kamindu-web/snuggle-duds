@@ -627,6 +627,17 @@ html body .swiper-button-next {
     text-decoration: none;
 }
 
+.kd-product-size-chart-btn{
+    padding: 10px 20px;
+    background: #ebbd6f;
+    display: block;
+    border-radius: 10px;
+    margin-top: 10px;
+    text-align: center;
+    color: white;
+    text-decoration: none;
+}
+
 
 
 
