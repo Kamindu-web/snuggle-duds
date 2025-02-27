@@ -117,8 +117,9 @@ window.addEventListener('load',()=>{
   let openBtns = Array.from(document.getElementsByClassName('open-size-chart'))
 
   openBtns.forEach(opnbtn=>{
-    opnbtn.addEventListener('click',()=>{
+    opnbtn.addEventListener('click',(e)=>{
       sizeChartWrapper.classList.toggle('active')
+      e.preventDefault();
     })
   })
 
