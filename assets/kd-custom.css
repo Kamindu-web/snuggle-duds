@@ -639,6 +639,18 @@ html body .swiper-button-next {
 }
 
 
+/* =================page banner======================== */
+
+.kd-page-banner{
+    background: #eaf1ef !important;
+    min-height: 180px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ==============page banner */
+
 
 
 /* =========================================================================== */
