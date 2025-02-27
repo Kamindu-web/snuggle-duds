@@ -123,7 +123,8 @@ window.addEventListener('load',()=>{
     })
   })
 
-  closeSizeChart.addEventListener('click',()=>{
+  closeSizeChart.addEventListener('click',(e)=>{
+    e.preventDefault();
     sizeChartWrapper.classList.remove('active')
   })
 })
