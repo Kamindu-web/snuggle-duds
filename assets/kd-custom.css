@@ -586,8 +586,25 @@ html body .swiper-button-next {
 }
 
 
+/* ====================size guide================ */
+.kd-size-guide-wrapper{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #00000060;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-
+.size-guide-inner{
+    max-width: 500px;
+    padding: 30px;
+    background-color: white;
+    text-align: center;
+}
 
 
 

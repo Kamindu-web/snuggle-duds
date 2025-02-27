@@ -10,9 +10,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    >
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
     {{ 'kd-custom.css' | asset_url | stylesheet_tag }}
 
     {%- if settings.favicon != blank -%}
@@ -263,8 +264,6 @@
       }
     {% endstyle %}
 
-    
-
     {{ 'base.css' | asset_url | stylesheet_tag }}
     <link rel="stylesheet" href="{{ 'component-cart-items.css' | asset_url }}" media="print" onload="this.media='all'">
 
@@ -386,5 +385,27 @@
     {%- if settings.cart_type == 'drawer' -%}
       <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
+
+    {% comment %} size guide {% endcomment %}
+
+    <div class="kd-size-guide-wrapper">
+      <div class="size-guide-inner">
+        <h2 class="text-center">Size Chart</h2>
+        <p>As babies grow so quickly, often age is not the best indicator of size. Therefore our size charts includes a weight and height guide to help you select the right size.</p>
+      
+        <h3>T Shirts</h3>
+        <table class="table table-boardered">
+            <tr><th>SIZE</th><th>HEIGHT</th><th>WIDTH</th></tr>
+            <tr><td>01</td><td>12</td><td>15</td></tr>
+            <tr><td>01</td><td>12</td><td>15</td></tr>
+            <tr><td>01</td><td>12</td><td>15</td></tr>
+            <tr><td>01</td><td>12</td><td>15</td></tr>
+            <tr><td>01</td><td>12</td><td>15</td></tr>
+            <tr><td>01</td><td>12</td><td>15</td></tr>
+        </table>
+      </div>
+    </div>
+
+    {% comment %} size guide {% endcomment %}
   </body>
 </html>
