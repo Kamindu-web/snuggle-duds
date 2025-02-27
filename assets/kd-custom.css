@@ -598,6 +598,11 @@ html body .swiper-button-next {
     align-items: center;
     justify-content: center;
     z-index: 125;
+    display: none;
+}
+
+.kd-size-guide-wrapper.active{
+    display: block;
 }
 
 .size-guide-inner{
@@ -611,7 +616,7 @@ html body .swiper-button-next {
 
 .size-guide-inner h3{
     margin: 30px 0;
-    font-size: 35pxs;
+    font-size: 30px;
 }
 
 .close-size-guide{

@@ -108,3 +108,21 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 });
+
+// open size guide
+
+window.addEventListener('load',()=>{
+  let sizeChartWrapper = document.querySelector('.kd-size-guide-wrapper')
+  let closeSizeChart = document.querySelector('.close-size-guide')
+  let openBtns = Array.from(document.getElementsByClassName('open-size-chart'))
+
+  openBtns.forEach(opnbtn=>{
+    opnbtn.addEventListener('click',()=>{
+      sizeChartWrapper.classList.toggle('active')
+    })
+  })
+
+  closeSizeChart.addEventListener('click',()=>{
+    sizeChartWrapper.classList.remove('active')
+  })
+})
