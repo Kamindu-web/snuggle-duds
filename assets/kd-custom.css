@@ -318,6 +318,13 @@ html body .swiper-button-next {
     justify-content: flex-end;
     padding: 30px;
     position: relative;
+    position: relative;
+}
+
+.kd-sale-badge{
+    position: absolute;
+    right: 0;
+    top: -70px;
 }
 
 .kd-2-feature-cols-content {
@@ -741,6 +748,13 @@ html body .swiper-button-next {
     .kd-2-feature-cols-title{
         font-size: 30px;
         line-height: 30px;
+    }
+
+    .kd-sale-badge{
+        position: absolute;
+        right: 0;
+        top: 0px;
+        width: 100px;
     }
 
     /* =====================two columns section================== */
