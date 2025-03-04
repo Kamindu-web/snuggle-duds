@@ -89,7 +89,7 @@
       "settings": {
         "main_img": "shopify://shop_images/10473.jpg",
         "title": "Don't Know the Correct Size?",
-        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
+        "description": "Our easy-to-follow size charts and measuring tips help you pick the right size every time. If you need more guidance, our friendly team is here to assist!",
         "link": "#",
         "btn_class": "open-size-chart",
         "btn_title": "Open Size Chart"
@@ -107,7 +107,7 @@
       "settings": {
         "main_img": "shopify://shop_images/32483.jpg",
         "title": "View Us On Instagram",
-        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
+        "description": "Discover fresh T-shirt designs, behind-the-scenes glimpses, and exclusive deals. Follow us on Instagram for everyday inspiration and limited offers",
         "link": "https://www.instagram.com/snuggledudsoffical?igsh=ZnpvMDNjdm1iZHlw"
       }
     }
