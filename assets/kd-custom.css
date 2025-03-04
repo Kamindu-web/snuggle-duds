@@ -681,6 +681,11 @@ html body .swiper-button-next {
 
     /* =====================global styles============= */
 
+    .kd-header-ul{
+        flex-flow: column;
+    text-align: center;
+    }
+
     /* =======================main slider area============== */
 
     .kd-main-slider-container .slide-inner {
