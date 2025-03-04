@@ -659,6 +659,10 @@ html body .swiper-button-next {
 
 /* ==============page banner */
 
+.pagination__list{
+    min-width: 300px;
+}
+
 
 
 /* =========================================================================== */
