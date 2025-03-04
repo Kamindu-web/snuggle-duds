@@ -73,7 +73,8 @@
       "type": "featured-collection-2-columns",
       "settings": {
         "collection_1": "frontpage",
-        "collection_2": "on-sale"
+        "collection_2": "on-sale",
+        "sale_badge": "shopify://shop_images/sale-badge.png"
       }
     },
     "kd_products_carousel_aKRQfV": {
