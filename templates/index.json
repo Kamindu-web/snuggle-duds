@@ -15,10 +15,10 @@
         "main_slide_QnizHy": {
           "type": "main_slide",
           "settings": {
-            "title_sub_text": "Lorem Ipsum Dolor Sir Amet",
-            "title": "Lorem Ipsum Dolor Sir Amet",
-            "description": "Lorem Ipsum Dolor Sir Ametaasfrertert Lorem Ipsum Dolor Sir Amet",
-            "link": "#",
+            "title_sub_text": "Limited-Time Deal",
+            "title": "15% OFF All Kids’ Tees",
+            "description": "Grab your favorites now and save big while this offer lasts.",
+            "link": "shopify://collections/frontpage",
             "btn_title": "SHOP NOW",
             "background_img": "shopify://shop_images/slide-1.jpg"
           }
@@ -26,10 +26,10 @@
         "main_slide_iqAb4k": {
           "type": "main_slide",
           "settings": {
-            "title_sub_text": "Lorem Ipsum Dolor Sir Amet",
-            "title": "Lorem Ipsum Dolor Sir Amet",
-            "description": "Lorem Ipsum Dolor Sir Ametaasfrertert Lorem Ipsum Dolor Sir Amet",
-            "link": "#",
+            "title_sub_text": "Boys’ T-Shirts",
+            "title": "Style for Every Adventure",
+            "description": "Explore cool designs and comfy fits perfect for his daily escapades.",
+            "link": "shopify://collections/boys",
             "btn_title": "SHOP NOW",
             "background_img": "shopify://shop_images/slide-3.jpg"
           }
@@ -37,10 +37,10 @@
         "main_slide_YT9q6M": {
           "type": "main_slide",
           "settings": {
-            "title_sub_text": "Lorem Ipsum Dolor Sir Amet",
-            "title": "Lorem Ipsum Dolor Sir Amet",
-            "description": "Lorem Ipsum Dolor Sir Ametaasfrertert Lorem Ipsum Dolor Sir Amet",
-            "link": "#",
+            "title_sub_text": "Girls’ T-Shirts",
+            "title": "Bright & Trendy",
+            "description": "Spark her imagination with colorful prints and playful designs she’ll love.",
+            "link": "shopify://collections/girls",
             "btn_title": "SHOP NOW",
             "background_img": "shopify://shop_images/slide-2.jpg"
           }
@@ -48,9 +48,9 @@
         "main_slide_XXnpaG": {
           "type": "main_slide",
           "settings": {
-            "title_sub_text": "Lorem Ipsum Dolor Sir Amet",
-            "title": "Lorem Ipsum Dolor Sir Amet",
-            "description": "Lorem Ipsum Dolor Sir Ametaasfrertert Lorem Ipsum Dolor Sir Amet",
+            "title_sub_text": "Free Shipping Over $100",
+            "title": "Shop & Save Big",
+            "description": "Stock up on kids’ favorites and enjoy free delivery on qualifying orders.",
             "link": "#",
             "btn_title": "SHOP NOW",
             "background_img": "shopify://shop_images/slide-3.jpg"
