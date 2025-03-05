@@ -106,6 +106,10 @@ html body .product-form__submit.button:before , html body .product-form__submit.
     .kd-header{
         margin-bottom: 0px;
     }
+
+    .bottom-header{
+        padding: 10px;
+    }
 }
 
 /* ============footer============== */
