@@ -24,23 +24,23 @@
           "type": "contact_info",
           "settings": {
             "icon": "phone",
-            "content": "  +612345667890",
-            "link": "  +612345667890"
+            "content": "0427994652",
+            "link": "0427994652"
           }
         },
         "contact_info_nGcdbU": {
           "type": "contact_info",
           "settings": {
             "icon": "email",
-            "content": "info@snuggleduds.com",
-            "link": "#"
+            "content": "online@snugglyduds.com.au",
+            "link": "mailto:online@snugglyduds.com.au"
           }
         },
         "contact_info_VA9T8T": {
           "type": "contact_info",
           "settings": {
             "icon": "location",
-            "content": "Sydney , Australia",
+            "content": "2/7 Carrington Road Castle Hill NSW 2154",
             "link": "#"
           }
         }
