@@ -663,6 +663,27 @@ html body .swiper-button-next {
     min-width: 300px;
 }
 
+/* =====================page content================== */
+
+.kd-main-page-content{
+    width: 1140px;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 50px 30px;
+}
+
+.kd-main-page-content h3{
+    font-size: 26px;
+    font-weight: bold;
+}
+
+.kd-main-page-content h4{
+    font-size: 22px;
+    font-weight: bold;
+}
+
+
 
 
 /* =========================================================================== */
