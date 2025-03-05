@@ -788,7 +788,7 @@ html body .swiper-button-next {
     .kd-sale-badge{
         position: absolute;
         right: 0;
-        top: 0px;
+        top: -14px;
         width: 100px;
     }
 
