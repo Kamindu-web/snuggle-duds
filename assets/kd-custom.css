@@ -327,8 +327,9 @@ html body .swiper-button-next {
 
 .kd-sale-badge{
     position: absolute;
-    right: 0;
-    top: -70px;
+    left: 0;
+    top: -22px;
+    width: 160px;
 }
 
 .kd-2-feature-cols-content {
