@@ -56,27 +56,32 @@ html body h2 {
     line-height: 1;
 }
 
-html body .shopify-payment-button__button--unbranded{
+html body .shopify-payment-button__button--unbranded {
     background-color: #5B9798;
     border: 1px solid #5B9798;
     border-radius: 10px;
 }
 
-html body .shopify-payment-button__button--unbranded:hover{
+html body .shopify-payment-button__button--unbranded:hover {
     background-color: black;
     border-color: black;
 }
 
-html body .button , html body .button{
+html body .button,
+html body .button {
     border-radius: 10px;
 }
 
-html body .product-form__submit.button , html body .product-form__submit.button{
+html body .product-form__submit.button,
+html body .product-form__submit.button {
     border: 1px solid #5B9798;
 }
 
 
-html body .product-form__submit.button:before , html body .product-form__submit.button:after , html body .shopify-payment-button__button--unbranded:before , html body .shopify-payment-button__button--unbranded:after{
+html body .product-form__submit.button:before,
+html body .product-form__submit.button:after,
+html body .shopify-payment-button__button--unbranded:before,
+html body .shopify-payment-button__button--unbranded:after {
     display: none
 }
 
@@ -90,11 +95,11 @@ html body .product-form__submit.button:before , html body .product-form__submit.
     font-size: 14px;
 }
 
-.bottom-header{
+.bottom-header {
     background: #fff3df;
 }
 
-.kd-header{
+.kd-header {
     margin-bottom: 20px;
 }
 
@@ -103,11 +108,11 @@ html body .product-form__submit.button:before , html body .product-form__submit.
         width: 80px;
     }
 
-    .kd-header{
+    .kd-header {
         margin-bottom: 0px;
     }
 
-    .bottom-header{
+    .bottom-header {
         padding: 10px;
     }
 }
@@ -325,7 +330,7 @@ html body .swiper-button-next {
     position: relative;
 }
 
-.kd-sale-badge{
+.kd-sale-badge {
     position: absolute;
     left: 0;
     top: -22px;
@@ -469,23 +474,23 @@ html body .swiper-button-next {
 /* ====================products carousel============== */
 
 /* ===================instagram cta====================== */
-.kd-insta-cta-wrapper{
+.kd-insta-cta-wrapper {
     width: 90vw;
     margin: auto;
 }
 
-.kd-insta-main-img{
+.kd-insta-main-img {
     width: 100%;
 }
 
-.kd-insta-content{
+.kd-insta-content {
     padding: 50px 30px;
     background: #eaf1ef;
     margin-left: -146px;
     border-radius: 15px;
 }
 
-.kd-insta-btn{
+.kd-insta-btn {
     max-width: 200px;
     margin: auto;
 }
@@ -494,16 +499,16 @@ html body .swiper-button-next {
 /* ===================instagram cta====================== */
 
 /* =====================right side image cta============ */
-.kd-right-cta-wrapper{
+.kd-right-cta-wrapper {
     width: 90vw;
     margin: auto;
 }
 
-.kd-right-main-img{
+.kd-right-main-img {
     width: 100%;
 }
 
-.kd-right-cta-content{
+.kd-right-cta-content {
     padding: 50px 30px;
     background: #eaf1ef;
     margin-right: -146px;
@@ -519,52 +524,52 @@ html body .swiper-button-next {
 /* =========================single product============== */
 
 .kd-products-wrapper {
-    max-width: 80%; 
+    max-width: 80%;
 }
 
 .kd-product-media-list .product-media-container {
     width: 100% !important;
 }
 
-.kd-recomandations-wrapper{
+.kd-recomandations-wrapper {
     margin-top: 40px;
     padding: 20px;
     background: #eaf1ef !important;
 }
 
-.kd-related-prods-title{
+.kd-related-prods-title {
     font-size: 45px !important;
     text-align: center;
 }
 
-.kd-single-prod-card{
+.kd-single-prod-card {
     background: transparent;
     border: none !important;
 }
 
-.kd-card-media-wrapper{
+.kd-card-media-wrapper {
     border: 1px solid #ccc;
     border-radius: 12px;
     overflow: hidden;
 }
 
-.kd-single-prod-card .card__heading{
+.kd-single-prod-card .card__heading {
     text-align: center !important;
 }
 
-.kd-single-prod-card .card__heading a{
+.kd-single-prod-card .card__heading a {
     font-size: 20px !important;
 }
 
-.kd-single-prod-card .card-information{
-    text-align: center !important; 
+.kd-single-prod-card .card-information {
+    text-align: center !important;
 }
 
 /* =========================single product============== */
 
 
 /* ====================collections======================== */
-.kd-collections-banner{
+.kd-collections-banner {
     background: #eaf1ef !important;
     min-height: 180px;
     display: flex;
@@ -575,17 +580,17 @@ html body .swiper-button-next {
 .kd-collections-banner .collection-hero__inner {
     width: 100%;
     text-align: center;
-}   
+}
 
-.kd-collection-main-title{
+.kd-collection-main-title {
     margin: 0 !important;
     font-size: 45px;
     font-weight: 400;
 }
 
-.kd-collection-description p{
+.kd-collection-description p {
     font-size: 14px;
-    color: black; 
+    color: black;
 }
 
 .kd-collection-products-container .collection {
@@ -593,13 +598,13 @@ html body .swiper-button-next {
     padding: 40px 20px;
 }
 
-.kd-collection-product-grid-ul li{
+.kd-collection-product-grid-ul li {
     padding: 12px;
 }
 
 
 /* ====================size guide================ */
-.kd-size-guide-wrapper{
+.kd-size-guide-wrapper {
     position: fixed;
     left: 0;
     top: 0;
@@ -612,11 +617,11 @@ html body .swiper-button-next {
     display: none;
 }
 
-.kd-size-guide-wrapper.active{
+.kd-size-guide-wrapper.active {
     display: flex;
 }
 
-.size-guide-inner{
+.size-guide-inner {
     max-width: 500px;
     padding: 30px;
     background-color: white;
@@ -625,12 +630,12 @@ html body .swiper-button-next {
     width: 100%;
 }
 
-.size-guide-inner h3{
+.size-guide-inner h3 {
     margin: 30px 0;
     font-size: 30px;
 }
 
-.close-size-guide{
+.close-size-guide {
     position: absolute;
     right: -15px;
     top: -50px;
@@ -639,7 +644,7 @@ html body .swiper-button-next {
     text-decoration: none;
 }
 
-.kd-product-size-chart-btn{
+.kd-product-size-chart-btn {
     padding: 10px 20px;
     background: #ebbd6f;
     display: block;
@@ -653,7 +658,7 @@ html body .swiper-button-next {
 
 /* =================page banner======================== */
 
-.kd-page-banner{
+.kd-page-banner {
     background: #eaf1ef !important;
     min-height: 180px;
     display: flex;
@@ -664,13 +669,13 @@ html body .swiper-button-next {
 
 /* ==============page banner */
 
-.pagination__list{
+.pagination__list {
     min-width: 300px;
 }
 
 /* =====================page content================== */
 
-.kd-main-page-content{
+.kd-main-page-content {
     width: 1140px;
     max-width: 100%;
     margin-left: auto;
@@ -678,12 +683,12 @@ html body .swiper-button-next {
     padding: 50px 30px;
 }
 
-.kd-main-page-content h3{
+.kd-main-page-content h3 {
     font-size: 26px;
     font-weight: bold;
 }
 
-.kd-main-page-content h4{
+.kd-main-page-content h4 {
     font-size: 22px;
     font-weight: bold;
 }
@@ -707,9 +712,22 @@ html body .swiper-button-next {
 
     /* =====================global styles============= */
 
-    .kd-header-ul{
+    .kd-header-ul {
         flex-flow: column;
-    text-align: center;
+        text-align: center;
+    }
+
+    .kd-navbartoggler-btn {
+        border: 2px solid #5b9798 !important;
+        box-shadow: 0 0 10px #0000001c !important;
+        width: 45px !important;
+        height: 45px !important;
+        border-radius: 50% !important;
+    }
+
+    .navbar-toggler-icon{
+        width: 25px !important;
+        
     }
 
     /* =======================main slider area============== */
@@ -769,23 +787,23 @@ html body .swiper-button-next {
 
     /* =====================two columns section================== */
 
-    .kd-2-feature-cols-wrapper{
+    .kd-2-feature-cols-wrapper {
         flex-flow: column;
         row-gap: 20px;
     }
 
-    .kd-2-feature-cols-item{
+    .kd-2-feature-cols-item {
         height: 400px;
         padding: 20px;
         width: 100%;
     }
 
-    .kd-2-feature-cols-title{
+    .kd-2-feature-cols-title {
         font-size: 30px;
         line-height: 30px;
     }
 
-    .kd-sale-badge{
+    .kd-sale-badge {
         position: absolute;
         right: 0;
         top: -14px;
@@ -796,10 +814,11 @@ html body .swiper-button-next {
 
     /* =====================products carousel========== */
 
-    .kd-prods-car-title{
+    .kd-prods-car-title {
         font-size: 32px;
         line-height: 32px;
     }
+
     .kd-prods-car-swiper {
         padding: 0;
     }
@@ -807,50 +826,50 @@ html body .swiper-button-next {
     /* =====================products carousel========== */
 
     /* ===================instagram cta====================== */
-.kd-insta-cta-wrapper{
-    width: 100vw;
-    margin: auto;
-}
+    .kd-insta-cta-wrapper {
+        width: 100vw;
+        margin: auto;
+    }
 
-.kd-insta-main-img{
-    width: 100%;
-}
+    .kd-insta-main-img {
+        width: 100%;
+    }
 
-.kd-insta-content{
-    padding: 50px 30px;
-    background: #eaf1ef;
-    margin-left: 0;
-    border-radius: 15px;
-    width: 80%;
-    margin: auto;
-    margin-top: -100px;
-}
+    .kd-insta-content {
+        padding: 50px 30px;
+        background: #eaf1ef;
+        margin-left: 0;
+        border-radius: 15px;
+        width: 80%;
+        margin: auto;
+        margin-top: -100px;
+    }
 
 
-/* ===================instagram cta====================== */
+    /* ===================instagram cta====================== */
 
-/* =====================right side image cta============ */
-.kd-right-cta-wrapper{
-    width: 100vw;
-    margin: auto;
-}
+    /* =====================right side image cta============ */
+    .kd-right-cta-wrapper {
+        width: 100vw;
+        margin: auto;
+    }
 
-.kd-right-main-img{
-    width: 100%;
-}
+    .kd-right-main-img {
+        width: 100%;
+    }
 
-.kd-right-cta-content{
-    padding: 50px 30px;
-    background: #eaf1ef;
-    margin-right: 0px;
-    border-radius: 15px;
-    z-index: 2;
-    width: 80%;
-    margin: auto;
-    margin-bottom: -40px;
-}
+    .kd-right-cta-content {
+        padding: 50px 30px;
+        background: #eaf1ef;
+        margin-right: 0px;
+        border-radius: 15px;
+        z-index: 2;
+        width: 80%;
+        margin: auto;
+        margin-bottom: -40px;
+    }
 
-/* =====================right side image cta============ */
+    /* =====================right side image cta============ */
 
 
     /* =========================single product============== */
@@ -859,17 +878,17 @@ html body .swiper-button-next {
         max-width: 100%;
     }
 
-    .kd-products-wrapper .product{
+    .kd-products-wrapper .product {
         overflow: hidden !important;
     }
 
-    .kd-recomandations-wrapper{
+    .kd-recomandations-wrapper {
         margin-top: 30px;
         padding: 20px;
         background: #eaf1ef;
     }
 
-    .kd-related-prods-title{
+    .kd-related-prods-title {
         font-size: 30px !important;
     }
 
@@ -881,17 +900,18 @@ html body .swiper-button-next {
         width: 100%;
         padding: 40px 20px;
     }
-    
-    .kd-collection-product-grid-ul li{
+
+    .kd-collection-product-grid-ul li {
         padding: 12px;
     }
 
     /* ==============collections page===================== */
 
     /* ==============size guide=========================== */
-    .close-size-guide{
+    .close-size-guide {
         right: 10px;
         top: -60px;
     }
+
     /* ==============size guide=========================== */
 }
