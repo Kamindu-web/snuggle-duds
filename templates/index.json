@@ -18,7 +18,7 @@
             "title_sub_text": "Limited-Time Deal",
             "title": "15% OFF All Kids’ Tees",
             "description": "Grab your favorites now and save big while this offer lasts. ( use code SNUGGLE15 at checkout)",
-            "link": "shopify://collections/frontpage",
+            "link": "shopify://collections/on-sale",
             "btn_title": "SHOP NOW",
             "background_img": "shopify://shop_images/slide-1.jpg"
           }
@@ -29,7 +29,7 @@
             "title_sub_text": "Boys’ T-Shirts",
             "title": "Style for Every Adventure",
             "description": "Explore cool designs and comfy fits perfect for his daily escapades.",
-            "link": "shopify://collections/boys",
+            "link": "shopify://collections/on-sale",
             "btn_title": "SHOP NOW",
             "background_img": "shopify://shop_images/slide-3.png"
           }
@@ -40,7 +40,7 @@
             "title_sub_text": "Girls’ T-Shirts",
             "title": "Bright & Trendy",
             "description": "Spark her imagination with colorful prints and playful designs she’ll love.",
-            "link": "shopify://collections/girls",
+            "link": "shopify://collections/on-sale",
             "btn_title": "SHOP NOW",
             "background_img": "shopify://shop_images/slide-2.jpg"
           }
@@ -51,7 +51,7 @@
             "title_sub_text": "Free Shipping Over $100",
             "title": "Shop & Save Big",
             "description": "Stock up on kids’ favorites and enjoy free delivery on qualifying orders.",
-            "link": "#",
+            "link": "shopify://collections/on-sale",
             "btn_title": "SHOP NOW",
             "background_img": "shopify://shop_images/slide-3.jpg"
           }
