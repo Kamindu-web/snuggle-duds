@@ -61,7 +61,7 @@
                   </ul>
               </div>
               <div class="col-md-2 text-center d-none d-md-block">
-                  <a href="{{ routes.root_url }}"><img class="main-logo" src="{{section.settings.logo}}" /></a>
+                  <a href="{{ routes.root_url }}"><img class="main-logo" src="{{section.settings.logo | img_url: 'master'}}" /></a>
               </div>
               <div class="col-md-5 d-none d-md-block">
                   <ul class="d-flex justify-content-end column-gap-4">
