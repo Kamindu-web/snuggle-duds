@@ -82,39 +82,83 @@
       <div class="">
 
           <!-- Navigation -->
-          <nav class="navbar navbar-expand-lg">
-              <div class="container">
+<nav class="navbar navbar-expand-lg">
+  <div class="container">
+    <div class="d-md-none d-flex align-items-center justify-content-between w-100">
+      <!-- Logo -->
+      <a href="#"><img class="main-logo" src="{{ section.settings.logo | img_url: 'master' }}" /></a>
 
-                  <div class="d-md-none d-flex align-items-center justify-content-between w-100">
-                      <!-- logo -->
-                      <a href="#"><img class="main-logo" src="{{ section.settings.logo | img_url: 'master' }}" /></a>
+      <!-- Hamburger Toggle Button -->
+      <button class="navbar-toggler ml-auto" type="button" data-bs-toggle="collapse"
+          data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+          aria-label="Toggle navigation" id="kd-navbartoggler-btn">
+          <span class="navbar-toggler-icon"
+            style="background-image: url('{{ 'hamburger.svg' | asset_url }}') !important;"></span>
+      </button>
+    </div>
 
-                      <!-- Hamburger Toggle Button -->
-                      <button class="navbar-toggler ml-auto" type="button" data-bs-toggle="collapse"
-                          data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
-                          aria-label="Toggle navigation" id="kd-navbartoggler-btn">
+    <!-- Navigation Links -->
+    <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+      <ul class="navbar-nav gap-md-5">
+        {% if linklists.main-menu.links.size > 0 %}
+          {% for link in linklists.main-menu.links %}
+            {% if link.links.size > 0 %}
+              <!-- Parent item with dropdown -->
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="{{ link.url }}" id="navbarDropdown{{ forloop.index }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  {{ link.title }}
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown{{ forloop.index }}">
+                  {% for child in link.links %}
+                    <li>
+                      <a class="dropdown-item" href="{{ child.url }}">{{ child.title }}</a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              </li>
+            {% else %}
+              <!-- Regular top-level item -->
+              <li class="nav-item">
+                <a class="nav-link" href="{{ link.url }}">{{ link.title }}</a>
+              </li>
+            {% endif %}
+          {% endfor %}
+        {% else %}
+          <li>No Menu Items Found</li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>
 
-                          <span class="navbar-toggler-icon"
-                            style="background-image: url('{{ 'hamburger.svg' | asset_url }}') !important;">
-                      </span>
-                      </button>
-                  </div>
+<!-- Custom Script for Desktop Hover Behavior -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Only apply hover behavior on desktop
+    if(window.innerWidth > 991) {
+      var dropdowns = document.querySelectorAll('.navbar .dropdown');
+      dropdowns.forEach(function(dropdown) {
+        dropdown.addEventListener('mouseenter', function() {
+          var dropdownToggle = dropdown.querySelector('.dropdown-toggle');
+          var dropdownMenu = dropdown.querySelector('.dropdown-menu');
+          if(dropdownMenu) {
+            dropdownMenu.classList.add('show');
+            dropdownToggle.setAttribute('aria-expanded', 'true');
+          }
+        });
+        dropdown.addEventListener('mouseleave', function() {
+          var dropdownToggle = dropdown.querySelector('.dropdown-toggle');
+          var dropdownMenu = dropdown.querySelector('.dropdown-menu');
+          if(dropdownMenu) {
+            dropdownMenu.classList.remove('show');
+            dropdownToggle.setAttribute('aria-expanded', 'false');
+          }
+        });
+      });
+    }
+  });
+</script>
 
-
-                  <!-- Navigation Links -->
-                  <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-                      <ul class="navbar-nav gap-md-5">
-                          {% if linklists.main-menu.links.size > 0 %}
-                            {% for link in linklists.main-menu.links %}
-                              <li class="nav-item"><a class="nav-link active" href="{{ link.url }}">{{ link.title }}</a></li>
-                            {% endfor %}
-                          {% else %}
-                            <li>No Menu Items Found</li>
-                          {% endif %}
-                      </ul>
-                  </div>
-              </div>
-          </nav>
       </div>
   </div>
 
