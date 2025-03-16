@@ -134,11 +134,10 @@
 <!-- Custom Script for Desktop Hover Behavior -->
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    // Only apply hover behavior on desktop
     var dropdowns = document.querySelectorAll('.navbar .dropdown');
-    let ariaExp = 'true';
 
     if(window.innerWidth > 991) {
+      // Desktop: Hover behavior
       dropdowns.forEach(function(dropdown) {
         dropdown.addEventListener('mouseenter', function() {
           var dropdownToggle = dropdown.querySelector('.dropdown-toggle');
@@ -157,25 +156,26 @@
           }
         });
       });
-    }else{
+    } else {
+      // Mobile: Click behavior
       dropdowns.forEach(function(dropdown) {
-        dropdown.addEventListener('click', function() {
+        dropdown.addEventListener('click', function(e) {
+          // Prevent the click event from bubbling up if needed
+          e.stopPropagation();
           var dropdownToggle = dropdown.querySelector('.dropdown-toggle');
           var dropdownMenu = dropdown.querySelector('.dropdown-menu');
           if(dropdownMenu) {
             dropdownMenu.classList.toggle('show');
-            if(ariaExp == 'true'){
-              ariaExp = 'false';
-            }else{
-              ariaExp = 'true';
-            }
-            dropdownToggle.setAttribute('aria-expanded', ariaExp);
+            // Read current state and toggle it
+            var isExpanded = dropdownToggle.getAttribute('aria-expanded') === 'true';
+            dropdownToggle.setAttribute('aria-expanded', !isExpanded);
           }
         });
       });
     }
   });
 </script>
+
 
       </div>
   </div>
