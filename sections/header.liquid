@@ -81,7 +81,7 @@
   <div class="bottom-header">
       <div class="">
 
-          <!-- Navigation -->
+<!-- Navigation -->
 <nav class="navbar navbar-expand-lg">
   <div class="container">
     <div class="d-md-none d-flex align-items-center justify-content-between w-100">
@@ -131,18 +131,18 @@
   </div>
 </nav>
 
-<!-- Custom Script for Desktop Hover Behavior -->
+<!-- Custom Script for Hover and Click Behavior -->
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     var dropdowns = document.querySelectorAll('.navbar .dropdown');
 
-    if(window.innerWidth > 991) {
+    if (window.innerWidth > 991) {
       // Desktop: Hover behavior
       dropdowns.forEach(function(dropdown) {
         dropdown.addEventListener('mouseenter', function() {
           var dropdownToggle = dropdown.querySelector('.dropdown-toggle');
           var dropdownMenu = dropdown.querySelector('.dropdown-menu');
-          if(dropdownMenu) {
+          if (dropdownMenu) {
             dropdownMenu.classList.add('show');
             dropdownToggle.setAttribute('aria-expanded', 'true');
           }
@@ -150,31 +150,40 @@
         dropdown.addEventListener('mouseleave', function() {
           var dropdownToggle = dropdown.querySelector('.dropdown-toggle');
           var dropdownMenu = dropdown.querySelector('.dropdown-menu');
-          if(dropdownMenu) {
+          if (dropdownMenu) {
             dropdownMenu.classList.remove('show');
             dropdownToggle.setAttribute('aria-expanded', 'false');
           }
         });
       });
     } else {
-      // Mobile: Click behavior
+      // Mobile: Remove Bootstrap's default toggle and use custom click behavior
       dropdowns.forEach(function(dropdown) {
-        dropdown.addEventListener('click', function(e) {
-          // Prevent the click event from bubbling up if needed
+        var dropdownToggle = dropdown.querySelector('.dropdown-toggle');
+        // Remove Bootstrap's data attribute to avoid conflict
+        dropdownToggle.removeAttribute('data-bs-toggle');
+        dropdownToggle.addEventListener('click', function(e) {
+          // Prevent default link navigation and event bubbling
+          e.preventDefault();
           e.stopPropagation();
-          var dropdownToggle = dropdown.querySelector('.dropdown-toggle');
           var dropdownMenu = dropdown.querySelector('.dropdown-menu');
-          if(dropdownMenu) {
-            dropdownMenu.classList.toggle('show');
-            // Read current state and toggle it
-            var isExpanded = dropdownToggle.getAttribute('aria-expanded') === 'true';
-            dropdownToggle.setAttribute('aria-expanded', !isExpanded);
+          if (dropdownMenu) {
+            // Toggle the 'show' class based on current state
+            var isShown = dropdownMenu.classList.contains('show');
+            if (isShown) {
+              dropdownMenu.classList.remove('show');
+              dropdownToggle.setAttribute('aria-expanded', 'false');
+            } else {
+              dropdownMenu.classList.add('show');
+              dropdownToggle.setAttribute('aria-expanded', 'true');
+            }
           }
         });
       });
     }
   });
 </script>
+
 
 
       </div>
