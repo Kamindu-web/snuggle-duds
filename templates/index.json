@@ -12,6 +12,17 @@
     "slideshow_3rXGWD": {
       "type": "slideshow",
       "blocks": {
+        "main_slide_Y7tXgc": {
+          "type": "main_slide",
+          "settings": {
+            "title_sub_text": "Intorucing the",
+            "title": "Easter Collection",
+            "description": "",
+            "link": "shopify://collections/easter-collection",
+            "btn_title": "Shop Now",
+            "background_img": "shopify://shop_images/easter-banner.jpg"
+          }
+        },
         "main_slide_QnizHy": {
           "type": "main_slide",
           "settings": {
@@ -58,6 +69,7 @@
         }
       },
       "block_order": [
+        "main_slide_Y7tXgc",
         "main_slide_QnizHy",
         "main_slide_iqAb4k",
         "main_slide_YT9q6M",
