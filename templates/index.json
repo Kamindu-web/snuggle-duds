@@ -55,13 +55,25 @@
             "btn_title": "SHOP NOW",
             "background_img": "shopify://shop_images/slide-3.jpg"
           }
+        },
+        "main_slide_Y7tXgc": {
+          "type": "main_slide",
+          "settings": {
+            "title_sub_text": "Intorucing the",
+            "title": "Easter Collection",
+            "description": "Celebrate spring with our Easter collection of vibrant, handcrafted pieces that capture the festive spirit and add an exclusive touch to your style.",
+            "link": "shopify://collections/easter-collection",
+            "btn_title": "Shop Now",
+            "background_img": "shopify://shop_images/easter-banner.jpg"
+          }
         }
       },
       "block_order": [
         "main_slide_QnizHy",
         "main_slide_iqAb4k",
         "main_slide_YT9q6M",
-        "main_slide_XXnpaG"
+        "main_slide_XXnpaG",
+        "main_slide_Y7tXgc"
       ],
       "settings": {}
     },
