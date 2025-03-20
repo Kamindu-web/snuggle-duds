@@ -1,6 +1,6 @@
 <div class="custom-form-wrapper">
-    <h2 class="form-title">{{ settings.form_title }}</h2>
-    <p class="form-description">{{ settings.form_description }}</p>
+    <h2 class="form-title">{{ section.settings.form_title }}</h2>
+    <p class="form-description">{{ section.settings.form_description }}</p>
     <form method="post" action="/contact" id="contact_form" class="kd-custom-contact-form">
       <!-- These hidden fields tell Shopify this is a contact form -->
       <input type="hidden" name="form_type" value="contact">
