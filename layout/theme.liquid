@@ -377,6 +377,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" defer="defer"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="{{ 'kd-custom.js' | asset_url }}"></script>
+    {% if template contains 'product' and collection.handle == 'customized-designs' %}
+      {{ 'custom-design-upload.js' | asset_url | script_tag }}
+    {% endif %}
+    
 
     {%- if settings.predictive_search_enabled -%}
       <script src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
