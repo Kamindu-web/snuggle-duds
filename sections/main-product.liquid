@@ -474,15 +474,14 @@
 
               {%- when 'variant_picker' -%}
                 {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
-              <div class="kd-product-col">  {{ product.collections }} </div>
-
-                {% if product.collections contains 'customized-designs' %}
+                {% if product.tags contains 'customized-designs' %}
                   <div class="product__info-container product__upload">
                     <label for="custom_image_upload" class="form__label">Upload Your Image</label>
                     <input type="file" id="custom_image_upload" name="properties[Uploaded Image]" accept="image/*">
                     <input type="hidden" id="image_hosted_url" name="properties[Uploaded Image URL]">
                   </div>
                 {% endif %}
+                
                 
               {%- when 'buy_buttons' -%}
                 {%- render 'buy-buttons',
