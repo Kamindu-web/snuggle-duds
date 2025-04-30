@@ -60,9 +60,9 @@
           "type": "main_slide",
           "settings": {
             "title_sub_text": "Intorucing the",
-            "title": "Winter Collection",
+            "title": "Easter Collection",
             "description": "Celebrate spring with our Easter collection of vibrant, handcrafted pieces that capture the festive spirit and add an exclusive touch to your style.",
-            "link": "shopify://collections/winter-collection-2",
+            "link": "shopify://collections/easter-collection",
             "btn_title": "Shop Now",
             "background_img": "shopify://shop_images/easter-banner.jpg"
           }
