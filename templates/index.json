@@ -60,11 +60,11 @@
           "type": "main_slide",
           "settings": {
             "title_sub_text": "Intorucing the",
-            "title": "Easter Collection",
-            "description": "Celebrate spring with our Easter collection of vibrant, handcrafted pieces that capture the festive spirit and add an exclusive touch to your style.",
-            "link": "shopify://collections/easter-collection",
+            "title": "Mother's Day Collection",
+            "description": "Made for the Moments That Matter\n\nCelebrate motherhood in style with cozy sweatshirts that speak from the heart. Each design blends warmth, comfort, and a touch of personality—perfect for the moms who do it all with love and grace. Whether it’s strength, coffee, or a well-deserved crown, these pieces are more than just clothing—they're little reminders of how powerful, caring, and truly one-of-a-kind she is.",
+            "link": "shopify://collections/mothers-day-collection",
             "btn_title": "Shop Now",
-            "background_img": "shopify://shop_images/easter-banner.jpg"
+            "background_img": "shopify://shop_images/Mothersday_web_banner.jpg"
           }
         }
       },
