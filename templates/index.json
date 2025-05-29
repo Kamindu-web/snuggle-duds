@@ -58,6 +58,7 @@
         },
         "main_slide_Y7tXgc": {
           "type": "main_slide",
+          "disabled": true,
           "settings": {
             "title_sub_text": "Intorucing the",
             "title": "Mother's Day Collection",
