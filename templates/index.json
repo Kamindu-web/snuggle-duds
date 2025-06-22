@@ -69,17 +69,6 @@
             "background_img": "shopify://shop_images/Mothersday_web_banner.jpg"
           }
         },
-        "main_slide_DMT4mi": {
-          "type": "main_slide",
-          "settings": {
-            "title_sub_text": "25% Off",
-            "title": "EOFY SALE",
-            "description": "",
-            "link": "",
-            "btn_title": "",
-            "background_img": "shopify://shop_images/Have_an_Ice_day.jpg"
-          }
-        },
         "main_slide_Fh8KiK": {
           "type": "main_slide",
           "settings": {
@@ -98,7 +87,6 @@
         "main_slide_YT9q6M",
         "main_slide_XXnpaG",
         "main_slide_Y7tXgc",
-        "main_slide_DMT4mi",
         "main_slide_Fh8KiK"
       ],
       "settings": {}
