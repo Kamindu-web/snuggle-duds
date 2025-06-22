@@ -35,6 +35,17 @@
             "background_img": "shopify://shop_images/Boys_Collection.jpg"
           }
         },
+        "main_slide_Fh8KiK": {
+          "type": "main_slide",
+          "settings": {
+            "title_sub_text": "",
+            "title": "",
+            "description": "",
+            "link": "",
+            "btn_title": "",
+            "background_img": "shopify://shop_images/Discount_25.jpg"
+          }
+        },
         "main_slide_YT9q6M": {
           "type": "main_slide",
           "settings": {
@@ -68,26 +79,15 @@
             "btn_title": "Shop Now",
             "background_img": "shopify://shop_images/Mothersday_web_banner.jpg"
           }
-        },
-        "main_slide_Fh8KiK": {
-          "type": "main_slide",
-          "settings": {
-            "title_sub_text": "",
-            "title": "",
-            "description": "",
-            "link": "",
-            "btn_title": "",
-            "background_img": "shopify://shop_images/Discount_25.jpg"
-          }
         }
       },
       "block_order": [
         "main_slide_QnizHy",
         "main_slide_iqAb4k",
+        "main_slide_Fh8KiK",
         "main_slide_YT9q6M",
         "main_slide_XXnpaG",
-        "main_slide_Y7tXgc",
-        "main_slide_Fh8KiK"
+        "main_slide_Y7tXgc"
       ],
       "settings": {}
     },
