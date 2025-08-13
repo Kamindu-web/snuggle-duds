@@ -9,88 +9,6 @@
  */
 {
   "sections": {
-    "slideshow_3rXGWD": {
-      "type": "slideshow",
-      "blocks": {
-        "main_slide_QnizHy": {
-          "type": "main_slide",
-          "disabled": true,
-          "settings": {
-            "title_sub_text": "Limited-Time Deal",
-            "title": "15% OFF All Kids’ Tees",
-            "description": "Grab your favorites now and save big while this offer lasts. ( use code SNUGGLE15 at checkout)",
-            "link": "shopify://collections/on-sale",
-            "btn_title": "SHOP NOW",
-            "background_img": "shopify://shop_images/slide-1.jpg"
-          }
-        },
-        "main_slide_iqAb4k": {
-          "type": "main_slide",
-          "settings": {
-            "title_sub_text": "Boys’ T-Shirts",
-            "title": "Style for Every Adventure",
-            "description": "Explore cool designs and comfy fits perfect for his daily escapades.",
-            "link": "shopify://collections/on-sale",
-            "btn_title": "SHOP NOW",
-            "background_img": "shopify://shop_images/Boys_Collection.jpg"
-          }
-        },
-        "main_slide_Fh8KiK": {
-          "type": "main_slide",
-          "settings": {
-            "title_sub_text": "",
-            "title": "",
-            "description": "",
-            "link": "",
-            "btn_title": "",
-            "background_img": "shopify://shop_images/Discount_25.jpg"
-          }
-        },
-        "main_slide_YT9q6M": {
-          "type": "main_slide",
-          "settings": {
-            "title_sub_text": "Girls’ T-Shirts",
-            "title": "Bright & Trendy",
-            "description": "Spark her imagination with colorful prints and playful designs she’ll love.",
-            "link": "shopify://collections/on-sale",
-            "btn_title": "SHOP NOW",
-            "background_img": "shopify://shop_images/slide-2_d9530573-ecfe-4dc7-aaf0-9f5a98cf14c9.jpg"
-          }
-        },
-        "main_slide_XXnpaG": {
-          "type": "main_slide",
-          "settings": {
-            "title_sub_text": "Free Shipping Over $100",
-            "title": "Shop & Save Big",
-            "description": "Stock up on kids’ favorites and enjoy free delivery on qualifying orders.",
-            "link": "shopify://collections/on-sale",
-            "btn_title": "SHOP NOW",
-            "background_img": "shopify://shop_images/slide-3.jpg"
-          }
-        },
-        "main_slide_Y7tXgc": {
-          "type": "main_slide",
-          "disabled": true,
-          "settings": {
-            "title_sub_text": "Intorucing the",
-            "title": "Mother's Day Collection",
-            "description": "Celebrate motherhood in style with cozy sweatshirts that speak from the heart.",
-            "link": "shopify://collections/mothers-day-collection",
-            "btn_title": "Shop Now",
-            "background_img": "shopify://shop_images/Mothersday_web_banner.jpg"
-          }
-        }
-      },
-      "block_order": [
-        "main_slide_QnizHy",
-        "main_slide_iqAb4k",
-        "main_slide_Fh8KiK",
-        "main_slide_YT9q6M",
-        "main_slide_XXnpaG",
-        "main_slide_Y7tXgc"
-      ],
-      "settings": {}
-    },
     "collecion_carousel_zXpBja": {
       "type": "collecion-carousel",
       "settings": {}
@@ -139,7 +57,6 @@
     }
   },
   "order": [
-    "slideshow_3rXGWD",
     "collecion_carousel_zXpBja",
     "featured_collection_2_columns_wemJdj",
     "kd_products_carousel_aKRQfV",
