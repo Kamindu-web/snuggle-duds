@@ -1,6 +1,737 @@
+{% doc %}
+  @prompt
+    customized t shirt mockups
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-tshirt-mockup-{{ ai_gen_id }} {
+    padding: {{ block.settings.section_padding }}px 20px;
+    background-color: {{ block.settings.background_color }};
+  }
+
+  .ai-tshirt-mockup__container-{{ ai_gen_id }} {
+    max-width: {{ block.settings.max_width }}px;
+    margin: 0 auto;
+  }
+
+  .ai-tshirt-mockup__heading-{{ ai_gen_id }} {
+    text-align: {{ block.settings.text_alignment }};
+    font-size: {{ block.settings.heading_size }}px;
+    color: {{ block.settings.text_color }};
+    margin: 0 0 {{ block.settings.spacing }}px;
+  }
+
+  .ai-tshirt-mockup__description-{{ ai_gen_id }} {
+    text-align: {{ block.settings.text_alignment }};
+    color: {{ block.settings.text_color }};
+    margin: 0 0 {{ block.settings.spacing }}px;
+    opacity: 0.8;
+  }
+
+  .ai-tshirt-mockup__grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat({{ block.settings.columns_desktop }}, 1fr);
+    gap: {{ block.settings.grid_gap }}px;
+    margin-top: {{ block.settings.spacing }}px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-tshirt-mockup__grid-{{ ai_gen_id }} {
+      grid-template-columns: repeat({{ block.settings.columns_mobile }}, 1fr);
+    }
+  }
+
+  .ai-tshirt-mockup__item-{{ ai_gen_id }} {
+    position: relative;
+    background-color: {{ block.settings.card_background }};
+    border-radius: {{ block.settings.card_radius }}px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, {{ block.settings.shadow_opacity | divided_by: 100.0 }});
+  }
+
+  .ai-tshirt-mockup__image-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    padding-top: {{ block.settings.image_ratio }}%;
+    overflow: hidden;
+  }
+
+  .ai-tshirt-mockup__image-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ai-tshirt-mockup__placeholder-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-tshirt-mockup__placeholder-{{ ai_gen_id }} svg {
+    width: 60%;
+    height: 60%;
+    opacity: 0.3;
+  }
+
+  .ai-tshirt-mockup__badge-{{ ai_gen_id }} {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background-color: {{ block.settings.badge_background }};
+    color: {{ block.settings.badge_text_color }};
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .ai-tshirt-mockup__content-{{ ai_gen_id }} {
+    padding: {{ block.settings.card_padding }}px;
+    text-align: {{ block.settings.card_text_alignment }};
+  }
+
+  .ai-tshirt-mockup__title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.title_size }}px;
+    color: {{ block.settings.text_color }};
+    margin: 0 0 8px;
+    font-weight: 600;
+  }
+
+  .ai-tshirt-mockup__subtitle-{{ ai_gen_id }} {
+    font-size: {{ block.settings.subtitle_size }}px;
+    color: {{ block.settings.text_color }};
+    margin: 0 0 12px;
+    opacity: 0.7;
+  }
+
+  .ai-tshirt-mockup__price-{{ ai_gen_id }} {
+    font-size: {{ block.settings.price_size }}px;
+    color: {{ block.settings.text_color }};
+    font-weight: 700;
+    margin: 0 0 16px;
+  }
+
+  .ai-tshirt-mockup__button-{{ ai_gen_id }} {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: {{ block.settings.button_background }};
+    color: {{ block.settings.button_text_color }};
+    text-decoration: none;
+    border-radius: {{ block.settings.button_radius }}px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+  }
+
+  .ai-tshirt-mockup__button-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_background }};
+    color: {{ block.settings.button_hover_text_color }};
+  }
+
+  .ai-tshirt-mockup__empty-state-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 8px 16px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 4px;
+    font-size: 12px;
+    color: #666;
+    text-align: center;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+{% endstyle %}
+
+<div class="ai-tshirt-mockup-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-tshirt-mockup__container-{{ ai_gen_id }}">
+    {% if block.settings.heading != blank %}
+      <h2 class="ai-tshirt-mockup__heading-{{ ai_gen_id }}">{{ block.settings.heading }}</h2>
+    {% endif %}
+
+    {% if block.settings.description != blank %}
+      <div class="ai-tshirt-mockup__description-{{ ai_gen_id }}">{{ block.settings.description }}</div>
+    {% endif %}
+
+    <div class="ai-tshirt-mockup__grid-{{ ai_gen_id }}">
+      {% for i in (1..4) %}
+        {% liquid
+          assign image_key = 'mockup_image_' | append: i
+          assign title_key = 'mockup_title_' | append: i
+          assign subtitle_key = 'mockup_subtitle_' | append: i
+          assign price_key = 'mockup_price_' | append: i
+          assign badge_key = 'mockup_badge_' | append: i
+          assign button_text_key = 'mockup_button_text_' | append: i
+          assign button_link_key = 'mockup_button_link_' | append: i
+          assign show_mockup_key = 'show_mockup_' | append: i
+
+          assign mockup_image = block.settings[image_key]
+          assign mockup_title = block.settings[title_key]
+          assign mockup_subtitle = block.settings[subtitle_key]
+          assign mockup_price = block.settings[price_key]
+          assign mockup_badge = block.settings[badge_key]
+          assign mockup_button_text = block.settings[button_text_key]
+          assign mockup_button_link = block.settings[button_link_key]
+          assign show_mockup = block.settings[show_mockup_key]
+        %}
+
+        {% if show_mockup %}
+          <div class="ai-tshirt-mockup__item-{{ ai_gen_id }}">
+            <div class="ai-tshirt-mockup__image-wrapper-{{ ai_gen_id }}">
+              {% if mockup_image %}
+                <img
+                  src="{{ mockup_image | image_url: width: 800 }}"
+                  alt="{{ mockup_title | escape }}"
+                  loading="lazy"
+                  width="{{ mockup_image.width }}"
+                  height="{{ mockup_image.height }}"
+                  class="ai-tshirt-mockup__image-{{ ai_gen_id }}"
+                >
+              {% else %}
+                <div class="ai-tshirt-mockup__placeholder-{{ ai_gen_id }}">
+                  {{ 'product-apparel-1' | placeholder_svg_tag }}
+                  <div class="ai-tshirt-mockup__empty-state-{{ ai_gen_id }}">
+                    Add mockup image {{ i }}
+                  </div>
+                </div>
+              {% endif %}
+
+              {% if mockup_badge != blank %}
+                <div class="ai-tshirt-mockup__badge-{{ ai_gen_id }}">{{ mockup_badge }}</div>
+              {% endif %}
+            </div>
+
+            <div class="ai-tshirt-mockup__content-{{ ai_gen_id }}">
+              {% if mockup_title != blank %}
+                <h3 class="ai-tshirt-mockup__title-{{ ai_gen_id }}">{{ mockup_title }}</h3>
+              {% endif %}
+
+              {% if mockup_subtitle != blank %}
+                <p class="ai-tshirt-mockup__subtitle-{{ ai_gen_id }}">{{ mockup_subtitle }}</p>
+              {% endif %}
+
+              {% if mockup_price != blank %}
+                <div class="ai-tshirt-mockup__price-{{ ai_gen_id }}">{{ mockup_price }}</div>
+              {% endif %}
+
+              {% if mockup_button_text != blank and mockup_button_link != blank %}
+                <a href="{{ mockup_button_link }}" class="ai-tshirt-mockup__button-{{ ai_gen_id }}">
+                  {{ mockup_button_text }}
+                </a>
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "T-shirt mockups",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section"
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "<p>Customized designs</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Explore our collection of custom t-shirt designs</p>"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "Section padding",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "min": 600,
+      "max": 1600,
+      "step": 100,
+      "unit": "px",
+      "label": "Maximum width",
+      "default": 1200
+    },
+    {
+      "type": "range",
+      "id": "spacing",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "label": "Spacing",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "label": "Columns on desktop",
+      "default": 4
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "label": "Columns on mobile",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "min": 10,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Grid gap",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "image_ratio",
+      "min": 80,
+      "max": 150,
+      "step": 5,
+      "unit": "%",
+      "label": "Image aspect ratio",
+      "default": 125
+    },
+    {
+      "type": "header",
+      "content": "Card style"
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Card border radius",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "card_padding",
+      "min": 10,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "label": "Card padding",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "shadow_opacity",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "%",
+      "label": "Shadow opacity",
+      "default": 10
+    },
+    {
+      "type": "select",
+      "id": "card_text_alignment",
+      "label": "Card text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 20,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading size",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 12,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Title size",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Subtitle size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "price_size",
+      "min": 12,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Price size",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "badge_background",
+      "label": "Badge background",
+      "default": "#334FB4"
+    },
+    {
+      "type": "color",
+      "id": "badge_text_color",
+      "label": "Badge text",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Background",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Text",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_background",
+      "label": "Hover background",
+      "default": "#334FB4"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_text_color",
+      "label": "Hover text",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "button_radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "Mockup 1"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_mockup_1",
+      "label": "Show mockup 1",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "mockup_image_1",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "mockup_title_1",
+      "label": "Title",
+      "default": "Summer Set - Blue"
+    },
+    {
+      "type": "text",
+      "id": "mockup_subtitle_1",
+      "label": "Subtitle",
+      "default": "Ages 2-8"
+    },
+    {
+      "type": "text",
+      "id": "mockup_price_1",
+      "label": "Price",
+      "default": "$55.00"
+    },
+    {
+      "type": "text",
+      "id": "mockup_badge_1",
+      "label": "Badge"
+    },
+    {
+      "type": "text",
+      "id": "mockup_button_text_1",
+      "label": "Button text",
+      "default": "Shop now"
+    },
+    {
+      "type": "url",
+      "id": "mockup_button_link_1",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Mockup 2"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_mockup_2",
+      "label": "Show mockup 2",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "mockup_image_2",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "mockup_title_2",
+      "label": "Title",
+      "default": "Summer Set - Pink"
+    },
+    {
+      "type": "text",
+      "id": "mockup_subtitle_2",
+      "label": "Subtitle",
+      "default": "Ages 2-8"
+    },
+    {
+      "type": "text",
+      "id": "mockup_price_2",
+      "label": "Price",
+      "default": "$55.00"
+    },
+    {
+      "type": "text",
+      "id": "mockup_badge_2",
+      "label": "Badge"
+    },
+    {
+      "type": "text",
+      "id": "mockup_button_text_2",
+      "label": "Button text",
+      "default": "Shop now"
+    },
+    {
+      "type": "url",
+      "id": "mockup_button_link_2",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Mockup 3"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_mockup_3",
+      "label": "Show mockup 3",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "mockup_image_3",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "mockup_title_3",
+      "label": "Title",
+      "default": "Summer Set - Yellow"
+    },
+    {
+      "type": "text",
+      "id": "mockup_subtitle_3",
+      "label": "Subtitle",
+      "default": "Ages 2-8"
+    },
+    {
+      "type": "text",
+      "id": "mockup_price_3",
+      "label": "Price",
+      "default": "$55.00"
+    },
+    {
+      "type": "text",
+      "id": "mockup_badge_3",
+      "label": "Badge"
+    },
+    {
+      "type": "text",
+      "id": "mockup_button_text_3",
+      "label": "Button text",
+      "default": "Shop now"
+    },
+    {
+      "type": "url",
+      "id": "mockup_button_link_3",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Mockup 4"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_mockup_4",
+      "label": "Show mockup 4",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "mockup_image_4",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "mockup_title_4",
+      "label": "Title",
+      "default": "Summer Set - Green"
+    },
+    {
+      "type": "text",
+      "id": "mockup_subtitle_4",
+      "label": "Subtitle",
+      "default": "Ages 2-8"
+    },
+    {
+      "type": "text",
+      "id": "mockup_price_4",
+      "label": "Price",
+      "default": "$55.00"
+    },
+    {
+      "type": "text",
+      "id": "mockup_badge_4",
+      "label": "Badge"
+    },
+    {
+      "type": "text",
+      "id": "mockup_button_text_4",
+      "label": "Button text",
+      "default": "Shop now"
+    },
+    {
+      "type": "url",
+      "id": "mockup_button_link_4",
+      "label": "Button link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "T-shirt mockups"
+    }
+  ]
+}
 {% endschema %}
