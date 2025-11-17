@@ -1,6 +1,1473 @@
+{% doc %}
+  @prompt
+    T-shirt Customization:
+    
+    Select T-shirt color from a palette.
+    
+    Choose between male, female, kids, and adult T-shirt templates.
+    
+    Real-time preview of the uploaded design on the T-shirt mockup., need real t shirt design for live preview, i can upload t shirt samples, need to ad every section for more sample colors. and  we have our own design for print . so we need to give our customers to select and choose the designs., remove male,  female and ad kids and adult for sample color t shirt we have, need to ad for colors real product sample , add send button to get live preview and custom design with quantity with sizes to mail our email, add send button to get live preview and custom design with quantity with sizes to mail our email, customer must be can change design size and position 
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-tshirt-customizer-{{ ai_gen_id }} {
+    display: flex;
+    gap: 40px;
+    padding: 40px;
+    background-color: {{ block.settings.background_color }};
+    border-radius: {{ block.settings.border_radius }}px;
+    flex-wrap: wrap;
+  }
+
+  .ai-tshirt-customizer__controls-{{ ai_gen_id }} {
+    flex: 1;
+    min-width: 320px;
+    max-height: 700px;
+    overflow-y: auto;
+    padding-right: 10px;
+  }
+
+  .ai-tshirt-customizer__controls-{{ ai_gen_id }}::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .ai-tshirt-customizer__controls-{{ ai_gen_id }}::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+  }
+
+  .ai-tshirt-customizer__controls-{{ ai_gen_id }}::-webkit-scrollbar-thumb {
+    background: {{ block.settings.accent_color }};
+    border-radius: 10px;
+  }
+
+  .ai-tshirt-customizer__preview-{{ ai_gen_id }} {
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .ai-tshirt-customizer__section-{{ ai_gen_id }} {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid {{ block.settings.border_color }};
+  }
+
+  .ai-tshirt-customizer__section-{{ ai_gen_id }}:last-child {
+    border-bottom: none;
+  }
+
+  .ai-tshirt-customizer__label-{{ ai_gen_id }} {
+    display: block;
+    font-size: {{ block.settings.label_size }}px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: {{ block.settings.text_color }};
+  }
+
+  .ai-tshirt-customizer__color-palette-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+    gap: 10px;
+  }
+
+  .ai-tshirt-customizer__color-option-{{ ai_gen_id }} {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .ai-tshirt-customizer__color-option-{{ ai_gen_id }}:hover {
+    transform: scale(1.1);
+  }
+
+  .ai-tshirt-customizer__color-option-{{ ai_gen_id }}.active {
+    border-color: {{ block.settings.accent_color }};
+    box-shadow: 0 0 0 2px {{ block.settings.background_color }}, 0 0 0 4px {{ block.settings.accent_color }};
+  }
+
+  .ai-tshirt-customizer__template-options-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .ai-tshirt-customizer__template-btn-{{ ai_gen_id }} {
+    padding: 12px 20px;
+    background-color: {{ block.settings.button_bg_color }};
+    color: {{ block.settings.button_text_color }};
+    border: 2px solid {{ block.settings.button_border_color }};
+    border-radius: {{ block.settings.button_radius }}px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+
+  .ai-tshirt-customizer__template-btn-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_bg }};
+    color: {{ block.settings.button_hover_text }};
+  }
+
+  .ai-tshirt-customizer__template-btn-{{ ai_gen_id }}.active {
+    background-color: {{ block.settings.accent_color }};
+    color: #ffffff;
+    border-color: {{ block.settings.accent_color }};
+  }
+
+  .ai-tshirt-customizer__design-gallery-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+
+  .ai-tshirt-customizer__design-item-{{ ai_gen_id }} {
+    aspect-ratio: 1;
+    border: 2px solid {{ block.settings.border_color }};
+    border-radius: {{ block.settings.button_radius }}px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-tshirt-customizer__design-item-{{ ai_gen_id }}:hover {
+    border-color: {{ block.settings.accent_color }};
+    transform: scale(1.05);
+  }
+
+  .ai-tshirt-customizer__design-item-{{ ai_gen_id }}.active {
+    border-color: {{ block.settings.accent_color }};
+    border-width: 3px;
+    box-shadow: 0 0 0 2px {{ block.settings.background_color }}, 0 0 0 4px {{ block.settings.accent_color }};
+  }
+
+  .ai-tshirt-customizer__design-item-{{ ai_gen_id }} img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ai-tshirt-customizer__upload-area-{{ ai_gen_id }} {
+    border: 2px dashed {{ block.settings.border_color }};
+    border-radius: {{ block.settings.border_radius }}px;
+    padding: 30px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .ai-tshirt-customizer__upload-area-{{ ai_gen_id }}:hover {
+    border-color: {{ block.settings.accent_color }};
+    background-color: rgba(0, 0, 0, 0.02);
+  }
+
+  .ai-tshirt-customizer__upload-icon-{{ ai_gen_id }} {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 12px;
+    color: {{ block.settings.accent_color }};
+  }
+
+  .ai-tshirt-customizer__upload-text-{{ ai_gen_id }} {
+    color: {{ block.settings.text_color }};
+    font-size: 14px;
+  }
+
+  .ai-tshirt-customizer__file-input-{{ ai_gen_id }} {
+    display: none;
+  }
+
+  .ai-tshirt-customizer__slider-group-{{ ai_gen_id }} {
+    margin-bottom: 20px;
+  }
+
+  .ai-tshirt-customizer__slider-label-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: {{ block.settings.text_color }};
+  }
+
+  .ai-tshirt-customizer__slider-value-{{ ai_gen_id }} {
+    font-weight: 600;
+    color: {{ block.settings.accent_color }};
+  }
+
+  .ai-tshirt-customizer__slider-{{ ai_gen_id }} {
+    width: 100%;
+    height: 6px;
+    border-radius: 3px;
+    background: {{ block.settings.border_color }};
+    outline: none;
+    -webkit-appearance: none;
+  }
+
+  .ai-tshirt-customizer__slider-{{ ai_gen_id }}::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: {{ block.settings.accent_color }};
+    cursor: pointer;
+  }
+
+  .ai-tshirt-customizer__slider-{{ ai_gen_id }}::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: {{ block.settings.accent_color }};
+    cursor: pointer;
+    border: none;
+  }
+
+  .ai-tshirt-customizer__size-grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+    gap: 10px;
+  }
+
+  .ai-tshirt-customizer__size-btn-{{ ai_gen_id }} {
+    padding: 10px;
+    background-color: {{ block.settings.button_bg_color }};
+    color: {{ block.settings.button_text_color }};
+    border: 2px solid {{ block.settings.button_border_color }};
+    border-radius: {{ block.settings.button_radius }}px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    text-align: center;
+  }
+
+  .ai-tshirt-customizer__size-btn-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_bg }};
+  }
+
+  .ai-tshirt-customizer__size-btn-{{ ai_gen_id }}.active {
+    background-color: {{ block.settings.accent_color }};
+    color: #ffffff;
+    border-color: {{ block.settings.accent_color }};
+  }
+
+  .ai-tshirt-customizer__input-group-{{ ai_gen_id }} {
+    margin-bottom: 16px;
+  }
+
+  .ai-tshirt-customizer__input-{{ ai_gen_id }} {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid {{ block.settings.button_border_color }};
+    border-radius: {{ block.settings.button_radius }}px;
+    font-size: 14px;
+    color: {{ block.settings.text_color }};
+    background-color: #ffffff;
+  }
+
+  .ai-tshirt-customizer__input-{{ ai_gen_id }}:focus {
+    outline: none;
+    border-color: {{ block.settings.accent_color }};
+  }
+
+  .ai-tshirt-customizer__textarea-{{ ai_gen_id }} {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid {{ block.settings.button_border_color }};
+    border-radius: {{ block.settings.button_radius }}px;
+    font-size: 14px;
+    color: {{ block.settings.text_color }};
+    background-color: #ffffff;
+    min-height: 80px;
+    resize: vertical;
+    font-family: inherit;
+  }
+
+  .ai-tshirt-customizer__textarea-{{ ai_gen_id }}:focus {
+    outline: none;
+    border-color: {{ block.settings.accent_color }};
+  }
+
+  .ai-tshirt-customizer__submit-btn-{{ ai_gen_id }} {
+    width: 100%;
+    padding: 16px 24px;
+    background-color: {{ block.settings.accent_color }};
+    color: #ffffff;
+    border: none;
+    border-radius: {{ block.settings.button_radius }}px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+
+  .ai-tshirt-customizer__submit-btn-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_bg }};
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .ai-tshirt-customizer__submit-btn-{{ ai_gen_id }}:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .ai-tshirt-customizer__message-{{ ai_gen_id }} {
+    padding: 12px 16px;
+    border-radius: {{ block.settings.button_radius }}px;
+    margin-top: 16px;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .ai-tshirt-customizer__message-{{ ai_gen_id }}.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+  }
+
+  .ai-tshirt-customizer__message-{{ ai_gen_id }}.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+  }
+
+  .ai-tshirt-customizer__preview-container-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-tshirt-customizer__tshirt-base-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.1));
+  }
+
+  .ai-tshirt-customizer__tshirt-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .ai-tshirt-customizer__placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 500px;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999;
+    font-size: 14px;
+    text-align: center;
+    padding: 20px;
+  }
+
+  .ai-tshirt-customizer__design-overlay-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    pointer-events: none;
+  }
+
+  .ai-tshirt-customizer__design-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    transition: all 0.1s ease;
+  }
+
+  .ai-tshirt-customizer__design-image-{{ ai_gen_id }} {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+    display: block;
+  }
+
+  .ai-tshirt-customizer__preview-label-{{ ai_gen_id }} {
+    margin-top: 20px;
+    font-size: 16px;
+    font-weight: 600;
+    color: {{ block.settings.text_color }};
+  }
+
+  @media screen and (max-width: 768px) {
+    .ai-tshirt-customizer-{{ ai_gen_id }} {
+      flex-direction: column;
+      padding: 20px;
+    }
+
+    .ai-tshirt-customizer__template-options-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+    }
+
+    .ai-tshirt-customizer__design-gallery-{{ ai_gen_id }} {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+{% endstyle %}
+
+<tshirt-customizer-{{ ai_gen_id }} class="ai-tshirt-customizer-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-tshirt-customizer__controls-{{ ai_gen_id }}">
+    <div class="ai-tshirt-customizer__section-{{ ai_gen_id }}">
+      <label class="ai-tshirt-customizer__label-{{ ai_gen_id }}">{{ block.settings.template_label }}</label>
+      <div class="ai-tshirt-customizer__template-options-{{ ai_gen_id }}">
+        <button
+          class="ai-tshirt-customizer__template-btn-{{ ai_gen_id }} active"
+          data-template="kids"
+          type="button"
+        >
+          Kids
+        </button>
+        <button
+          class="ai-tshirt-customizer__template-btn-{{ ai_gen_id }}"
+          data-template="adult"
+          type="button"
+        >
+          Adult
+        </button>
+      </div>
+    </div>
+
+    <div class="ai-tshirt-customizer__section-{{ ai_gen_id }}">
+      <label class="ai-tshirt-customizer__label-{{ ai_gen_id }}">{{ block.settings.color_label }}</label>
+      <div class="ai-tshirt-customizer__color-palette-{{ ai_gen_id }}">
+        {% for i in (1..12) %}
+          {% assign color_key = 'color_' | append: i %}
+          {% assign color_value = block.settings[color_key] %}
+          {% assign kids_image_key = 'color_' | append: i | append: '_kids_image' %}
+          {% assign adult_image_key = 'color_' | append: i | append: '_adult_image' %}
+          {% assign kids_image = block.settings[kids_image_key] %}
+          {% assign adult_image = block.settings[adult_image_key] %}
+          
+          {% if color_value != blank %}
+            <button
+              class="ai-tshirt-customizer__color-option-{{ ai_gen_id }} {% if i == 1 %}active{% endif %}"
+              data-color="{{ color_value }}"
+              data-color-name="Color {{ i }}"
+              data-kids-image="{% if kids_image %}{{ kids_image | image_url: width: 1000 }}{% endif %}"
+              data-adult-image="{% if adult_image %}{{ adult_image | image_url: width: 1000 }}{% endif %}"
+              style="background-color: {{ color_value }};"
+              aria-label="Select color {{ i }}"
+              type="button"
+            ></button>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="ai-tshirt-customizer__section-{{ ai_gen_id }}">
+      <label class="ai-tshirt-customizer__label-{{ ai_gen_id }}">{{ block.settings.design_label }}</label>
+      <div class="ai-tshirt-customizer__design-gallery-{{ ai_gen_id }}">
+        {% for i in (1..12) %}
+          {% assign design_key = 'design_' | append: i %}
+          {% assign design_value = block.settings[design_key] %}
+          {% if design_value != blank %}
+            <div
+              class="ai-tshirt-customizer__design-item-{{ ai_gen_id }}"
+              data-design="{{ design_value | image_url: width: 800 }}"
+              data-design-name="Design {{ i }}"
+            >
+              <img
+                src="{{ design_value | image_url: width: 200 }}"
+                alt="Design {{ i }}"
+                loading="lazy"
+              >
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+
+    {% if block.settings.allow_custom_upload %}
+      <div class="ai-tshirt-customizer__section-{{ ai_gen_id }}">
+        <label class="ai-tshirt-customizer__label-{{ ai_gen_id }}">{{ block.settings.upload_label }}</label>
+        <div class="ai-tshirt-customizer__upload-area-{{ ai_gen_id }}">
+          <svg class="ai-tshirt-customizer__upload-icon-{{ ai_gen_id }}" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+          </svg>
+          <p class="ai-tshirt-customizer__upload-text-{{ ai_gen_id }}">{{ block.settings.upload_text }}</p>
+          <input
+            type="file"
+            class="ai-tshirt-customizer__file-input-{{ ai_gen_id }}"
+            accept="image/*"
+            aria-label="Upload custom design"
+          >
+        </div>
+      </div>
+    {% endif %}
+
+    <div class="ai-tshirt-customizer__section-{{ ai_gen_id }}">
+      <label class="ai-tshirt-customizer__label-{{ ai_gen_id }}">{{ block.settings.position_label }}</label>
+      
+      <div class="ai-tshirt-customizer__slider-group-{{ ai_gen_id }}">
+        <div class="ai-tshirt-customizer__slider-label-{{ ai_gen_id }}">
+          <span>Vertical position</span>
+          <span class="ai-tshirt-customizer__slider-value-{{ ai_gen_id }}" data-slider="vertical">28%</span>
+        </div>
+        <input
+          type="range"
+          class="ai-tshirt-customizer__slider-{{ ai_gen_id }}"
+          data-control="vertical"
+          min="10"
+          max="60"
+          value="28"
+          step="1"
+        >
+      </div>
+
+      <div class="ai-tshirt-customizer__slider-group-{{ ai_gen_id }}">
+        <div class="ai-tshirt-customizer__slider-label-{{ ai_gen_id }}">
+          <span>Horizontal position</span>
+          <span class="ai-tshirt-customizer__slider-value-{{ ai_gen_id }}" data-slider="horizontal">50%</span>
+        </div>
+        <input
+          type="range"
+          class="ai-tshirt-customizer__slider-{{ ai_gen_id }}"
+          data-control="horizontal"
+          min="20"
+          max="80"
+          value="50"
+          step="1"
+        >
+      </div>
+
+      <div class="ai-tshirt-customizer__slider-group-{{ ai_gen_id }}">
+        <div class="ai-tshirt-customizer__slider-label-{{ ai_gen_id }}">
+          <span>Design size</span>
+          <span class="ai-tshirt-customizer__slider-value-{{ ai_gen_id }}" data-slider="size">35%</span>
+        </div>
+        <input
+          type="range"
+          class="ai-tshirt-customizer__slider-{{ ai_gen_id }}"
+          data-control="size"
+          min="15"
+          max="60"
+          value="35"
+          step="1"
+        >
+      </div>
+    </div>
+
+    <div class="ai-tshirt-customizer__section-{{ ai_gen_id }}">
+      <label class="ai-tshirt-customizer__label-{{ ai_gen_id }}">{{ block.settings.size_label }}</label>
+      <div class="ai-tshirt-customizer__size-grid-{{ ai_gen_id }}">
+        {% assign sizes = block.settings.available_sizes | split: ',' %}
+        {% for size in sizes %}
+          {% assign trimmed_size = size | strip %}
+          {% if trimmed_size != blank %}
+            <button
+              class="ai-tshirt-customizer__size-btn-{{ ai_gen_id }}"
+              data-size="{{ trimmed_size }}"
+              type="button"
+            >
+              {{ trimmed_size }}
+            </button>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+
+    {%- form 'contact', class: 'ai-tshirt-customizer__form' -%}
+      <input type="hidden" name="contact[subject]" value="Custom T-shirt Design Request">
+      <input type="hidden" name="contact[template]" class="ai-tshirt-customizer__hidden-template-{{ ai_gen_id }}">
+      <input type="hidden" name="contact[color]" class="ai-tshirt-customizer__hidden-color-{{ ai_gen_id }}">
+      <input type="hidden" name="contact[design]" class="ai-tshirt-customizer__hidden-design-{{ ai_gen_id }}">
+      <input type="hidden" name="contact[size]" class="ai-tshirt-customizer__hidden-size-{{ ai_gen_id }}">
+      <input type="hidden" name="contact[quantity]" class="ai-tshirt-customizer__hidden-quantity-{{ ai_gen_id }}">
+      <input type="hidden" name="contact[design_position]" class="ai-tshirt-customizer__hidden-position-{{ ai_gen_id }}">
+
+      <div class="ai-tshirt-customizer__section-{{ ai_gen_id }}">
+        <div class="ai-tshirt-customizer__input-group-{{ ai_gen_id }}">
+          <label class="ai-tshirt-customizer__label-{{ ai_gen_id }}" for="quantity-{{ ai_gen_id }}">
+            {{ block.settings.quantity_label }}
+          </label>
+          <input
+            type="number"
+            id="quantity-{{ ai_gen_id }}"
+            name="contact[quantity_display]"
+            class="ai-tshirt-customizer__input-{{ ai_gen_id }} ai-tshirt-customizer__quantity-input-{{ ai_gen_id }}"
+            min="1"
+            value="1"
+            required
+          >
+        </div>
+
+        <div class="ai-tshirt-customizer__input-group-{{ ai_gen_id }}">
+          <label class="ai-tshirt-customizer__label-{{ ai_gen_id }}" for="customer-name-{{ ai_gen_id }}">
+            {{ block.settings.name_label }}
+          </label>
+          <input
+            type="text"
+            id="customer-name-{{ ai_gen_id }}"
+            name="contact[name]"
+            class="ai-tshirt-customizer__input-{{ ai_gen_id }}"
+            required
+          >
+        </div>
+
+        <div class="ai-tshirt-customizer__input-group-{{ ai_gen_id }}">
+          <label class="ai-tshirt-customizer__label-{{ ai_gen_id }}" for="customer-email-{{ ai_gen_id }}">
+            {{ block.settings.email_label }}
+          </label>
+          <input
+            type="email"
+            id="customer-email-{{ ai_gen_id }}"
+            name="contact[email]"
+            class="ai-tshirt-customizer__input-{{ ai_gen_id }}"
+            required
+          >
+        </div>
+
+        <div class="ai-tshirt-customizer__input-group-{{ ai_gen_id }}">
+          <label class="ai-tshirt-customizer__label-{{ ai_gen_id }}" for="customer-notes-{{ ai_gen_id }}">
+            {{ block.settings.notes_label }}
+          </label>
+          <textarea
+            id="customer-notes-{{ ai_gen_id }}"
+            name="contact[body]"
+            class="ai-tshirt-customizer__textarea-{{ ai_gen_id }}"
+            placeholder="{{ block.settings.notes_placeholder }}"
+          ></textarea>
+        </div>
+
+        <button
+          type="submit"
+          class="ai-tshirt-customizer__submit-btn-{{ ai_gen_id }}"
+        >
+          {{ block.settings.submit_button_text }}
+        </button>
+
+        {%- if form.posted_successfully? -%}
+          <div class="ai-tshirt-customizer__message-{{ ai_gen_id }} success">
+            {{ block.settings.success_message }}
+          </div>
+        {%- endif -%}
+
+        {%- if form.errors -%}
+          <div class="ai-tshirt-customizer__message-{{ ai_gen_id }} error">
+            {{ form.errors.messages | first }}
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endform -%}
+  </div>
+
+  <div class="ai-tshirt-customizer__preview-{{ ai_gen_id }}">
+    <div class="ai-tshirt-customizer__preview-container-{{ ai_gen_id }}">
+      <div class="ai-tshirt-customizer__tshirt-base-{{ ai_gen_id }}">
+        <img
+          class="ai-tshirt-customizer__tshirt-image-{{ ai_gen_id }}"
+          data-template="current"
+          src=""
+          alt="T-shirt preview"
+          loading="lazy"
+          style="display: none;"
+        >
+
+        <div class="ai-tshirt-customizer__placeholder-{{ ai_gen_id }}">
+          Upload t-shirt color sample images in the block settings
+        </div>
+      </div>
+
+      <div class="ai-tshirt-customizer__design-overlay-{{ ai_gen_id }}">
+        <div class="ai-tshirt-customizer__design-wrapper-{{ ai_gen_id }}">
+          <img
+            class="ai-tshirt-customizer__design-image-{{ ai_gen_id }}"
+            src=""
+            alt="Design preview"
+            style="display: none;"
+          >
+        </div>
+      </div>
+    </div>
+    <p class="ai-tshirt-customizer__preview-label-{{ ai_gen_id }}">{{ block.settings.preview_label }}</p>
+  </div>
+</tshirt-customizer-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class TshirtCustomizer{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.currentColor = null;
+        this.currentColorName = '';
+        this.currentTemplate = 'kids';
+        this.currentDesign = null;
+        this.currentDesignName = '';
+        this.currentSize = null;
+        this.designVertical = 28;
+        this.designHorizontal = 50;
+        this.designSize = 35;
+      }
+
+      connectedCallback() {
+        this.colorButtons = this.querySelectorAll('.ai-tshirt-customizer__color-option-{{ ai_gen_id }}');
+        this.templateButtons = this.querySelectorAll('.ai-tshirt-customizer__template-btn-{{ ai_gen_id }}');
+        this.designItems = this.querySelectorAll('.ai-tshirt-customizer__design-item-{{ ai_gen_id }}');
+        this.sizeButtons = this.querySelectorAll('.ai-tshirt-customizer__size-btn-{{ ai_gen_id }}');
+        this.uploadArea = this.querySelector('.ai-tshirt-customizer__upload-area-{{ ai_gen_id }}');
+        this.fileInput = this.querySelector('.ai-tshirt-customizer__file-input-{{ ai_gen_id }}');
+        this.tshirtImage = this.querySelector('.ai-tshirt-customizer__tshirt-image-{{ ai_gen_id }}');
+        this.placeholder = this.querySelector('.ai-tshirt-customizer__placeholder-{{ ai_gen_id }}');
+        this.designWrapper = this.querySelector('.ai-tshirt-customizer__design-wrapper-{{ ai_gen_id }}');
+        this.designImage = this.querySelector('.ai-tshirt-customizer__design-image-{{ ai_gen_id }}');
+        this.quantityInput = this.querySelector('.ai-tshirt-customizer__quantity-input-{{ ai_gen_id }}');
+        this.form = this.querySelector('.ai-tshirt-customizer__form');
+        this.sliders = this.querySelectorAll('.ai-tshirt-customizer__slider-{{ ai_gen_id }}');
+
+        this.hiddenTemplate = this.querySelector('.ai-tshirt-customizer__hidden-template-{{ ai_gen_id }}');
+        this.hiddenColor = this.querySelector('.ai-tshirt-customizer__hidden-color-{{ ai_gen_id }}');
+        this.hiddenDesign = this.querySelector('.ai-tshirt-customizer__hidden-design-{{ ai_gen_id }}');
+        this.hiddenSize = this.querySelector('.ai-tshirt-customizer__hidden-size-{{ ai_gen_id }}');
+        this.hiddenQuantity = this.querySelector('.ai-tshirt-customizer__hidden-quantity-{{ ai_gen_id }}');
+        this.hiddenPosition = this.querySelector('.ai-tshirt-customizer__hidden-position-{{ ai_gen_id }}');
+
+        this.setupEventListeners();
+        this.initializeFirstColor();
+      }
+
+      setupEventListeners() {
+        this.colorButtons.forEach(button => {
+          button.addEventListener('click', () => this.handleColorChange(button));
+        });
+
+        this.templateButtons.forEach(button => {
+          button.addEventListener('click', () => this.handleTemplateChange(button));
+        });
+
+        this.designItems.forEach(item => {
+          item.addEventListener('click', () => this.handleDesignSelect(item));
+        });
+
+        this.sizeButtons.forEach(button => {
+          button.addEventListener('click', () => this.handleSizeSelect(button));
+        });
+
+        this.sliders.forEach(slider => {
+          slider.addEventListener('input', (e) => this.handleSliderChange(e));
+        });
+
+        if (this.uploadArea) {
+          this.uploadArea.addEventListener('click', () => {
+            this.fileInput.click();
+          });
+
+          this.fileInput.addEventListener('change', (e) => {
+            this.handleFileUpload(e);
+          });
+        }
+
+        if (this.quantityInput) {
+          this.quantityInput.addEventListener('input', () => {
+            this.updateHiddenFields();
+          });
+        }
+
+        if (this.form) {
+          this.form.addEventListener('submit', (e) => {
+            this.updateHiddenFields();
+          });
+        }
+      }
+
+      initializeFirstColor() {
+        const firstColorButton = this.querySelector('.ai-tshirt-customizer__color-option-{{ ai_gen_id }}.active');
+        if (firstColorButton) {
+          this.currentColor = firstColorButton.dataset.color;
+          this.currentColorName = firstColorButton.dataset.colorName;
+          this.updateTshirtImage(firstColorButton);
+          this.updateHiddenFields();
+        }
+      }
+
+      handleColorChange(button) {
+        this.colorButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+        
+        this.currentColor = button.dataset.color;
+        this.currentColorName = button.dataset.colorName;
+        this.updateTshirtImage(button);
+        this.updateHiddenFields();
+      }
+
+      handleTemplateChange(button) {
+        this.templateButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+        
+        this.currentTemplate = button.dataset.template;
+        
+        const activeColorButton = this.querySelector('.ai-tshirt-customizer__color-option-{{ ai_gen_id }}.active');
+        if (activeColorButton) {
+          this.updateTshirtImage(activeColorButton);
+        }
+        this.updateHiddenFields();
+      }
+
+      handleSizeSelect(button) {
+        this.sizeButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+        
+        this.currentSize = button.dataset.size;
+        this.updateHiddenFields();
+      }
+
+      handleSliderChange(event) {
+        const slider = event.target;
+        const control = slider.dataset.control;
+        const value = slider.value;
+        
+        const valueDisplay = this.querySelector(`[data-slider="${control}"]`);
+        if (valueDisplay) {
+          valueDisplay.textContent = value + '%';
+        }
+
+        if (control === 'vertical') {
+          this.designVertical = value;
+        } else if (control === 'horizontal') {
+          this.designHorizontal = value;
+        } else if (control === 'size') {
+          this.designSize = value;
+        }
+
+        this.updateDesignPosition();
+        this.updateHiddenFields();
+      }
+
+      updateDesignPosition() {
+        if (this.designWrapper) {
+          this.designWrapper.style.marginTop = this.designVertical + '%';
+          this.designWrapper.style.marginLeft = (this.designHorizontal - 50) + '%';
+          this.designWrapper.style.width = this.designSize + '%';
+        }
+      }
+
+      updateTshirtImage(colorButton) {
+        let imageUrl = '';
+        
+        if (this.currentTemplate === 'kids') {
+          imageUrl = colorButton.dataset.kidsImage;
+        } else if (this.currentTemplate === 'adult') {
+          imageUrl = colorButton.dataset.adultImage;
+        }
+
+        if (imageUrl) {
+          this.tshirtImage.src = imageUrl;
+          this.tshirtImage.style.display = 'block';
+          this.placeholder.style.display = 'none';
+        } else {
+          this.tshirtImage.style.display = 'none';
+          this.placeholder.style.display = 'flex';
+        }
+      }
+
+      handleDesignSelect(item) {
+        this.designItems.forEach(design => design.classList.remove('active'));
+        item.classList.add('active');
+        
+        const designUrl = item.dataset.design;
+        this.currentDesign = designUrl;
+        this.currentDesignName = item.dataset.designName;
+        
+        this.designImage.src = designUrl;
+        this.designImage.style.display = 'block';
+        this.updateDesignPosition();
+        this.updateHiddenFields();
+      }
+
+      handleFileUpload(event) {
+        const file = event.target.files[0];
+        if (file && file.type.startsWith('image/')) {
+          const reader = new FileReader();
+          
+          reader.onload = (e) => {
+            this.designItems.forEach(design => design.classList.remove('active'));
+            
+            this.designImage.src = e.target.result;
+            this.designImage.style.display = 'block';
+            this.currentDesign = e.target.result;
+            this.currentDesignName = 'Custom Upload: ' + file.name;
+            this.updateDesignPosition();
+            this.updateHiddenFields();
+          };
+          
+          reader.readAsDataURL(file);
+        }
+      }
+
+      updateHiddenFields() {
+        if (this.hiddenTemplate) {
+          this.hiddenTemplate.value = this.currentTemplate ? this.currentTemplate.charAt(0).toUpperCase() + this.currentTemplate.slice(1) : '';
+        }
+        if (this.hiddenColor) {
+          this.hiddenColor.value = this.currentColorName || '';
+        }
+        if (this.hiddenDesign) {
+          this.hiddenDesign.value = this.currentDesignName || 'No design selected';
+        }
+        if (this.hiddenSize) {
+          this.hiddenSize.value = this.currentSize || 'No size selected';
+        }
+        if (this.hiddenQuantity && this.quantityInput) {
+          this.hiddenQuantity.value = this.quantityInput.value || '1';
+        }
+        if (this.hiddenPosition) {
+          this.hiddenPosition.value = `Vertical: ${this.designVertical}%, Horizontal: ${this.designHorizontal}%, Size: ${this.designSize}%`;
+        }
+      }
+    }
+
+    customElements.define('tshirt-customizer-{{ ai_gen_id }}', TshirtCustomizer{{ ai_gen_id }});
+  })();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "T-shirt customizer",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Color 1"
+    },
+    {
+      "type": "color",
+      "id": "color_1",
+      "label": "Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "image_picker",
+      "id": "color_1_kids_image",
+      "label": "Kids t-shirt sample"
+    },
+    {
+      "type": "image_picker",
+      "id": "color_1_adult_image",
+      "label": "Adult t-shirt sample"
+    },
+    {
+      "type": "header",
+      "content": "Color 2"
+    },
+    {
+      "type": "color",
+      "id": "color_2",
+      "label": "Color",
+      "default": "#000000"
+    },
+    {
+      "type": "image_picker",
+      "id": "color_2_kids_image",
+      "label": "Kids t-shirt sample"
+    },
+    {
+      "type": "image_picker",
+      "id": "color_2_adult_image",
+      "label": "Adult t-shirt sample"
+    },
+    {
+      "type": "header",
+      "content": "Color 3"
+    },
+    {
+      "type": "color",
+      "id": "color_3",
+      "label": "Color",
+      "default": "#FF5252"
+    },
+    {
+      "type": "image_picker",
+      "id": "color_3_kids_image",
+      "label": "Kids t-shirt sample"
+    },
+    {
+      "type": "image_picker",
+      "id": "color_3_adult_image",
+      "label": "Adult t-shirt sample"
+    },
+    {
+      "type": "header",
+      "content": "Color 4"
+    },
+    {
+      "type": "color",
+      "id": "color_4",
+      "label": "Color",
+      "default": "#2196F3"
+    },
+    {
+      "type": "image_picker",
+      "id": "color_4_kids_image",
+      "label": "Kids t-shirt sample"
+    },
+    {
+      "type": "image_picker",
+      "id": "color_4_adult_image",
+      "label": "Adult t-shirt sample"
+    },
+    {
+      "type": "header",
+      "content": "Color 5"
+    },
+    {
+      "type": "color",
+      "id": "color_5",
+      "label": "Color",
+      "default": "#4CAF50"
+    },
+    {
+      "type": "image_picker",
+      "id": "color_5_kids_image",
+      "label": "Kids t-shirt sample"
+    },
+    {
+      "type": "image_picker",
+      "id": "color_5_adult_image",
+      "label": "Adult t-shirt sample"
+    },
+    {
+      "type": "header",
+      "content": "Color 6"
+    },
+    {
+      "type": "color",
+      "id": "color_6",
+      "label": "Color",
+      "default": "#FFC107"
+    },
+    {
+      "type": "image_picker",
+      "id": "color_6_kids_image",
+      "label": "Kids t-shirt sample"
+    },
+    {
+      "type": "image_picker",
+      "id": "color_6_adult_image",
+      "label": "Adult t-shirt sample"
+    },
+    {
+      "type": "header",
+      "content": "Color 7"
+    },
+    {
+      "type": "color",
+      "id": "color_7",
+      "label": "Color",
+      "default": "#9C27B0"
+    },
+    {
+      "type": "image_picker",
+      "id": "color_7_kids_image",
+      "label": "Kids t-shirt sample"
+    },
+    {
+      "type": "image_picker",
+      "id": "color_7_adult_image",
+      "label": "Adult t-shirt sample"
+    },
+    {
+      "type": "header",
+      "content": "Color 8"
+    },
+    {
+      "type": "color",
+      "id": "color_8",
+      "label": "Color",
+      "default": "#FF9800"
+    },
+    {
+      "type": "image_picker",
+      "id": "color_8_kids_image",
+      "label": "Kids t-shirt sample"
+    },
+    {
+      "type": "image_picker",
+      "id": "color_8_adult_image",
+      "label": "Adult t-shirt sample"
+    },
+    {
+      "type": "header",
+      "content": "Color 9"
+    },
+    {
+      "type": "color",
+      "id": "color_9",
+      "label": "Color",
+      "default": "#00BCD4"
+    },
+    {
+      "type": "image_picker",
+      "id": "color_9_kids_image",
+      "label": "Kids t-shirt sample"
+    },
+    {
+      "type": "image_picker",
+      "id": "color_9_adult_image",
+      "label": "Adult t-shirt sample"
+    },
+    {
+      "type": "header",
+      "content": "Color 10"
+    },
+    {
+      "type": "color",
+      "id": "color_10",
+      "label": "Color",
+      "default": "#E91E63"
+    },
+    {
+      "type": "image_picker",
+      "id": "color_10_kids_image",
+      "label": "Kids t-shirt sample"
+    },
+    {
+      "type": "image_picker",
+      "id": "color_10_adult_image",
+      "label": "Adult t-shirt sample"
+    },
+    {
+      "type": "header",
+      "content": "Color 11"
+    },
+    {
+      "type": "color",
+      "id": "color_11",
+      "label": "Color",
+      "default": "#8BC34A"
+    },
+    {
+      "type": "image_picker",
+      "id": "color_11_kids_image",
+      "label": "Kids t-shirt sample"
+    },
+    {
+      "type": "image_picker",
+      "id": "color_11_adult_image",
+      "label": "Adult t-shirt sample"
+    },
+    {
+      "type": "header",
+      "content": "Color 12"
+    },
+    {
+      "type": "color",
+      "id": "color_12",
+      "label": "Color",
+      "default": "#795548"
+    },
+    {
+      "type": "image_picker",
+      "id": "color_12_kids_image",
+      "label": "Kids t-shirt sample"
+    },
+    {
+      "type": "image_picker",
+      "id": "color_12_adult_image",
+      "label": "Adult t-shirt sample"
+    },
+    {
+      "type": "header",
+      "content": "Design gallery"
+    },
+    {
+      "type": "paragraph",
+      "content": "Upload your pre-made designs that customers can choose from."
+    },
+    {
+      "type": "image_picker",
+      "id": "design_1",
+      "label": "Design 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "design_2",
+      "label": "Design 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "design_3",
+      "label": "Design 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "design_4",
+      "label": "Design 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "design_5",
+      "label": "Design 5"
+    },
+    {
+      "type": "image_picker",
+      "id": "design_6",
+      "label": "Design 6"
+    },
+    {
+      "type": "image_picker",
+      "id": "design_7",
+      "label": "Design 7"
+    },
+    {
+      "type": "image_picker",
+      "id": "design_8",
+      "label": "Design 8"
+    },
+    {
+      "type": "image_picker",
+      "id": "design_9",
+      "label": "Design 9"
+    },
+    {
+      "type": "image_picker",
+      "id": "design_10",
+      "label": "Design 10"
+    },
+    {
+      "type": "image_picker",
+      "id": "design_11",
+      "label": "Design 11"
+    },
+    {
+      "type": "image_picker",
+      "id": "design_12",
+      "label": "Design 12"
+    },
+    {
+      "type": "header",
+      "content": "Size options"
+    },
+    {
+      "type": "text",
+      "id": "available_sizes",
+      "label": "Available sizes",
+      "default": "XS, S, M, L, XL, XXL",
+      "info": "Separate sizes with commas"
+    },
+    {
+      "type": "header",
+      "content": "Custom upload"
+    },
+    {
+      "type": "checkbox",
+      "id": "allow_custom_upload",
+      "label": "Allow customers to upload their own designs",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Labels"
+    },
+    {
+      "type": "text",
+      "id": "color_label",
+      "label": "Color section label",
+      "default": "Select T-shirt color"
+    },
+    {
+      "type": "text",
+      "id": "template_label",
+      "label": "Template section label",
+      "default": "Choose size"
+    },
+    {
+      "type": "text",
+      "id": "design_label",
+      "label": "Design section label",
+      "default": "Choose design"
+    },
+    {
+      "type": "text",
+      "id": "position_label",
+      "label": "Position section label",
+      "default": "Adjust design position and size"
+    },
+    {
+      "type": "text",
+      "id": "size_label",
+      "label": "Size section label",
+      "default": "Select size"
+    },
+    {
+      "type": "text",
+      "id": "quantity_label",
+      "label": "Quantity label",
+      "default": "Quantity"
+    },
+    {
+      "type": "text",
+      "id": "name_label",
+      "label": "Name label",
+      "default": "Your name"
+    },
+    {
+      "type": "text",
+      "id": "email_label",
+      "label": "Email label",
+      "default": "Your email"
+    },
+    {
+      "type": "text",
+      "id": "notes_label",
+      "label": "Notes label",
+      "default": "Additional notes"
+    },
+    {
+      "type": "text",
+      "id": "notes_placeholder",
+      "label": "Notes placeholder",
+      "default": "Any special requests or instructions..."
+    },
+    {
+      "type": "text",
+      "id": "upload_label",
+      "label": "Upload section label",
+      "default": "Or upload your own"
+    },
+    {
+      "type": "text",
+      "id": "upload_text",
+      "label": "Upload area text",
+      "default": "Click to upload custom design"
+    },
+    {
+      "type": "text",
+      "id": "preview_label",
+      "label": "Preview label",
+      "default": "Live preview"
+    },
+    {
+      "type": "text",
+      "id": "submit_button_text",
+      "label": "Submit button text",
+      "default": "Send design request"
+    },
+    {
+      "type": "text",
+      "id": "success_message",
+      "label": "Success message",
+      "default": "Thank you! We received your custom design request and will contact you soon."
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#F3F3F3"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent",
+      "default": "#334FB4"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border",
+      "default": "#CCCCCC"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "label_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Label size",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Buttons"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Text",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "label": "Border",
+      "default": "#CCCCCC"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg",
+      "label": "Hover background",
+      "default": "#F3F3F3"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_text",
+      "label": "Hover text",
+      "default": "#121212"
+    },
+    {
+      "type": "range",
+      "id": "button_radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 4
+    }
+  ],
+  "presets": [
+    {
+      "name": "T-shirt customizer"
+    }
+  ]
+}
 {% endschema %}
