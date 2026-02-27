@@ -1,6 +1,741 @@
+{% doc %}
+  @prompt
+    add holographic product cart with search bar
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-holo-cart-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    padding: 30px;
+    background: {{ block.settings.background_color }};
+    border-radius: {{ block.settings.border_radius }}px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ai-holo-cart-{{ ai_gen_id }}::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+      45deg,
+      transparent 30%,
+      rgba({{ block.settings.holographic_color_r }}, {{ block.settings.holographic_color_g }}, {{ block.settings.holographic_color_b }}, 0.1) 50%,
+      transparent 70%
+    );
+    transform: rotate(0deg);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .ai-holo-cart-{{ ai_gen_id }}.active::before {
+    animation: ai-holo-shine-{{ ai_gen_id }} 3s linear infinite;
+  }
+
+  @keyframes ai-holo-shine-{{ ai_gen_id }} {
+    0% {
+      transform: rotate(0deg) translateX(-100%);
+    }
+    100% {
+      transform: rotate(360deg) translateX(100%);
+    }
+  }
+
+  .ai-holo-cart-content-{{ ai_gen_id }} {
+    position: relative;
+    z-index: 2;
+  }
+
+  .ai-holo-cart-header-{{ ai_gen_id }} {
+    margin-bottom: 20px;
+  }
+
+  .ai-holo-cart-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.title_size }}px;
+    color: {{ block.settings.text_color }};
+    margin: 0 0 15px;
+  }
+
+  .ai-holo-search-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    margin-bottom: 20px;
+  }
+
+  .ai-holo-search-input-{{ ai_gen_id }} {
+    width: 100%;
+    padding: 12px 40px 12px 16px;
+    border: 1px solid {{ block.settings.input_border_color }};
+    border-radius: {{ block.settings.input_border_radius }}px;
+    font-size: 14px;
+    background: {{ block.settings.input_background }};
+    color: {{ block.settings.text_color }};
+  }
+
+  .ai-holo-search-input-{{ ai_gen_id }}:focus {
+    outline: 2px solid {{ block.settings.holographic_accent }};
+    outline-offset: 2px;
+  }
+
+  .ai-holo-search-icon-{{ ai_gen_id }} {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    color: {{ block.settings.text_color }};
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+  .ai-holo-products-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 5px;
+  }
+
+  .ai-holo-products-{{ ai_gen_id }}::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .ai-holo-products-{{ ai_gen_id }}::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+  }
+
+  .ai-holo-products-{{ ai_gen_id }}::-webkit-scrollbar-thumb {
+    background: {{ block.settings.holographic_accent }};
+    border-radius: 3px;
+  }
+
+  .ai-holo-product-card-{{ ai_gen_id }} {
+    display: flex;
+    gap: 15px;
+    padding: 15px;
+    background: {{ block.settings.card_background }};
+    border-radius: {{ block.settings.card_border_radius }}px;
+    border: 1px solid {{ block.settings.card_border_color }};
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ai-holo-product-card-{{ ai_gen_id }}::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba({{ block.settings.holographic_color_r }}, {{ block.settings.holographic_color_g }}, {{ block.settings.holographic_color_b }}, 0.2),
+      transparent
+    );
+    transition: left 0.5s ease;
+  }
+
+  .ai-holo-product-card-{{ ai_gen_id }}:hover::after {
+    left: 100%;
+  }
+
+  .ai-holo-product-image-{{ ai_gen_id }} {
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0;
+    border-radius: {{ block.settings.image_border_radius }}px;
+    overflow: hidden;
+    background: #f4f4f4;
+  }
+
+  .ai-holo-product-image-{{ ai_gen_id }} img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ai-holo-product-info-{{ ai_gen_id }} {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .ai-holo-product-name-{{ ai_gen_id }} {
+    font-size: 16px;
+    font-weight: 600;
+    color: {{ block.settings.text_color }};
+    margin: 0 0 5px;
+  }
+
+  .ai-holo-product-price-{{ ai_gen_id }} {
+    font-size: 14px;
+    color: {{ block.settings.price_color }};
+    font-weight: 500;
+  }
+
+  .ai-holo-product-actions-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 8px;
+  }
+
+  .ai-holo-quantity-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid {{ block.settings.input_border_color }};
+    border-radius: {{ block.settings.input_border_radius }}px;
+    padding: 4px 8px;
+  }
+
+  .ai-holo-qty-btn-{{ ai_gen_id }} {
+    background: none;
+    border: none;
+    color: {{ block.settings.text_color }};
+    cursor: pointer;
+    padding: 4px;
+    line-height: 1;
+    font-size: 16px;
+  }
+
+  .ai-holo-qty-value-{{ ai_gen_id }} {
+    min-width: 20px;
+    text-align: center;
+    font-size: 14px;
+    color: {{ block.settings.text_color }};
+  }
+
+  .ai-holo-remove-btn-{{ ai_gen_id }} {
+    background: none;
+    border: none;
+    color: {{ block.settings.remove_color }};
+    cursor: pointer;
+    padding: 4px;
+    font-size: 12px;
+    text-decoration: underline;
+  }
+
+  .ai-holo-cart-footer-{{ ai_gen_id }} {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid {{ block.settings.card_border_color }};
+  }
+
+  .ai-holo-total-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+
+  .ai-holo-total-label-{{ ai_gen_id }} {
+    font-size: 18px;
+    font-weight: 600;
+    color: {{ block.settings.text_color }};
+  }
+
+  .ai-holo-total-price-{{ ai_gen_id }} {
+    font-size: 20px;
+    font-weight: 700;
+    color: {{ block.settings.holographic_accent }};
+  }
+
+  .ai-holo-checkout-btn-{{ ai_gen_id }} {
+    width: 100%;
+    padding: 14px;
+    background: {{ block.settings.button_background }};
+    color: {{ block.settings.button_text_color }};
+    border: none;
+    border-radius: {{ block.settings.button_border_radius }}px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ai-holo-checkout-btn-{{ ai_gen_id }}::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+  }
+
+  .ai-holo-checkout-btn-{{ ai_gen_id }}:hover::before {
+    width: 300px;
+    height: 300px;
+  }
+
+  .ai-holo-checkout-btn-{{ ai_gen_id }} span {
+    position: relative;
+    z-index: 1;
+  }
+
+  .ai-holo-empty-state-{{ ai_gen_id }} {
+    text-align: center;
+    padding: 40px 20px;
+    color: {{ block.settings.text_color }};
+    opacity: 0.6;
+  }
+
+  .ai-holo-empty-icon-{{ ai_gen_id }} {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 15px;
+    opacity: 0.4;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-holo-cart-{{ ai_gen_id }} {
+      width: 100%;
+      padding: 20px;
+    }
+
+    .ai-holo-product-card-{{ ai_gen_id }} {
+      flex-direction: column;
+    }
+
+    .ai-holo-product-image-{{ ai_gen_id }} {
+      width: 100%;
+      height: 150px;
+    }
+  }
+{% endstyle %}
+
+<holographic-cart-{{ ai_gen_id }} class="ai-holo-cart-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-holo-cart-content-{{ ai_gen_id }}">
+    <div class="ai-holo-cart-header-{{ ai_gen_id }}">
+      <h2 class="ai-holo-cart-title-{{ ai_gen_id }}">{{ block.settings.cart_title }}</h2>
+      
+      <div class="ai-holo-search-wrapper-{{ ai_gen_id }}">
+        <input
+          type="text"
+          class="ai-holo-search-input-{{ ai_gen_id }}"
+          placeholder="{{ block.settings.search_placeholder }}"
+          aria-label="Search products in cart"
+        >
+        <svg class="ai-holo-search-icon-{{ ai_gen_id }}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="m21 21-4.35-4.35"></path>
+        </svg>
+      </div>
+    </div>
+
+    <div class="ai-holo-products-{{ ai_gen_id }}">
+      {% if block.settings.demo_products != blank %}
+        {% for product in block.settings.demo_products %}
+          <div class="ai-holo-product-card-{{ ai_gen_id }}" data-product-title="{{ product.title | downcase }}">
+            <div class="ai-holo-product-image-{{ ai_gen_id }}">
+              {% if product.featured_image %}
+                <img
+                  src="{{ product.featured_image | image_url: width: 160 }}"
+                  alt="{{ product.featured_image.alt | escape }}"
+                  loading="lazy"
+                  width="160"
+                  height="160"
+                >
+              {% else %}
+                <div class="ai-holo-product-image-placeholder-{{ ai_gen_id }}">
+                  {{ 'product-1' | placeholder_svg_tag }}
+                </div>
+              {% endif %}
+            </div>
+            <div class="ai-holo-product-info-{{ ai_gen_id }}">
+              <h3 class="ai-holo-product-name-{{ ai_gen_id }}">{{ product.title }}</h3>
+              <div class="ai-holo-product-price-{{ ai_gen_id }}">{{ product.price | money }}</div>
+              <div class="ai-holo-product-actions-{{ ai_gen_id }}">
+                <div class="ai-holo-quantity-{{ ai_gen_id }}">
+                  <button class="ai-holo-qty-btn-{{ ai_gen_id }}" data-action="decrease" aria-label="Decrease quantity">−</button>
+                  <span class="ai-holo-qty-value-{{ ai_gen_id }}">1</span>
+                  <button class="ai-holo-qty-btn-{{ ai_gen_id }}" data-action="increase" aria-label="Increase quantity">+</button>
+                </div>
+                <button class="ai-holo-remove-btn-{{ ai_gen_id }}" aria-label="Remove item">Remove</button>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <div class="ai-holo-empty-state-{{ ai_gen_id }}">
+          <svg class="ai-holo-empty-icon-{{ ai_gen_id }}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+          </svg>
+          <p>Add demo products to preview the cart</p>
+        </div>
+      {% endif %}
+    </div>
+
+    {% if block.settings.demo_products != blank %}
+      <div class="ai-holo-cart-footer-{{ ai_gen_id }}">
+        <div class="ai-holo-total-{{ ai_gen_id }}">
+          <span class="ai-holo-total-label-{{ ai_gen_id }}">Total</span>
+          <span class="ai-holo-total-price-{{ ai_gen_id }}" data-total>$0.00</span>
+        </div>
+        <button class="ai-holo-checkout-btn-{{ ai_gen_id }}">
+          <span>{{ block.settings.checkout_button_text }}</span>
+        </button>
+      </div>
+    {% endif %}
+  </div>
+</holographic-cart-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class HolographicCart{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.searchInput = this.querySelector('.ai-holo-search-input-{{ ai_gen_id }}');
+        this.productCards = this.querySelectorAll('.ai-holo-product-card-{{ ai_gen_id }}');
+        this.totalElement = this.querySelector('[data-total]');
+      }
+
+      connectedCallback() {
+        this.classList.add('active');
+        this.setupSearch();
+        this.setupQuantityControls();
+        this.setupRemoveButtons();
+        this.updateTotal();
+      }
+
+      setupSearch() {
+        if (!this.searchInput) return;
+
+        this.searchInput.addEventListener('input', (e) => {
+          const searchTerm = e.target.value.toLowerCase();
+          
+          this.productCards.forEach((card) => {
+            const productTitle = card.getAttribute('data-product-title');
+            if (productTitle.includes(searchTerm)) {
+              card.style.display = 'flex';
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        });
+      }
+
+      setupQuantityControls() {
+        const qtyButtons = this.querySelectorAll('.ai-holo-qty-btn-{{ ai_gen_id }}');
+        
+        qtyButtons.forEach((button) => {
+          button.addEventListener('click', (e) => {
+            const action = button.getAttribute('data-action');
+            const qtyValue = button.parentElement.querySelector('.ai-holo-qty-value-{{ ai_gen_id }}');
+            let currentQty = parseInt(qtyValue.textContent);
+
+            if (action === 'increase') {
+              currentQty++;
+            } else if (action === 'decrease' && currentQty > 1) {
+              currentQty--;
+            }
+
+            qtyValue.textContent = currentQty;
+            this.updateTotal();
+          });
+        });
+      }
+
+      setupRemoveButtons() {
+        const removeButtons = this.querySelectorAll('.ai-holo-remove-btn-{{ ai_gen_id }}');
+        
+        removeButtons.forEach((button) => {
+          button.addEventListener('click', () => {
+            const card = button.closest('.ai-holo-product-card-{{ ai_gen_id }}');
+            card.style.opacity = '0';
+            card.style.transform = 'translateX(100%)';
+            card.style.transition = 'all 0.3s ease';
+            
+            setTimeout(() => {
+              card.remove();
+              this.updateTotal();
+              this.checkEmpty();
+            }, 300);
+          });
+        });
+      }
+
+      updateTotal() {
+        if (!this.totalElement) return;
+
+        let total = 0;
+        const visibleCards = Array.from(this.productCards).filter(card => card.style.display !== 'none' && card.parentElement);
+
+        visibleCards.forEach((card) => {
+          const priceText = card.querySelector('.ai-holo-product-price-{{ ai_gen_id }}').textContent;
+          const price = parseFloat(priceText.replace(/[^0-9.]/g, ''));
+          const qty = parseInt(card.querySelector('.ai-holo-qty-value-{{ ai_gen_id }}').textContent);
+          total += price * qty;
+        });
+
+        this.totalElement.textContent = '$' + total.toFixed(2);
+      }
+
+      checkEmpty() {
+        const remainingCards = this.querySelectorAll('.ai-holo-product-card-{{ ai_gen_id }}');
+        if (remainingCards.length === 0) {
+          const productsContainer = this.querySelector('.ai-holo-products-{{ ai_gen_id }}');
+          const footer = this.querySelector('.ai-holo-cart-footer-{{ ai_gen_id }}');
+          
+          productsContainer.innerHTML = `
+            <div class="ai-holo-empty-state-{{ ai_gen_id }}">
+              <svg class="ai-holo-empty-icon-{{ ai_gen_id }}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="9" cy="21" r="1"></circle>
+                <circle cx="20" cy="21" r="1"></circle>
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+              </svg>
+              <p>Your cart is empty</p>
+            </div>
+          `;
+          
+          if (footer) {
+            footer.style.display = 'none';
+          }
+        }
+      }
+    }
+
+    customElements.define('holographic-cart-{{ ai_gen_id }}', HolographicCart{{ ai_gen_id }});
+  })();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Holographic product cart",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "cart_title",
+      "label": "Cart title",
+      "default": "Shopping Cart"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "search_placeholder",
+      "label": "Search placeholder",
+      "default": "Search products..."
+    },
+    {
+      "type": "inline_richtext",
+      "id": "checkout_button_text",
+      "label": "Checkout button text",
+      "default": "Proceed to Checkout"
+    },
+    {
+      "type": "product_list",
+      "id": "demo_products",
+      "label": "Demo products",
+      "limit": 8
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "holographic_accent",
+      "label": "Holographic accent",
+      "default": "#6366f1"
+    },
+    {
+      "type": "range",
+      "id": "holographic_color_r",
+      "label": "Holographic R",
+      "min": 0,
+      "max": 255,
+      "step": 5,
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "holographic_color_g",
+      "label": "Holographic G",
+      "min": 0,
+      "max": 255,
+      "step": 5,
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "holographic_color_b",
+      "label": "Holographic B",
+      "min": 0,
+      "max": 255,
+      "step": 5,
+      "default": 255
+    },
+    {
+      "type": "color",
+      "id": "price_color",
+      "label": "Price",
+      "default": "#6366f1"
+    },
+    {
+      "type": "color",
+      "id": "remove_color",
+      "label": "Remove button",
+      "default": "#ef4444"
+    },
+    {
+      "type": "header",
+      "content": "Card style"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card background",
+      "default": "#f9fafb"
+    },
+    {
+      "type": "color",
+      "id": "card_border_color",
+      "label": "Card border",
+      "default": "#e5e7eb"
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "label": "Card border radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "label": "Image border radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 6
+    },
+    {
+      "type": "header",
+      "content": "Input style"
+    },
+    {
+      "type": "color",
+      "id": "input_background",
+      "label": "Input background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "input_border_color",
+      "label": "Input border",
+      "default": "#d1d5db"
+    },
+    {
+      "type": "range",
+      "id": "input_border_radius",
+      "label": "Input border radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 6
+    },
+    {
+      "type": "header",
+      "content": "Button style"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Button background",
+      "default": "#6366f1"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "label": "Button border radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Title size",
+      "min": 16,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Container border radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    }
+  ],
+  "presets": [
+    {
+      "name": "Holographic product cart"
+    }
+  ]
+}
 {% endschema %}
