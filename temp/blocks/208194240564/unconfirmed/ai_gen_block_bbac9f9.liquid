@@ -1,6 +1,834 @@
+{% doc %}
+  @prompt
+    add holographic product cart with search bar, a holographic product cart 
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-holo-cart-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    padding: 40px;
+    background: {{ block.settings.background_color }};
+    border-radius: {{ block.settings.border_radius }}px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  }
+
+  .ai-holo-cart-{{ ai_gen_id }}::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+      115deg,
+      transparent 20%,
+      rgba({{ block.settings.holo_r }}, {{ block.settings.holo_g }}, {{ block.settings.holo_b }}, {{ block.settings.holo_opacity }}) 40%,
+      rgba({{ block.settings.holo_r2 }}, {{ block.settings.holo_g2 }}, {{ block.settings.holo_b2 }}, {{ block.settings.holo_opacity }}) 60%,
+      transparent 80%
+    );
+    animation: ai-holo-rotate-{{ ai_gen_id }} {{ block.settings.animation_speed }}s linear infinite;
+    pointer-events: none;
+  }
+
+  @keyframes ai-holo-rotate-{{ ai_gen_id }} {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  .ai-holo-cart-{{ ai_gen_id }}::after {
+    content: '';
+    position: absolute;
+    inset: 2px;
+    background: {{ block.settings.background_color }};
+    border-radius: {{ block.settings.border_radius }}px;
+    z-index: 1;
+  }
+
+  .ai-holo-cart-content-{{ ai_gen_id }} {
+    position: relative;
+    z-index: 2;
+  }
+
+  .ai-holo-cart-header-{{ ai_gen_id }} {
+    margin-bottom: 30px;
+    text-align: center;
+  }
+
+  .ai-holo-cart-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.title_size }}px;
+    font-weight: 700;
+    color: {{ block.settings.text_color }};
+    margin: 0 0 10px;
+    background: linear-gradient(
+      135deg,
+      {{ block.settings.text_color }},
+      rgba({{ block.settings.holo_r }}, {{ block.settings.holo_g }}, {{ block.settings.holo_b }}, 1)
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .ai-holo-cart-subtitle-{{ ai_gen_id }} {
+    font-size: 14px;
+    color: {{ block.settings.text_color }};
+    opacity: 0.7;
+  }
+
+  .ai-holo-items-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 30px;
+    max-height: 450px;
+    overflow-y: auto;
+    padding-right: 10px;
+  }
+
+  .ai-holo-items-{{ ai_gen_id }}::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .ai-holo-items-{{ ai_gen_id }}::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+  }
+
+  .ai-holo-items-{{ ai_gen_id }}::-webkit-scrollbar-thumb {
+    background: linear-gradient(
+      180deg,
+      rgba({{ block.settings.holo_r }}, {{ block.settings.holo_g }}, {{ block.settings.holo_b }}, 0.6),
+      rgba({{ block.settings.holo_r2 }}, {{ block.settings.holo_g2 }}, {{ block.settings.holo_b2 }}, 0.6)
+    );
+    border-radius: 4px;
+  }
+
+  .ai-holo-item-{{ ai_gen_id }} {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    background: {{ block.settings.card_background }};
+    border-radius: {{ block.settings.card_radius }}px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid {{ block.settings.card_border }};
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .ai-holo-item-{{ ai_gen_id }}::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba({{ block.settings.holo_r }}, {{ block.settings.holo_g }}, {{ block.settings.holo_b }}, 0.15),
+      transparent
+    );
+    transition: left 0.6s ease;
+  }
+
+  .ai-holo-item-{{ ai_gen_id }}:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba({{ block.settings.holo_r }}, {{ block.settings.holo_g }}, {{ block.settings.holo_b }}, 0.2);
+  }
+
+  .ai-holo-item-{{ ai_gen_id }}:hover::before {
+    left: 100%;
+  }
+
+  .ai-holo-item-image-{{ ai_gen_id }} {
+    width: 100px;
+    height: 100px;
+    flex-shrink: 0;
+    border-radius: {{ block.settings.image_radius }}px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .ai-holo-item-image-{{ ai_gen_id }} img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ai-holo-item-image-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    background: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-holo-item-image-placeholder-{{ ai_gen_id }} svg {
+    width: 50%;
+    height: 50%;
+    opacity: 0.3;
+  }
+
+  .ai-holo-item-details-{{ ai_gen_id }} {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .ai-holo-item-name-{{ ai_gen_id }} {
+    font-size: 18px;
+    font-weight: 600;
+    color: {{ block.settings.text_color }};
+    margin: 0 0 8px;
+  }
+
+  .ai-holo-item-variant-{{ ai_gen_id }} {
+    font-size: 13px;
+    color: {{ block.settings.text_color }};
+    opacity: 0.6;
+    margin-bottom: 12px;
+  }
+
+  .ai-holo-item-footer-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .ai-holo-quantity-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 12px;
+    background: {{ block.settings.background_color }};
+    border-radius: 20px;
+    border: 1px solid {{ block.settings.card_border }};
+  }
+
+  .ai-holo-qty-btn-{{ ai_gen_id }} {
+    width: 24px;
+    height: 24px;
+    border: none;
+    background: linear-gradient(
+      135deg,
+      rgba({{ block.settings.holo_r }}, {{ block.settings.holo_g }}, {{ block.settings.holo_b }}, 0.8),
+      rgba({{ block.settings.holo_r2 }}, {{ block.settings.holo_g2 }}, {{ block.settings.holo_b2 }}, 0.8)
+    );
+    color: white;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    transition: transform 0.2s ease;
+  }
+
+  .ai-holo-qty-btn-{{ ai_gen_id }}:hover {
+    transform: scale(1.1);
+  }
+
+  .ai-holo-qty-value-{{ ai_gen_id }} {
+    min-width: 30px;
+    text-align: center;
+    font-weight: 600;
+    color: {{ block.settings.text_color }};
+  }
+
+  .ai-holo-item-price-{{ ai_gen_id }} {
+    font-size: 20px;
+    font-weight: 700;
+    background: linear-gradient(
+      135deg,
+      rgba({{ block.settings.holo_r }}, {{ block.settings.holo_g }}, {{ block.settings.holo_b }}, 1),
+      rgba({{ block.settings.holo_r2 }}, {{ block.settings.holo_g2 }}, {{ block.settings.holo_b2 }}, 1)
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .ai-holo-remove-{{ ai_gen_id }} {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: {{ block.settings.remove_color }};
+    cursor: pointer;
+    padding: 5px;
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+  }
+
+  .ai-holo-remove-{{ ai_gen_id }}:hover {
+    opacity: 1;
+  }
+
+  .ai-holo-summary-{{ ai_gen_id }} {
+    padding: 25px;
+    background: {{ block.settings.card_background }};
+    border-radius: {{ block.settings.card_radius }}px;
+    border: 1px solid {{ block.settings.card_border }};
+    margin-bottom: 20px;
+  }
+
+  .ai-holo-summary-row-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    font-size: 15px;
+    color: {{ block.settings.text_color }};
+  }
+
+  .ai-holo-summary-row-{{ ai_gen_id }}:last-child {
+    margin-bottom: 0;
+    padding-top: 15px;
+    border-top: 1px solid {{ block.settings.card_border }};
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  .ai-holo-summary-total-{{ ai_gen_id }} {
+    background: linear-gradient(
+      135deg,
+      rgba({{ block.settings.holo_r }}, {{ block.settings.holo_g }}, {{ block.settings.holo_b }}, 1),
+      rgba({{ block.settings.holo_r2 }}, {{ block.settings.holo_g2 }}, {{ block.settings.holo_b2 }}, 1)
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .ai-holo-checkout-{{ ai_gen_id }} {
+    width: 100%;
+    padding: 18px;
+    background: linear-gradient(
+      135deg,
+      rgba({{ block.settings.holo_r }}, {{ block.settings.holo_g }}, {{ block.settings.holo_b }}, 1),
+      rgba({{ block.settings.holo_r2 }}, {{ block.settings.holo_g2 }}, {{ block.settings.holo_b2 }}, 1)
+    );
+    color: {{ block.settings.button_text_color }};
+    border: none;
+    border-radius: {{ block.settings.button_radius }}px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s ease;
+  }
+
+  .ai-holo-checkout-{{ ai_gen_id }}::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+  }
+
+  .ai-holo-checkout-{{ ai_gen_id }}:hover {
+    transform: translateY(-2px);
+  }
+
+  .ai-holo-checkout-{{ ai_gen_id }}:hover::before {
+    width: 400px;
+    height: 400px;
+  }
+
+  .ai-holo-checkout-{{ ai_gen_id }} span {
+    position: relative;
+    z-index: 1;
+  }
+
+  .ai-holo-empty-{{ ai_gen_id }} {
+    text-align: center;
+    padding: 60px 20px;
+  }
+
+  .ai-holo-empty-icon-{{ ai_gen_id }} {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 20px;
+    opacity: 0.3;
+  }
+
+  .ai-holo-empty-text-{{ ai_gen_id }} {
+    font-size: 16px;
+    color: {{ block.settings.text_color }};
+    opacity: 0.6;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-holo-cart-{{ ai_gen_id }} {
+      width: 100%;
+      padding: 25px;
+    }
+
+    .ai-holo-item-{{ ai_gen_id }} {
+      flex-direction: column;
+    }
+
+    .ai-holo-item-image-{{ ai_gen_id }} {
+      width: 100%;
+      height: 200px;
+    }
+
+    .ai-holo-item-footer-{{ ai_gen_id }} {
+      flex-direction: column;
+      gap: 15px;
+      align-items: flex-start;
+    }
+  }
+{% endstyle %}
+
+<holographic-product-cart-{{ ai_gen_id }} class="ai-holo-cart-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-holo-cart-content-{{ ai_gen_id }}">
+    <div class="ai-holo-cart-header-{{ ai_gen_id }}">
+      <h2 class="ai-holo-cart-title-{{ ai_gen_id }}">{{ block.settings.title }}</h2>
+      {% if block.settings.subtitle != blank %}
+        <p class="ai-holo-cart-subtitle-{{ ai_gen_id }}">{{ block.settings.subtitle }}</p>
+      {% endif %}
+    </div>
+
+    {% if block.settings.products != blank %}
+      <div class="ai-holo-items-{{ ai_gen_id }}">
+        {% for product in block.settings.products %}
+          <div class="ai-holo-item-{{ ai_gen_id }}" data-product-id="{{ product.id }}">
+            <div class="ai-holo-item-image-{{ ai_gen_id }}">
+              {% if product.featured_image %}
+                <img
+                  src="{{ product.featured_image | image_url: width: 200 }}"
+                  alt="{{ product.featured_image.alt | escape }}"
+                  loading="lazy"
+                  width="200"
+                  height="200"
+                >
+              {% else %}
+                <div class="ai-holo-item-image-placeholder-{{ ai_gen_id }}">
+                  {{ 'product-1' | placeholder_svg_tag }}
+                </div>
+              {% endif %}
+            </div>
+
+            <div class="ai-holo-item-details-{{ ai_gen_id }}">
+              <div>
+                <h3 class="ai-holo-item-name-{{ ai_gen_id }}">{{ product.title }}</h3>
+                {% if product.variants.size > 1 %}
+                  <div class="ai-holo-item-variant-{{ ai_gen_id }}">{{ product.variants.first.title }}</div>
+                {% endif %}
+              </div>
+
+              <div class="ai-holo-item-footer-{{ ai_gen_id }}">
+                <div class="ai-holo-quantity-{{ ai_gen_id }}">
+                  <button class="ai-holo-qty-btn-{{ ai_gen_id }}" data-action="decrease" aria-label="Decrease quantity">−</button>
+                  <span class="ai-holo-qty-value-{{ ai_gen_id }}">1</span>
+                  <button class="ai-holo-qty-btn-{{ ai_gen_id }}" data-action="increase" aria-label="Increase quantity">+</button>
+                </div>
+                <div class="ai-holo-item-price-{{ ai_gen_id }}" data-price="{{ product.price }}">
+                  {{ product.price | money }}
+                </div>
+              </div>
+            </div>
+
+            <button class="ai-holo-remove-{{ ai_gen_id }}" aria-label="Remove item">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+        {% endfor %}
+      </div>
+
+      <div class="ai-holo-summary-{{ ai_gen_id }}">
+        <div class="ai-holo-summary-row-{{ ai_gen_id }}">
+          <span>Subtotal</span>
+          <span data-subtotal>$0.00</span>
+        </div>
+        {% if block.settings.show_shipping %}
+          <div class="ai-holo-summary-row-{{ ai_gen_id }}">
+            <span>Shipping</span>
+            <span>{{ block.settings.shipping_text }}</span>
+          </div>
+        {% endif %}
+        <div class="ai-holo-summary-row-{{ ai_gen_id }}">
+          <span>Total</span>
+          <span class="ai-holo-summary-total-{{ ai_gen_id }}" data-total>$0.00</span>
+        </div>
+      </div>
+
+      <button class="ai-holo-checkout-{{ ai_gen_id }}">
+        <span>{{ block.settings.checkout_label }}</span>
+      </button>
+    {% else %}
+      <div class="ai-holo-empty-{{ ai_gen_id }}">
+        <svg class="ai-holo-empty-icon-{{ ai_gen_id }}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="9" cy="21" r="1"></circle>
+          <circle cx="20" cy="21" r="1"></circle>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+        </svg>
+        <p class="ai-holo-empty-text-{{ ai_gen_id }}">Add products to preview the cart</p>
+      </div>
+    {% endif %}
+  </div>
+</holographic-product-cart-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class HolographicProductCart{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.items = this.querySelectorAll('.ai-holo-item-{{ ai_gen_id }}');
+        this.subtotalEl = this.querySelector('[data-subtotal]');
+        this.totalEl = this.querySelector('[data-total]');
+      }
+
+      connectedCallback() {
+        this.setupQuantityControls();
+        this.setupRemoveButtons();
+        this.updateTotals();
+      }
+
+      setupQuantityControls() {
+        const qtyButtons = this.querySelectorAll('.ai-holo-qty-btn-{{ ai_gen_id }}');
+        
+        qtyButtons.forEach((btn) => {
+          btn.addEventListener('click', () => {
+            const action = btn.getAttribute('data-action');
+            const qtyEl = btn.parentElement.querySelector('.ai-holo-qty-value-{{ ai_gen_id }}');
+            let qty = parseInt(qtyEl.textContent);
+
+            if (action === 'increase') {
+              qty++;
+            } else if (action === 'decrease' && qty > 1) {
+              qty--;
+            }
+
+            qtyEl.textContent = qty;
+            this.updateItemPrice(btn.closest('.ai-holo-item-{{ ai_gen_id }}'));
+            this.updateTotals();
+          });
+        });
+      }
+
+      setupRemoveButtons() {
+        const removeButtons = this.querySelectorAll('.ai-holo-remove-{{ ai_gen_id }}');
+        
+        removeButtons.forEach((btn) => {
+          btn.addEventListener('click', () => {
+            const item = btn.closest('.ai-holo-item-{{ ai_gen_id }}');
+            item.style.opacity = '0';
+            item.style.transform = 'translateX(100%)';
+            item.style.transition = 'all 0.4s ease';
+            
+            setTimeout(() => {
+              item.remove();
+              this.updateTotals();
+              this.checkEmpty();
+            }, 400);
+          });
+        });
+      }
+
+      updateItemPrice(item) {
+        const priceEl = item.querySelector('.ai-holo-item-price-{{ ai_gen_id }}');
+        const basePrice = parseFloat(priceEl.getAttribute('data-price'));
+        const qty = parseInt(item.querySelector('.ai-holo-qty-value-{{ ai_gen_id }}').textContent);
+        const total = basePrice * qty;
+        
+        priceEl.textContent = '$' + (total / 100).toFixed(2);
+      }
+
+      updateTotals() {
+        if (!this.subtotalEl || !this.totalEl) return;
+
+        let subtotal = 0;
+        const activeItems = this.querySelectorAll('.ai-holo-item-{{ ai_gen_id }}');
+
+        activeItems.forEach((item) => {
+          const priceEl = item.querySelector('.ai-holo-item-price-{{ ai_gen_id }}');
+          const basePrice = parseFloat(priceEl.getAttribute('data-price'));
+          const qty = parseInt(item.querySelector('.ai-holo-qty-value-{{ ai_gen_id }}').textContent);
+          subtotal += basePrice * qty;
+        });
+
+        const formattedSubtotal = '$' + (subtotal / 100).toFixed(2);
+        this.subtotalEl.textContent = formattedSubtotal;
+        this.totalEl.textContent = formattedSubtotal;
+      }
+
+      checkEmpty() {
+        const remainingItems = this.querySelectorAll('.ai-holo-item-{{ ai_gen_id }}');
+        
+        if (remainingItems.length === 0) {
+          const content = this.querySelector('.ai-holo-cart-content-{{ ai_gen_id }}');
+          content.innerHTML = `
+            <div class="ai-holo-cart-header-{{ ai_gen_id }}">
+              <h2 class="ai-holo-cart-title-{{ ai_gen_id }}">{{ block.settings.title }}</h2>
+            </div>
+            <div class="ai-holo-empty-{{ ai_gen_id }}">
+              <svg class="ai-holo-empty-icon-{{ ai_gen_id }}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="9" cy="21" r="1"></circle>
+                <circle cx="20" cy="21" r="1"></circle>
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+              </svg>
+              <p class="ai-holo-empty-text-{{ ai_gen_id }}">Your cart is empty</p>
+            </div>
+          `;
+        }
+      }
+    }
+
+    customElements.define('holographic-product-cart-{{ ai_gen_id }}', HolographicProductCart{{ ai_gen_id }});
+  })();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Holographic product cart",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "label": "Title",
+      "default": "Your Cart"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "subtitle",
+      "label": "Subtitle"
+    },
+    {
+      "type": "product_list",
+      "id": "products",
+      "label": "Products",
+      "limit": 10
+    },
+    {
+      "type": "inline_richtext",
+      "id": "checkout_label",
+      "label": "Checkout button",
+      "default": "Proceed to Checkout"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_shipping",
+      "label": "Show shipping row",
+      "default": true
+    },
+    {
+      "type": "inline_richtext",
+      "id": "shipping_text",
+      "label": "Shipping text",
+      "default": "Calculated at checkout"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "header",
+      "content": "Holographic effect"
+    },
+    {
+      "type": "range",
+      "id": "holo_r",
+      "label": "Color 1 red",
+      "min": 0,
+      "max": 255,
+      "step": 5,
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "holo_g",
+      "label": "Color 1 green",
+      "min": 0,
+      "max": 255,
+      "step": 5,
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "holo_b",
+      "label": "Color 1 blue",
+      "min": 0,
+      "max": 255,
+      "step": 5,
+      "default": 255
+    },
+    {
+      "type": "range",
+      "id": "holo_r2",
+      "label": "Color 2 red",
+      "min": 0,
+      "max": 255,
+      "step": 5,
+      "default": 200
+    },
+    {
+      "type": "range",
+      "id": "holo_g2",
+      "label": "Color 2 green",
+      "min": 0,
+      "max": 255,
+      "step": 5,
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "holo_b2",
+      "label": "Color 2 blue",
+      "min": 0,
+      "max": 255,
+      "step": 5,
+      "default": 255
+    },
+    {
+      "type": "range",
+      "id": "holo_opacity",
+      "label": "Effect opacity",
+      "min": 0,
+      "max": 1,
+      "step": 0.1,
+      "default": 0.3
+    },
+    {
+      "type": "range",
+      "id": "animation_speed",
+      "label": "Animation speed",
+      "min": 2,
+      "max": 10,
+      "step": 1,
+      "unit": "s",
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card background",
+      "default": "#f9fafb"
+    },
+    {
+      "type": "color",
+      "id": "card_border",
+      "label": "Card border",
+      "default": "#e5e7eb"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "remove_color",
+      "label": "Remove button",
+      "default": "#ef4444"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Title size",
+      "min": 18,
+      "max": 36,
+      "step": 2,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Container border radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "label": "Card border radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "image_radius",
+      "label": "Image border radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "button_radius",
+      "label": "Button border radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 10
+    }
+  ],
+  "presets": [
+    {
+      "name": "Holographic product cart"
+    }
+  ]
+}
 {% endschema %}
