@@ -27,12 +27,47 @@
     "17722525539974eaa7": {
       "type": "_blocks",
       "settings": {}
+    },
+    "177225517845295d45": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_990b673_zJd9E8": {
+          "type": "ai_gen_block_990b673",
+          "settings": {
+            "heading": "Design Your Custom Product",
+            "subheading": "Create your perfect custom apparel with our easy-to-use designer",
+            "button_text": "Submit Design Request",
+            "success_message": "Thank you! We've received your design request and will contact you shortly.",
+            "tshirt_adult_male": "shopify://shop_images/rn-image_picker_lib_temp_bbbb80df-dd08-44da-aa43-18dc01d70638.jpg",
+            "tshirt_adult_female": "shopify://shop_images/rn-image_picker_lib_temp_cbd5d3ce-a498-4d5a-901c-23aa95bc7021.jpg",
+            "tshirt_kids_male": "shopify://shop_images/rn-image_picker_lib_temp_aca39d19-505a-4869-867e-cd45aa90bda8.jpg",
+            "desktop_width_percent": 100,
+            "border_radius": 8,
+            "background_color": "#ffffff",
+            "section_bg_color": "#f9f9f9",
+            "text_color": "#121212",
+            "border_color": "#e0e0e0",
+            "input_border_color": "#cccccc",
+            "button_color": "#121212",
+            "button_text_color": "#ffffff",
+            "button_hover_color": "#334FB4",
+            "heading_size": 32,
+            "subheading_size": 16
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_990b673_zJd9E8"
+      ],
+      "settings": {}
     }
   },
   "order": [
     "17722538076a1971f0",
     "main",
     "17722538323efe6ab4",
-    "17722525539974eaa7"
+    "17722525539974eaa7",
+    "177225517845295d45"
   ]
 }
