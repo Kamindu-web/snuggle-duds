@@ -1,6 +1,970 @@
+{% doc %}
+  @prompt
+    I need a T-shirt, hoodie, cap, hat, bag, and shorts mockup design.
+    
+    Then
+    When choosing T-shirts - Adults, Kids
+    01) Adults - 2 options Male or Female
+    02) Kids - 2 options Female or Male
+    
+    Or
+    When choosing Hoodies - Adults, Kids
+    01) Adults - 2 options Male or Female
+    02) Kids - 2 options Female or Male
+    
+    T-shirts and Hoodies
+    
+    I want to change the t-shirt sample I have uploaded.
+    
+    I want to choose the unlimited upload option for our designs.
+    
+    Add an option to change the size and rotation of the gizmo display. The customer needs an option to upload the design. Select the size option, send me an email and get the parts, customer details.
+    , I need a T-shirt, hoodie, cap, hat, bag, and shorts mockup design.
+    
+    Then
+    When choosing T-shirts - Adults, Kids
+    01) Adults - 2 options Male or Female
+    02) Kids - 2 options Female or Male
+    
+    Or
+    When choosing Hoodies - Adults, Kids
+    01) Adults - 2 options Male or Female
+    02) Kids - 2 options Female or Male
+    
+    T-shirts and Hoodies
+    
+    I want to change the t-shirt sample I have uploaded.
+    
+    Add an option to change the size and rotation of the gizmo display. The customer needs an option to upload the design. Select the size option, send me an email and get the parts, customer details.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-mockup-customizer-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    padding: 40px;
+    background-color: {{ block.settings.background_color }};
+    color: {{ block.settings.text_color }};
+  }
+
+  .ai-mockup-customizer-container-{{ ai_gen_id }} {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .ai-mockup-customizer-header-{{ ai_gen_id }} {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .ai-mockup-customizer-title-{{ ai_gen_id }} {
+    font-size: 32px;
+    margin: 0 0 10px;
+    color: {{ block.settings.text_color }};
+  }
+
+  .ai-mockup-customizer-subtitle-{{ ai_gen_id }} {
+    font-size: 16px;
+    color: {{ block.settings.text_color }};
+    opacity: 0.8;
+  }
+
+  .ai-mockup-customizer-grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 40px;
+  }
+
+  @media (max-width: 768px) {
+    .ai-mockup-customizer-grid-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .ai-mockup-customizer-preview-{{ ai_gen_id }} {
+    position: relative;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    padding: 20px;
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-mockup-customizer-mockup-container-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .ai-mockup-customizer-mockup-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .ai-mockup-customizer-design-overlay-{{ ai_gen_id }} {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+
+  .ai-mockup-customizer-design-overlay-{{ ai_gen_id }} img {
+    display: block;
+    max-width: 200px;
+  }
+
+  .ai-mockup-customizer-placeholder-{{ ai_gen_id }} {
+    text-align: center;
+    color: #999;
+    padding: 60px 20px;
+  }
+
+  .ai-mockup-customizer-placeholder-{{ ai_gen_id }} svg {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 20px;
+    opacity: 0.3;
+  }
+
+  .ai-mockup-customizer-controls-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .ai-mockup-customizer-section-{{ ai_gen_id }} {
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    border-radius: 8px;
+  }
+
+  .ai-mockup-customizer-section-title-{{ ai_gen_id }} {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 0 16px;
+    color: {{ block.settings.text_color }};
+  }
+
+  .ai-mockup-customizer-form-group-{{ ai_gen_id }} {
+    margin-bottom: 16px;
+  }
+
+  .ai-mockup-customizer-label-{{ ai_gen_id }} {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: {{ block.settings.text_color }};
+  }
+
+  .ai-mockup-customizer-select-{{ ai_gen_id }} {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    background-color: white;
+    font-size: 14px;
+  }
+
+  .ai-mockup-customizer-upload-area-{{ ai_gen_id }} {
+    border: 2px dashed rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    padding: 30px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .ai-mockup-customizer-upload-area-{{ ai_gen_id }}:hover {
+    border-color: {{ block.settings.button_color }};
+    background-color: rgba(0, 0, 0, 0.02);
+  }
+
+  .ai-mockup-customizer-upload-input-{{ ai_gen_id }} {
+    display: none;
+  }
+
+  .ai-mockup-customizer-upload-icon-{{ ai_gen_id }} {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 12px;
+    opacity: 0.5;
+  }
+
+  .ai-mockup-customizer-upload-text-{{ ai_gen_id }} {
+    font-size: 14px;
+    color: {{ block.settings.text_color }};
+    opacity: 0.7;
+  }
+
+  .ai-mockup-customizer-thumbnails-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 12px;
+    margin-top: 16px;
+  }
+
+  .ai-mockup-customizer-thumbnail-{{ ai_gen_id }} {
+    position: relative;
+    aspect-ratio: 1;
+    border-radius: 4px;
+    overflow: hidden;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+  }
+
+  .ai-mockup-customizer-thumbnail-{{ ai_gen_id }}:hover {
+    border-color: {{ block.settings.button_color }};
+  }
+
+  .ai-mockup-customizer-thumbnail-{{ ai_gen_id }}.active {
+    border-color: {{ block.settings.button_color }};
+    box-shadow: 0 0 0 2px {{ block.settings.button_color }};
+  }
+
+  .ai-mockup-customizer-thumbnail-{{ ai_gen_id }} img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ai-mockup-customizer-thumbnail-remove-{{ ai_gen_id }} {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 20px;
+    height: 20px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    line-height: 1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .ai-mockup-customizer-thumbnail-{{ ai_gen_id }}:hover .ai-mockup-customizer-thumbnail-remove-{{ ai_gen_id }} {
+    opacity: 1;
+  }
+
+  .ai-mockup-customizer-slider-group-{{ ai_gen_id }} {
+    margin-bottom: 20px;
+  }
+
+  .ai-mockup-customizer-slider-label-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: {{ block.settings.text_color }};
+  }
+
+  .ai-mockup-customizer-slider-{{ ai_gen_id }} {
+    width: 100%;
+    height: 6px;
+    border-radius: 3px;
+    background: rgba(0, 0, 0, 0.1);
+    outline: none;
+    -webkit-appearance: none;
+  }
+
+  .ai-mockup-customizer-slider-{{ ai_gen_id }}::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: {{ block.settings.button_color }};
+    cursor: pointer;
+  }
+
+  .ai-mockup-customizer-slider-{{ ai_gen_id }}::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: {{ block.settings.button_color }};
+    cursor: pointer;
+    border: none;
+  }
+
+  .ai-mockup-customizer-input-{{ ai_gen_id }} {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    font-size: 14px;
+  }
+
+  .ai-mockup-customizer-textarea-{{ ai_gen_id }} {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    font-size: 14px;
+    min-height: 100px;
+    resize: vertical;
+  }
+
+  .ai-mockup-customizer-submit-{{ ai_gen_id }} {
+    width: 100%;
+    padding: 16px;
+    background-color: {{ block.settings.button_color }};
+    color: {{ block.settings.button_text_color }};
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .ai-mockup-customizer-submit-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_color }};
+  }
+
+  .ai-mockup-customizer-success-{{ ai_gen_id }} {
+    padding: 16px;
+    background-color: #d4edda;
+    color: #155724;
+    border-radius: 4px;
+    margin-top: 16px;
+    text-align: center;
+  }
+
+  .ai-mockup-customizer-error-{{ ai_gen_id }} {
+    padding: 16px;
+    background-color: #f8d7da;
+    color: #721c24;
+    border-radius: 4px;
+    margin-top: 16px;
+  }
+
+  .ai-mockup-customizer-hidden-{{ ai_gen_id }} {
+    display: none;
+  }
+{% endstyle %}
+
+<mockup-customizer-{{ ai_gen_id }} class="ai-mockup-customizer-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-mockup-customizer-container-{{ ai_gen_id }}">
+    <div class="ai-mockup-customizer-header-{{ ai_gen_id }}">
+      <h2 class="ai-mockup-customizer-title-{{ ai_gen_id }}">{{ block.settings.heading }}</h2>
+      <p class="ai-mockup-customizer-subtitle-{{ ai_gen_id }}">{{ block.settings.subheading }}</p>
+    </div>
+
+    <div class="ai-mockup-customizer-grid-{{ ai_gen_id }}">
+      <div class="ai-mockup-customizer-preview-{{ ai_gen_id }}">
+        <div class="ai-mockup-customizer-mockup-container-{{ ai_gen_id }}">
+          <div class="ai-mockup-customizer-mockup-display-{{ ai_gen_id }}">
+            <div class="ai-mockup-customizer-placeholder-{{ ai_gen_id }}">
+              {{ 'product-1' | placeholder_svg_tag }}
+              <p>Select a product to see the mockup</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ai-mockup-customizer-controls-{{ ai_gen_id }}">
+        <div class="ai-mockup-customizer-section-{{ ai_gen_id }}">
+          <h3 class="ai-mockup-customizer-section-title-{{ ai_gen_id }}">Product Selection</h3>
+          
+          <div class="ai-mockup-customizer-form-group-{{ ai_gen_id }}">
+            <label class="ai-mockup-customizer-label-{{ ai_gen_id }}">Product Type</label>
+            <select class="ai-mockup-customizer-select-{{ ai_gen_id }}" data-product-type>
+              <option value="">Select product type</option>
+              <option value="tshirt">T-shirt</option>
+              <option value="hoodie">Hoodie</option>
+              <option value="cap">Cap</option>
+              <option value="hat">Hat</option>
+              <option value="bag">Bag</option>
+              <option value="shorts">Shorts</option>
+            </select>
+          </div>
+
+          <div class="ai-mockup-customizer-form-group-{{ ai_gen_id }} ai-mockup-customizer-hidden-{{ ai_gen_id }}" data-age-group>
+            <label class="ai-mockup-customizer-label-{{ ai_gen_id }}">Age Group</label>
+            <select class="ai-mockup-customizer-select-{{ ai_gen_id }}" data-age-select>
+              <option value="">Select age group</option>
+              <option value="adults">Adults</option>
+              <option value="kids">Kids</option>
+            </select>
+          </div>
+
+          <div class="ai-mockup-customizer-form-group-{{ ai_gen_id }} ai-mockup-customizer-hidden-{{ ai_gen_id }}" data-gender-group>
+            <label class="ai-mockup-customizer-label-{{ ai_gen_id }}">Gender</label>
+            <select class="ai-mockup-customizer-select-{{ ai_gen_id }}" data-gender-select>
+              <option value="">Select gender</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="ai-mockup-customizer-section-{{ ai_gen_id }}">
+          <h3 class="ai-mockup-customizer-section-title-{{ ai_gen_id }}">Upload Designs</h3>
+          
+          <div class="ai-mockup-customizer-upload-area-{{ ai_gen_id }}" data-upload-area>
+            <input 
+              type="file" 
+              class="ai-mockup-customizer-upload-input-{{ ai_gen_id }}" 
+              data-file-input 
+              accept="image/*" 
+              multiple
+            >
+            <svg class="ai-mockup-customizer-upload-icon-{{ ai_gen_id }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+            </svg>
+            <p class="ai-mockup-customizer-upload-text-{{ ai_gen_id }}">Click to upload or drag and drop<br>PNG, JPG (max 5MB)</p>
+          </div>
+
+          <div class="ai-mockup-customizer-thumbnails-{{ ai_gen_id }}" data-thumbnails></div>
+        </div>
+
+        <div class="ai-mockup-customizer-section-{{ ai_gen_id }}">
+          <h3 class="ai-mockup-customizer-section-title-{{ ai_gen_id }}">Design Controls</h3>
+          
+          <div class="ai-mockup-customizer-slider-group-{{ ai_gen_id }}">
+            <div class="ai-mockup-customizer-slider-label-{{ ai_gen_id }}">
+              <span>Size</span>
+              <span data-size-value>100%</span>
+            </div>
+            <input 
+              type="range" 
+              class="ai-mockup-customizer-slider-{{ ai_gen_id }}" 
+              data-size-slider 
+              min="50" 
+              max="200" 
+              value="100"
+            >
+          </div>
+
+          <div class="ai-mockup-customizer-slider-group-{{ ai_gen_id }}">
+            <div class="ai-mockup-customizer-slider-label-{{ ai_gen_id }}">
+              <span>Rotation</span>
+              <span data-rotation-value>0°</span>
+            </div>
+            <input 
+              type="range" 
+              class="ai-mockup-customizer-slider-{{ ai_gen_id }}" 
+              data-rotation-slider 
+              min="0" 
+              max="360" 
+              value="0"
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {%- form 'contact' -%}
+      <input type="hidden" name="contact[subject]" value="Product Mockup Customization Request">
+      <input type="hidden" name="contact[product_type]" data-form-product-type>
+      <input type="hidden" name="contact[age_group]" data-form-age-group>
+      <input type="hidden" name="contact[gender]" data-form-gender>
+      <input type="hidden" name="contact[design_size]" data-form-size>
+      <input type="hidden" name="contact[design_rotation]" data-form-rotation>
+      <input type="hidden" name="contact[design_files]" data-form-files>
+
+      <div class="ai-mockup-customizer-section-{{ ai_gen_id }}">
+        <h3 class="ai-mockup-customizer-section-title-{{ ai_gen_id }}">Your Details</h3>
+        
+        <div class="ai-mockup-customizer-form-group-{{ ai_gen_id }}">
+          <label class="ai-mockup-customizer-label-{{ ai_gen_id }}">Name *</label>
+          <input 
+            type="text" 
+            name="contact[name]" 
+            class="ai-mockup-customizer-input-{{ ai_gen_id }}" 
+            required
+          >
+        </div>
+
+        <div class="ai-mockup-customizer-form-group-{{ ai_gen_id }}">
+          <label class="ai-mockup-customizer-label-{{ ai_gen_id }}">Email *</label>
+          <input 
+            type="email" 
+            name="contact[email]" 
+            class="ai-mockup-customizer-input-{{ ai_gen_id }}" 
+            required
+          >
+        </div>
+
+        <div class="ai-mockup-customizer-form-group-{{ ai_gen_id }}">
+          <label class="ai-mockup-customizer-label-{{ ai_gen_id }}">Phone</label>
+          <input 
+            type="tel" 
+            name="contact[phone]" 
+            class="ai-mockup-customizer-input-{{ ai_gen_id }}"
+          >
+        </div>
+
+        <div class="ai-mockup-customizer-form-group-{{ ai_gen_id }}">
+          <label class="ai-mockup-customizer-label-{{ ai_gen_id }}">Additional Notes (Size, Quantity, Delivery Date, etc.)</label>
+          <textarea 
+            name="contact[message]" 
+            class="ai-mockup-customizer-textarea-{{ ai_gen_id }}"
+          ></textarea>
+        </div>
+
+        <button type="submit" class="ai-mockup-customizer-submit-{{ ai_gen_id }}">
+          {{ block.settings.submit_button_text }}
+        </button>
+
+        {%- if form.posted_successfully? -%}
+          <div class="ai-mockup-customizer-success-{{ ai_gen_id }}">
+            {{ block.settings.success_message }}
+          </div>
+        {%- endif -%}
+
+        {%- if form.errors -%}
+          <div class="ai-mockup-customizer-error-{{ ai_gen_id }}">
+            <p>Please correct the following errors:</p>
+            <ul>
+              {%- for field in form.errors -%}
+                <li>{{ field | capitalize }} {{ form.errors.messages[field] }}</li>
+              {%- endfor -%}
+            </ul>
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endform -%}
+  </div>
+</mockup-customizer-{{ ai_gen_id }}>
+
+<script>
+(function() {
+  class MockupCustomizer{{ ai_gen_id }} extends HTMLElement {
+    constructor() {
+      super();
+      this.uploadedDesigns = [];
+      this.activeDesignIndex = null;
+      this.mockupImages = {
+        tshirt: {
+          adults: {
+            male: {{ block.settings.tshirt_adult_male | image_url: width: 800 | json }},
+            female: {{ block.settings.tshirt_adult_female | image_url: width: 800 | json }}
+          },
+          kids: {
+            male: {{ block.settings.tshirt_kids_male | image_url: width: 800 | json }},
+            female: {{ block.settings.tshirt_kids_female | image_url: width: 800 | json }}
+          }
+        },
+        hoodie: {
+          adults: {
+            male: {{ block.settings.hoodie_adult_male | image_url: width: 800 | json }},
+            female: {{ block.settings.hoodie_adult_female | image_url: width: 800 | json }}
+          },
+          kids: {
+            male: {{ block.settings.hoodie_kids_male | image_url: width: 800 | json }},
+            female: {{ block.settings.hoodie_kids_female | image_url: width: 800 | json }}
+          }
+        },
+        cap: {{ block.settings.cap_image | image_url: width: 800 | json }},
+        hat: {{ block.settings.hat_image | image_url: width: 800 | json }},
+        bag: {{ block.settings.bag_image | image_url: width: 800 | json }},
+        shorts: {{ block.settings.shorts_image | image_url: width: 800 | json }}
+      };
+    }
+
+    connectedCallback() {
+      this.productTypeSelect = this.querySelector('[data-product-type]');
+      this.ageGroupContainer = this.querySelector('[data-age-group]');
+      this.ageSelect = this.querySelector('[data-age-select]');
+      this.genderGroupContainer = this.querySelector('[data-gender-group]');
+      this.genderSelect = this.querySelector('[data-gender-select]');
+      this.uploadArea = this.querySelector('[data-upload-area]');
+      this.fileInput = this.querySelector('[data-file-input]');
+      this.thumbnailsContainer = this.querySelector('[data-thumbnails]');
+      this.sizeSlider = this.querySelector('[data-size-slider]');
+      this.sizeValue = this.querySelector('[data-size-value]');
+      this.rotationSlider = this.querySelector('[data-rotation-slider]');
+      this.rotationValue = this.querySelector('[data-rotation-value]');
+      this.mockupDisplay = this.querySelector('.ai-mockup-customizer-mockup-display-{{ ai_gen_id }}');
+      
+      this.formProductType = this.querySelector('[data-form-product-type]');
+      this.formAgeGroup = this.querySelector('[data-form-age-group]');
+      this.formGender = this.querySelector('[data-form-gender]');
+      this.formSize = this.querySelector('[data-form-size]');
+      this.formRotation = this.querySelector('[data-form-rotation]');
+      this.formFiles = this.querySelector('[data-form-files]');
+
+      this.setupEventListeners();
+    }
+
+    setupEventListeners() {
+      this.productTypeSelect.addEventListener('change', () => this.handleProductTypeChange());
+      this.ageSelect.addEventListener('change', () => this.handleAgeChange());
+      this.genderSelect.addEventListener('change', () => this.handleGenderChange());
+      
+      this.uploadArea.addEventListener('click', () => this.fileInput.click());
+      this.fileInput.addEventListener('change', (e) => this.handleFileUpload(e));
+      
+      this.uploadArea.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        this.uploadArea.style.borderColor = '{{ block.settings.button_color }}';
+      });
+      
+      this.uploadArea.addEventListener('dragleave', () => {
+        this.uploadArea.style.borderColor = '';
+      });
+      
+      this.uploadArea.addEventListener('drop', (e) => {
+        e.preventDefault();
+        this.uploadArea.style.borderColor = '';
+        this.handleFileUpload({ target: { files: e.dataTransfer.files } });
+      });
+
+      this.sizeSlider.addEventListener('input', () => this.handleSizeChange());
+      this.rotationSlider.addEventListener('input', () => this.handleRotationChange());
+    }
+
+    handleProductTypeChange() {
+      const productType = this.productTypeSelect.value;
+      this.formProductType.value = productType;
+      
+      if (productType === 'tshirt' || productType === 'hoodie') {
+        this.ageGroupContainer.classList.remove('ai-mockup-customizer-hidden-{{ ai_gen_id }}');
+        this.genderGroupContainer.classList.add('ai-mockup-customizer-hidden-{{ ai_gen_id }}');
+        this.ageSelect.value = '';
+        this.genderSelect.value = '';
+      } else {
+        this.ageGroupContainer.classList.add('ai-mockup-customizer-hidden-{{ ai_gen_id }}');
+        this.genderGroupContainer.classList.add('ai-mockup-customizer-hidden-{{ ai_gen_id }}');
+        this.ageSelect.value = '';
+        this.genderSelect.value = '';
+        this.updateMockup();
+      }
+    }
+
+    handleAgeChange() {
+      const ageGroup = this.ageSelect.value;
+      this.formAgeGroup.value = ageGroup;
+      
+      if (ageGroup) {
+        this.genderGroupContainer.classList.remove('ai-mockup-customizer-hidden-{{ ai_gen_id }}');
+        this.genderSelect.value = '';
+      } else {
+        this.genderGroupContainer.classList.add('ai-mockup-customizer-hidden-{{ ai_gen_id }}');
+      }
+    }
+
+    handleGenderChange() {
+      const gender = this.genderSelect.value;
+      this.formGender.value = gender;
+      
+      if (gender) {
+        this.updateMockup();
+      }
+    }
+
+    handleFileUpload(e) {
+      const files = Array.from(e.target.files);
+      
+      files.forEach(file => {
+        if (file.size > 5 * 1024 * 1024) {
+          alert('File size must be less than 5MB');
+          return;
+        }
+        
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          this.uploadedDesigns.push({
+            name: file.name,
+            data: event.target.result
+          });
+          this.renderThumbnails();
+          
+          if (this.activeDesignIndex === null) {
+            this.setActiveDesign(this.uploadedDesigns.length - 1);
+          }
+        };
+        reader.readAsDataURL(file);
+      });
+      
+      this.fileInput.value = '';
+    }
+
+    renderThumbnails() {
+      this.thumbnailsContainer.innerHTML = '';
+      
+      this.uploadedDesigns.forEach((design, index) => {
+        const thumbnail = document.createElement('div');
+        thumbnail.className = 'ai-mockup-customizer-thumbnail-{{ ai_gen_id }}';
+        if (index === this.activeDesignIndex) {
+          thumbnail.classList.add('active');
+        }
+        
+        thumbnail.innerHTML = `
+          <img src="${design.data}" alt="${design.name}">
+          <button class="ai-mockup-customizer-thumbnail-remove-{{ ai_gen_id }}" data-remove="${index}">×</button>
+        `;
+        
+        thumbnail.addEventListener('click', (e) => {
+          if (!e.target.hasAttribute('data-remove')) {
+            this.setActiveDesign(index);
+          }
+        });
+        
+        const removeBtn = thumbnail.querySelector('[data-remove]');
+        removeBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          this.removeDesign(index);
+        });
+        
+        this.thumbnailsContainer.appendChild(thumbnail);
+      });
+      
+      this.updateFormFiles();
+    }
+
+    setActiveDesign(index) {
+      this.activeDesignIndex = index;
+      this.renderThumbnails();
+      this.updateMockup();
+    }
+
+    removeDesign(index) {
+      this.uploadedDesigns.splice(index, 1);
+      
+      if (this.activeDesignIndex === index) {
+        this.activeDesignIndex = this.uploadedDesigns.length > 0 ? 0 : null;
+      } else if (this.activeDesignIndex > index) {
+        this.activeDesignIndex--;
+      }
+      
+      this.renderThumbnails();
+      this.updateMockup();
+    }
+
+    handleSizeChange() {
+      const size = this.sizeSlider.value;
+      this.sizeValue.textContent = size + '%';
+      this.formSize.value = size;
+      this.updateMockup();
+    }
+
+    handleRotationChange() {
+      const rotation = this.rotationSlider.value;
+      this.rotationValue.textContent = rotation + '°';
+      this.formRotation.value = rotation;
+      this.updateMockup();
+    }
+
+    updateMockup() {
+      const productType = this.productTypeSelect.value;
+      const ageGroup = this.ageSelect.value;
+      const gender = this.genderSelect.value;
+      
+      let mockupUrl = null;
+      
+      if (productType === 'tshirt' || productType === 'hoodie') {
+        if (ageGroup && gender) {
+          mockupUrl = this.mockupImages[productType][ageGroup][gender];
+        }
+      } else if (productType) {
+        mockupUrl = this.mockupImages[productType];
+      }
+      
+      if (mockupUrl && mockupUrl !== 'null') {
+        const size = this.sizeSlider.value;
+        const rotation = this.rotationSlider.value;
+        const activeDesign = this.uploadedDesigns[this.activeDesignIndex];
+        
+        this.mockupDisplay.innerHTML = `
+          <img src="${mockupUrl}" alt="Mockup" class="ai-mockup-customizer-mockup-image-{{ ai_gen_id }}">
+          ${activeDesign ? `
+            <div class="ai-mockup-customizer-design-overlay-{{ ai_gen_id }}" style="transform: translate(-50%, -50%) scale(${size / 100}) rotate(${rotation}deg);">
+              <img src="${activeDesign.data}" alt="Design">
+            </div>
+          ` : ''}
+        `;
+      } else {
+        this.mockupDisplay.innerHTML = `
+          <div class="ai-mockup-customizer-placeholder-{{ ai_gen_id }}">
+            {{ 'product-1' | placeholder_svg_tag }}
+            <p>Select a product to see the mockup</p>
+          </div>
+        `;
+      }
+    }
+
+    updateFormFiles() {
+      const fileNames = this.uploadedDesigns.map(d => d.name).join(', ');
+      this.formFiles.value = fileNames;
+    }
+  }
+
+  customElements.define('mockup-customizer-{{ ai_gen_id }}', MockupCustomizer{{ ai_gen_id }});
+})();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Product mockup customizer",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Customize Your Product"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Upload your design and see it on our products"
+    },
+    {
+      "type": "text",
+      "id": "submit_button_text",
+      "label": "Submit button text",
+      "default": "Submit Customization Request"
+    },
+    {
+      "type": "text",
+      "id": "success_message",
+      "label": "Success message",
+      "default": "Thank you! We'll review your design and contact you soon."
+    },
+    {
+      "type": "header",
+      "content": "T-shirt mockups"
+    },
+    {
+      "type": "image_picker",
+      "id": "tshirt_adult_male",
+      "label": "Adult male"
+    },
+    {
+      "type": "image_picker",
+      "id": "tshirt_adult_female",
+      "label": "Adult female"
+    },
+    {
+      "type": "image_picker",
+      "id": "tshirt_kids_male",
+      "label": "Kids male"
+    },
+    {
+      "type": "image_picker",
+      "id": "tshirt_kids_female",
+      "label": "Kids female"
+    },
+    {
+      "type": "header",
+      "content": "Hoodie mockups"
+    },
+    {
+      "type": "image_picker",
+      "id": "hoodie_adult_male",
+      "label": "Adult male"
+    },
+    {
+      "type": "image_picker",
+      "id": "hoodie_adult_female",
+      "label": "Adult female"
+    },
+    {
+      "type": "image_picker",
+      "id": "hoodie_kids_male",
+      "label": "Kids male"
+    },
+    {
+      "type": "image_picker",
+      "id": "hoodie_kids_female",
+      "label": "Kids female"
+    },
+    {
+      "type": "header",
+      "content": "Other product mockups"
+    },
+    {
+      "type": "image_picker",
+      "id": "cap_image",
+      "label": "Cap"
+    },
+    {
+      "type": "image_picker",
+      "id": "hat_image",
+      "label": "Hat"
+    },
+    {
+      "type": "image_picker",
+      "id": "bag_image",
+      "label": "Bag"
+    },
+    {
+      "type": "image_picker",
+      "id": "shorts_image",
+      "label": "Shorts"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "button_color",
+      "label": "Button",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_color",
+      "label": "Button hover",
+      "default": "#334FB4"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product mockup customizer"
+    }
+  ]
+}
 {% endschema %}
