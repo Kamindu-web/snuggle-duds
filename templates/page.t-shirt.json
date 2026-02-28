@@ -11,10 +11,52 @@
   "sections": {
     "17722538076a1971f0": {
       "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_7dcdaff_gxt4K8": {
+          "type": "ai_gen_block_7dcdaff",
+          "settings": {
+            "preview_heading": "Preview",
+            "controls_heading": "Customize your design",
+            "desktop_width_percent": 100,
+            "tshirt_adult_male_1": "shopify://shop_images/Gemini_Generated_Image_ya0puzya0puzya0p_832aa02f-0475-4b1a-a3c2-f5d1d8558926.png",
+            "tshirt_adult_male_2": "shopify://shop_images/Gemini_Generated_Image_kl6okdkl6okdkl6o_739368fd-0d60-4b18-a6b6-e9b302f737be.png",
+            "tshirt_adult_male_3": "shopify://shop_images/Gemini_Generated_Image_cuavttcuavttcuav.png",
+            "tshirt_adult_male_4": "shopify://shop_images/Gemini_Generated_Image_ym34wbym34wbym34.png",
+            "tshirt_adult_male_5": "shopify://shop_images/Gemini_Generated_Image_d0j61dd0j61dd0j6.png",
+            "tshirt_adult_female_1": "shopify://shop_images/4051_WOS_BASIC_TEE_SAGE.jpg",
+            "tshirt_adult_female_2": "shopify://shop_images/4051_WOS_BASIC_TEE_BURGUNDY.jpg",
+            "tshirt_adult_female_3": "shopify://shop_images/4051_WOS_BASIC_TEE_TAN.jpg",
+            "tshirt_adult_female_4": "shopify://shop_images/5026_CLASSIC_TEE_WHITE.jpg",
+            "hoodie_adult_male_1": "shopify://shop_images/HoodieKhaki_3051eb6c-d4dc-4638-bb78-392eb73aee81.jpg",
+            "hoodie_adult_male_2": "shopify://shop_images/Hoodieblue_9ddaeb98-d4d7-4de9-9fef-dd89434250b8.jpg",
+            "hoodie_adult_male_3": "shopify://shop_images/HoodieGreay_91bfd1b1-8d7f-46e6-9b5e-c11a9db13273.jpg",
+            "hoodie_adult_male_4": "shopify://shop_images/ZipupHoodieBlack.jpg",
+            "submit_button_text": "Send request",
+            "success_message": "<p>Thank you! We'll review your design and get back to you soon.</p>",
+            "background_color": "#F3F3F3",
+            "preview_bg_color": "#FFFFFF",
+            "text_color": "#121212",
+            "accent_color": "#334FB4",
+            "button_color": "#121212",
+            "button_text_color": "#FFFFFF",
+            "button_hover_color": "#334FB4",
+            "submit_button_color": "#334FB4",
+            "submit_button_text_color": "#FFFFFF",
+            "submit_button_hover_color": "#121212",
+            "slider_bg_color": "#E0E0E0",
+            "border_radius": 8
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_7dcdaff_gxt4K8"
+      ],
       "settings": {}
     },
     "main": {
       "type": "main-page",
+      "disabled": true,
       "settings": {
         "padding_top": 28,
         "padding_bottom": 28
@@ -22,6 +64,7 @@
     },
     "1772273862407cde2f": {
       "type": "_blocks",
+      "disabled": true,
       "settings": {}
     },
     "17722538323efe6ab4": {
