@@ -9,6 +9,39 @@
  */
 {
   "sections": {
+    "slideshow_CY7bkd": {
+      "type": "slideshow",
+      "blocks": {
+        "main_slide_z4JdjE": {
+          "type": "main_slide",
+          "settings": {
+            "title_sub_text": "",
+            "title": "",
+            "description": "",
+            "link": "",
+            "btn_title": "",
+            "background_img": "shopify://shop_images/slide-2_d9530573-ecfe-4dc7-aaf0-9f5a98cf14c9.jpg"
+          }
+        },
+        "main_slide_L8Hjde": {
+          "type": "main_slide",
+          "settings": {
+            "title_sub_text": "",
+            "title": "",
+            "description": "",
+            "link": "",
+            "btn_title": "",
+            "background_img": "shopify://shop_images/Boys_Collection.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "main_slide_z4JdjE",
+        "main_slide_L8Hjde"
+      ],
+      "name": "Main Slider",
+      "settings": {}
+    },
     "collecion_carousel_zXpBja": {
       "type": "collecion-carousel",
       "settings": {}
@@ -57,6 +90,7 @@
     }
   },
   "order": [
+    "slideshow_CY7bkd",
     "collecion_carousel_zXpBja",
     "featured_collection_2_columns_wemJdj",
     "kd_products_carousel_aKRQfV",

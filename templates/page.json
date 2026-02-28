@@ -1,14 +1,38 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
+    "17722538076a1971f0": {
+      "type": "_blocks",
+      "settings": {}
+    },
     "main": {
       "type": "main-page",
       "settings": {
         "padding_top": 28,
         "padding_bottom": 28
       }
+    },
+    "17722538323efe6ab4": {
+      "type": "_blocks",
+      "settings": {}
+    },
+    "17722525539974eaa7": {
+      "type": "_blocks",
+      "settings": {}
     }
   },
   "order": [
-    "main"
+    "17722538076a1971f0",
+    "main",
+    "17722538323efe6ab4",
+    "17722525539974eaa7"
   ]
 }
