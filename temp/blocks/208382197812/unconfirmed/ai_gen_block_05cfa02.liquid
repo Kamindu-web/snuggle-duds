@@ -1,6 +1,1507 @@
+{% doc %}
+  @prompt
+    A T-shirt, a hoodie mockup design is required. One category should contain 1 to 10 sample images in color.
+    All sample images should be uploaded.
+    
+    In it,
+    
+    When choosing a T-shirt - two options should be given as adults, children, then
+    01) Adults - 2 options for men or women
+    02) Children - 2 options for women or men
+    
+    Or
+    When choosing a hoodie - two options should be given as adults, children, adults, children, then
+    01) Adults - 2 options for men or women
+    02) Children - 2 options for women or men
+    
+    Customer needs an option to upload 4 designs. They should be separate, with transform controls to change size, position and rotation in the preview area.
+    
+    Send me an email and get the parts, customer details., A T-shirt, a hoodie mockup design is required. One category should contain 1 to 10 sample images in color.
+    All sample images should be uploaded.
+    
+    In it,
+    
+    When choosing a T-shirt - two options should be given as adults, children, then
+    01) Adults - 2 options for men or women
+    02) Children - 2 options for women or men
+    
+    Or
+    When choosing a hoodie - two options should be given as adults, children, adults, children, then
+    01) Adults - 2 options for men or women
+    02) Children - 2 options for women or men
+    
+    Customer needs an option to upload 4 designs. They should be separate, with transform controls to change size, position and rotation in the preview area.
+    
+    Send me an email and get the parts, customer details., Create a mockup editor for T-shirts, Hoodies. Adult man sample image 10 woman sample image 10. Child boy sample image 10 girl sample image 10 Content should be included
+    All sample images should be able to be uploaded.
+    
+    There
+    
+    When choosing T-shirts - Two options should be given as adults, children then
+    01) Adults - 2 options as men or women
+    02) Children - 2 options as women or men
+    
+    Or
+    When choosing Hoodies - Two options should be given as adults, children then
+    01) Adults - 2 options as men or women
+    02) Children - 2 options as women or men
+    
+    Customer needs an option to upload 4 designs. They should be separate, with transform controls to change size, position and rotation in the preview area.
+    
+    Send me an email and get stock, customer details.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-apparel-editor-{{ai_gen_id}} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    padding: 50px 20px;
+    background-color: {{ block.settings.background_color }};
+  }
+
+  .ai-apparel-editor__container-{{ai_gen_id}} {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .ai-apparel-editor__header-{{ai_gen_id}} {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .ai-apparel-editor__title-{{ai_gen_id}} {
+    font-size: 36px;
+    font-weight: 700;
+    color: {{ block.settings.text_color }};
+    margin: 0 0 15px;
+  }
+
+  .ai-apparel-editor__subtitle-{{ai_gen_id}} {
+    font-size: 16px;
+    color: #666;
+    margin: 0;
+  }
+
+  .ai-apparel-editor__main-{{ai_gen_id}} {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 50px;
+    margin-bottom: 50px;
+  }
+
+  .ai-apparel-editor__preview-panel-{{ai_gen_id}} {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  }
+
+  .ai-apparel-editor__preview-container-{{ai_gen_id}} {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+    background: #f8f8f8;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 25px;
+  }
+
+  .ai-apparel-editor__mockup-img-{{ai_gen_id}} {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    pointer-events: none;
+  }
+
+  .ai-apparel-editor__design-layer-{{ai_gen_id}} {
+    position: absolute;
+    cursor: move;
+    user-select: none;
+    touch-action: none;
+    z-index: 10;
+  }
+
+  .ai-apparel-editor__design-img-{{ai_gen_id}} {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    pointer-events: none;
+  }
+
+  .ai-apparel-editor__thumbnail-grid-{{ai_gen_id}} {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+  }
+
+  .ai-apparel-editor__thumbnail-{{ai_gen_id}} {
+    aspect-ratio: 1;
+    border: 2px solid transparent;
+    border-radius: 6px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: #f0f0f0;
+  }
+
+  .ai-apparel-editor__thumbnail-{{ai_gen_id}}:hover {
+    transform: scale(1.05);
+    border-color: {{ block.settings.accent_color }};
+  }
+
+  .ai-apparel-editor__thumbnail-{{ai_gen_id}}.active {
+    border-color: {{ block.settings.accent_color }};
+    box-shadow: 0 0 0 2px {{ block.settings.accent_color }}33;
+  }
+
+  .ai-apparel-editor__thumbnail-img-{{ai_gen_id}} {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ai-apparel-editor__controls-panel-{{ai_gen_id}} {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+  }
+
+  .ai-apparel-editor__section-{{ai_gen_id}} {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+  }
+
+  .ai-apparel-editor__section-title-{{ai_gen_id}} {
+    font-size: 18px;
+    font-weight: 600;
+    color: {{ block.settings.text_color }};
+    margin: 0 0 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #f0f0f0;
+  }
+
+  .ai-apparel-editor__select-{{ai_gen_id}} {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 15px;
+    background: white;
+    color: {{ block.settings.text_color }};
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+  }
+
+  .ai-apparel-editor__select-{{ai_gen_id}}:focus {
+    outline: none;
+    border-color: {{ block.settings.accent_color }};
+  }
+
+  .ai-apparel-editor__radio-group-{{ai_gen_id}} {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .ai-apparel-editor__radio-label-{{ai_gen_id}} {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: white;
+  }
+
+  .ai-apparel-editor__radio-label-{{ai_gen_id}}:hover {
+    border-color: {{ block.settings.accent_color }};
+    background: {{ block.settings.accent_color }}0a;
+  }
+
+  .ai-apparel-editor__radio-label-{{ai_gen_id}}.selected {
+    border-color: {{ block.settings.accent_color }};
+    background: {{ block.settings.accent_color }}15;
+  }
+
+  .ai-apparel-editor__radio-input-{{ai_gen_id}} {
+    margin-right: 10px;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+  }
+
+  .ai-apparel-editor__upload-grid-{{ai_gen_id}} {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+  }
+
+  .ai-apparel-editor__upload-box-{{ai_gen_id}} {
+    position: relative;
+    aspect-ratio: 1;
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: #fafafa;
+  }
+
+  .ai-apparel-editor__upload-box-{{ai_gen_id}}:hover {
+    border-color: {{ block.settings.accent_color }};
+    background: {{ block.settings.accent_color }}08;
+  }
+
+  .ai-apparel-editor__upload-box-{{ai_gen_id}}.has-image {
+    border-style: solid;
+    border-color: {{ block.settings.accent_color }};
+    padding: 0;
+  }
+
+  .ai-apparel-editor__upload-icon-{{ai_gen_id}} {
+    font-size: 36px;
+    color: #999;
+    margin-bottom: 8px;
+  }
+
+  .ai-apparel-editor__upload-text-{{ai_gen_id}} {
+    font-size: 13px;
+    color: #666;
+    text-align: center;
+  }
+
+  .ai-apparel-editor__upload-preview-{{ai_gen_id}} {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 6px;
+  }
+
+  .ai-apparel-editor__upload-input-{{ai_gen_id}} {
+    display: none;
+  }
+
+  .ai-apparel-editor__design-controls-{{ai_gen_id}} {
+    display: none;
+  }
+
+  .ai-apparel-editor__design-controls-{{ai_gen_id}}.active {
+    display: block;
+  }
+
+  .ai-apparel-editor__slider-group-{{ai_gen_id}} {
+    margin-bottom: 20px;
+  }
+
+  .ai-apparel-editor__slider-header-{{ai_gen_id}} {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .ai-apparel-editor__slider-label-{{ai_gen_id}} {
+    font-size: 14px;
+    font-weight: 500;
+    color: {{ block.settings.text_color }};
+  }
+
+  .ai-apparel-editor__slider-value-{{ai_gen_id}} {
+    font-size: 14px;
+    color: {{ block.settings.accent_color }};
+    font-weight: 600;
+  }
+
+  .ai-apparel-editor__slider-{{ai_gen_id}} {
+    width: 100%;
+    height: 6px;
+    border-radius: 3px;
+    background: #e8e8e8;
+    outline: none;
+    -webkit-appearance: none;
+  }
+
+  .ai-apparel-editor__slider-{{ai_gen_id}}::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: {{ block.settings.accent_color }};
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  }
+
+  .ai-apparel-editor__slider-{{ai_gen_id}}::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: {{ block.settings.accent_color }};
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  }
+
+  .ai-apparel-editor__form-section-{{ai_gen_id}} {
+    background: white;
+    padding: 35px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  }
+
+  .ai-apparel-editor__form-title-{{ai_gen_id}} {
+    font-size: 24px;
+    font-weight: 700;
+    color: {{ block.settings.text_color }};
+    margin: 0 0 25px;
+  }
+
+  .ai-apparel-editor__form-grid-{{ai_gen_id}} {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+
+  .ai-apparel-editor__form-field-{{ai_gen_id}} {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .ai-apparel-editor__form-field-{{ai_gen_id}}.full {
+    grid-column: 1 / -1;
+  }
+
+  .ai-apparel-editor__form-label-{{ai_gen_id}} {
+    font-size: 14px;
+    font-weight: 600;
+    color: {{ block.settings.text_color }};
+  }
+
+  .ai-apparel-editor__form-input-{{ai_gen_id}} {
+    padding: 14px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 15px;
+    color: {{ block.settings.text_color }};
+    transition: border-color 0.3s ease;
+  }
+
+  .ai-apparel-editor__form-input-{{ai_gen_id}}:focus {
+    outline: none;
+    border-color: {{ block.settings.accent_color }};
+  }
+
+  .ai-apparel-editor__form-textarea-{{ai_gen_id}} {
+    padding: 14px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 15px;
+    color: {{ block.settings.text_color }};
+    min-height: 120px;
+    resize: vertical;
+    font-family: inherit;
+  }
+
+  .ai-apparel-editor__form-textarea-{{ai_gen_id}}:focus {
+    outline: none;
+    border-color: {{ block.settings.accent_color }};
+  }
+
+  .ai-apparel-editor__submit-btn-{{ai_gen_id}} {
+    width: 100%;
+    padding: 18px;
+    background: {{ block.settings.button_color }};
+    color: {{ block.settings.button_text_color }};
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .ai-apparel-editor__submit-btn-{{ai_gen_id}}:hover {
+    background: {{ block.settings.button_hover_color }};
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  }
+
+  .ai-apparel-editor__success-msg-{{ai_gen_id}} {
+    padding: 16px;
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    display: none;
+  }
+
+  .ai-apparel-editor__success-msg-{{ai_gen_id}}.show {
+    display: block;
+  }
+
+  @media screen and (max-width: 1024px) {
+    .ai-apparel-editor__main-{{ai_gen_id}} {
+      grid-template-columns: 1fr;
+    }
+
+    .ai-apparel-editor__thumbnail-grid-{{ai_gen_id}} {
+      grid-template-columns: repeat(10, 1fr);
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .ai-apparel-editor__form-grid-{{ai_gen_id}} {
+      grid-template-columns: 1fr;
+    }
+
+    .ai-apparel-editor__thumbnail-grid-{{ai_gen_id}} {
+      grid-template-columns: repeat(5, 1fr);
+    }
+
+    .ai-apparel-editor__title-{{ai_gen_id}} {
+      font-size: 28px;
+    }
+  }
+{% endstyle %}
+
+<apparel-mockup-editor-{{ai_gen_id}} class="ai-apparel-editor-{{ai_gen_id}}" {{ block.shopify_attributes }}>
+  <div class="ai-apparel-editor__container-{{ai_gen_id}}">
+    <div class="ai-apparel-editor__header-{{ai_gen_id}}">
+      <h1 class="ai-apparel-editor__title-{{ai_gen_id}}">{{ block.settings.heading }}</h1>
+      <p class="ai-apparel-editor__subtitle-{{ai_gen_id}}">{{ block.settings.subheading }}</p>
+    </div>
+
+    <div class="ai-apparel-editor__main-{{ai_gen_id}}">
+      <div class="ai-apparel-editor__preview-panel-{{ai_gen_id}}">
+        <div class="ai-apparel-editor__preview-container-{{ai_gen_id}}" data-preview-container>
+          <img class="ai-apparel-editor__mockup-img-{{ai_gen_id}}" data-mockup-image alt="Apparel mockup">
+        </div>
+
+        <div class="ai-apparel-editor__thumbnail-grid-{{ai_gen_id}}" data-thumbnail-grid></div>
+      </div>
+
+      <div class="ai-apparel-editor__controls-panel-{{ai_gen_id}}">
+        <div class="ai-apparel-editor__section-{{ai_gen_id}}">
+          <h3 class="ai-apparel-editor__section-title-{{ai_gen_id}}">Product type</h3>
+          <select class="ai-apparel-editor__select-{{ai_gen_id}}" data-product-type>
+            <option value="tshirt">T-shirt</option>
+            <option value="hoodie">Hoodie</option>
+          </select>
+        </div>
+
+        <div class="ai-apparel-editor__section-{{ai_gen_id}}">
+          <h3 class="ai-apparel-editor__section-title-{{ai_gen_id}}">Age group</h3>
+          <div class="ai-apparel-editor__radio-group-{{ai_gen_id}}">
+            <label class="ai-apparel-editor__radio-label-{{ai_gen_id}} selected" data-age-label="adults">
+              <input type="radio" name="age-{{ai_gen_id}}" value="adults" class="ai-apparel-editor__radio-input-{{ai_gen_id}}" checked data-age-radio>
+              <span>Adults</span>
+            </label>
+            <label class="ai-apparel-editor__radio-label-{{ai_gen_id}}" data-age-label="children">
+              <input type="radio" name="age-{{ai_gen_id}}" value="children" class="ai-apparel-editor__radio-input-{{ai_gen_id}}" data-age-radio>
+              <span>Children</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="ai-apparel-editor__section-{{ai_gen_id}}">
+          <h3 class="ai-apparel-editor__section-title-{{ai_gen_id}}">Gender</h3>
+          <div class="ai-apparel-editor__radio-group-{{ai_gen_id}}">
+            <label class="ai-apparel-editor__radio-label-{{ai_gen_id}} selected" data-gender-label="men">
+              <input type="radio" name="gender-{{ai_gen_id}}" value="men" class="ai-apparel-editor__radio-input-{{ai_gen_id}}" checked data-gender-radio>
+              <span>Men</span>
+            </label>
+            <label class="ai-apparel-editor__radio-label-{{ai_gen_id}}" data-gender-label="women">
+              <input type="radio" name="gender-{{ai_gen_id}}" value="women" class="ai-apparel-editor__radio-input-{{ai_gen_id}}" data-gender-radio>
+              <span>Women</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="ai-apparel-editor__section-{{ai_gen_id}}">
+          <h3 class="ai-apparel-editor__section-title-{{ai_gen_id}}">Upload designs (max 4)</h3>
+          <div class="ai-apparel-editor__upload-grid-{{ai_gen_id}}">
+            {% for i in (1..4) %}
+              <div class="ai-apparel-editor__upload-box-{{ai_gen_id}}" data-upload-box="{{ i }}">
+                <div class="ai-apparel-editor__upload-icon-{{ai_gen_id}}">+</div>
+                <div class="ai-apparel-editor__upload-text-{{ai_gen_id}}">Design {{ i }}</div>
+                <input type="file" class="ai-apparel-editor__upload-input-{{ai_gen_id}}" accept="image/*" data-design-input="{{ i }}">
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+
+        {% for i in (1..4) %}
+          <div class="ai-apparel-editor__section-{{ai_gen_id}} ai-apparel-editor__design-controls-{{ai_gen_id}}" data-design-controls="{{ i }}">
+            <h3 class="ai-apparel-editor__section-title-{{ai_gen_id}}">Design {{ i }} controls</h3>
+            
+            <div class="ai-apparel-editor__slider-group-{{ai_gen_id}}">
+              <div class="ai-apparel-editor__slider-header-{{ai_gen_id}}">
+                <span class="ai-apparel-editor__slider-label-{{ai_gen_id}}">Size</span>
+                <span class="ai-apparel-editor__slider-value-{{ai_gen_id}}" data-size-value="{{ i }}">100%</span>
+              </div>
+              <input type="range" class="ai-apparel-editor__slider-{{ai_gen_id}}" min="20" max="200" value="100" data-size-slider="{{ i }}">
+            </div>
+
+            <div class="ai-apparel-editor__slider-group-{{ai_gen_id}}">
+              <div class="ai-apparel-editor__slider-header-{{ai_gen_id}}">
+                <span class="ai-apparel-editor__slider-label-{{ai_gen_id}}">Rotation</span>
+                <span class="ai-apparel-editor__slider-value-{{ai_gen_id}}" data-rotation-value="{{ i }}">0°</span>
+              </div>
+              <input type="range" class="ai-apparel-editor__slider-{{ai_gen_id}}" min="0" max="360" value="0" data-rotation-slider="{{ i }}">
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    {%- form 'contact' -%}
+      <div class="ai-apparel-editor__form-section-{{ai_gen_id}}">
+        <div class="ai-apparel-editor__success-msg-{{ai_gen_id}}" data-success-message>
+          Thank you! Your custom design request has been submitted successfully.
+        </div>
+
+        <h2 class="ai-apparel-editor__form-title-{{ai_gen_id}}">Submit your design</h2>
+
+        <input type="hidden" name="contact[subject]" value="Custom Apparel Design Request">
+        <input type="hidden" name="contact[design_specifications]" data-design-data>
+
+        <div class="ai-apparel-editor__form-grid-{{ai_gen_id}}">
+          <div class="ai-apparel-editor__form-field-{{ai_gen_id}}">
+            <label class="ai-apparel-editor__form-label-{{ai_gen_id}}">Full name *</label>
+            <input type="text" name="contact[name]" class="ai-apparel-editor__form-input-{{ai_gen_id}}" required>
+          </div>
+
+          <div class="ai-apparel-editor__form-field-{{ai_gen_id}}">
+            <label class="ai-apparel-editor__form-label-{{ai_gen_id}}">Email address *</label>
+            <input type="email" name="contact[email]" class="ai-apparel-editor__form-input-{{ai_gen_id}}" required>
+          </div>
+
+          <div class="ai-apparel-editor__form-field-{{ai_gen_id}}">
+            <label class="ai-apparel-editor__form-label-{{ai_gen_id}}">Phone number</label>
+            <input type="tel" name="contact[phone]" class="ai-apparel-editor__form-input-{{ai_gen_id}}">
+          </div>
+
+          <div class="ai-apparel-editor__form-field-{{ai_gen_id}}">
+            <label class="ai-apparel-editor__form-label-{{ai_gen_id}}">Quantity needed</label>
+            <input type="number" name="contact[quantity]" class="ai-apparel-editor__form-input-{{ai_gen_id}}" min="1" value="1">
+          </div>
+
+          <div class="ai-apparel-editor__form-field-{{ai_gen_id}} full">
+            <label class="ai-apparel-editor__form-label-{{ai_gen_id}}">Additional notes</label>
+            <textarea name="contact[body]" class="ai-apparel-editor__form-textarea-{{ai_gen_id}}" placeholder="Any special requests or instructions..."></textarea>
+          </div>
+        </div>
+
+        <button type="submit" class="ai-apparel-editor__submit-btn-{{ai_gen_id}}">
+          Submit design request
+        </button>
+      </div>
+    {%- endform -%}
+  </div>
+</apparel-mockup-editor-{{ai_gen_id}}>
+
+<script>
+(function() {
+  class ApparelMockupEditor{{ai_gen_id}} extends HTMLElement {
+    constructor() {
+      super();
+      this.mockups = {
+        tshirt: {
+          adults: { men: [], women: [] },
+          children: { boys: [], girls: [] }
+        },
+        hoodie: {
+          adults: { men: [], women: [] },
+          children: { boys: [], girls: [] }
+        }
+      };
+      this.currentSelection = {
+        productType: 'tshirt',
+        ageGroup: 'adults',
+        gender: 'men',
+        mockupIndex: 0
+      };
+      this.designs = {};
+      this.draggedDesign = null;
+      this.dragOffset = { x: 0, y: 0 };
+    }
+
+    connectedCallback() {
+      this.loadMockupImages();
+      this.initializeElements();
+      this.initializeEventListeners();
+      this.updateMockupDisplay();
+    }
+
+    loadMockupImages() {
+      {% for i in (1..10) %}
+        {% if block.settings.tshirt_adult_men_image[i] %}
+          this.mockups.tshirt.adults.men.push('{{ block.settings.tshirt_adult_men_image[i] | image_url: width: 800 }}');
+        {% endif %}
+      {% endfor %}
+
+      {% for i in (1..10) %}
+        {% assign key = 'tshirt_adult_women_' | append: i %}
+        {% if block.settings[key] %}
+          this.mockups.tshirt.adults.women.push('{{ block.settings[key] | image_url: width: 800 }}');
+        {% endif %}
+      {% endfor %}
+
+      {% for i in (1..10) %}
+        {% assign key = 'tshirt_child_boys_' | append: i %}
+        {% if block.settings[key] %}
+          this.mockups.tshirt.children.boys.push('{{ block.settings[key] | image_url: width: 800 }}');
+        {% endif %}
+      {% endfor %}
+
+      {% for i in (1..10) %}
+        {% assign key = 'tshirt_child_girls_' | append: i %}
+        {% if block.settings[key] %}
+          this.mockups.tshirt.children.girls.push('{{ block.settings[key] | image_url: width: 800 }}');
+        {% endif %}
+      {% endfor %}
+
+      {% for i in (1..10) %}
+        {% assign key = 'hoodie_adult_men_' | append: i %}
+        {% if block.settings[key] %}
+          this.mockups.hoodie.adults.men.push('{{ block.settings[key] | image_url: width: 800 }}');
+        {% endif %}
+      {% endfor %}
+
+      {% for i in (1..10) %}
+        {% assign key = 'hoodie_adult_women_' | append: i %}
+        {% if block.settings[key] %}
+          this.mockups.hoodie.adults.women.push('{{ block.settings[key] | image_url: width: 800 }}');
+        {% endif %}
+      {% endfor %}
+
+      {% for i in (1..10) %}
+        {% assign key = 'hoodie_child_boys_' | append: i %}
+        {% if block.settings[key] %}
+          this.mockups.hoodie.children.boys.push('{{ block.settings[key] | image_url: width: 800 }}');
+        {% endif %}
+      {% endfor %}
+
+      {% for i in (1..10) %}
+        {% assign key = 'hoodie_child_girls_' | append: i %}
+        {% if block.settings[key] %}
+          this.mockups.hoodie.children.girls.push('{{ block.settings[key] | image_url: width: 800 }}');
+        {% endif %}
+      {% endfor %}
+    }
+
+    initializeElements() {
+      this.previewContainer = this.querySelector('[data-preview-container]');
+      this.mockupImage = this.querySelector('[data-mockup-image]');
+      this.thumbnailGrid = this.querySelector('[data-thumbnail-grid]');
+      this.productTypeSelect = this.querySelector('[data-product-type]');
+      this.ageRadios = this.querySelectorAll('[data-age-radio]');
+      this.genderRadios = this.querySelectorAll('[data-gender-radio]');
+      this.form = this.querySelector('form');
+      this.designDataInput = this.querySelector('[data-design-data]');
+      this.successMessage = this.querySelector('[data-success-message]');
+    }
+
+    initializeEventListeners() {
+      this.productTypeSelect.addEventListener('change', () => {
+        this.currentSelection.productType = this.productTypeSelect.value;
+        this.updateMockupDisplay();
+      });
+
+      this.ageRadios.forEach(radio => {
+        radio.addEventListener('change', () => {
+          this.currentSelection.ageGroup = radio.value;
+          this.updateRadioLabels('[data-age-label]', radio.value);
+          this.updateGenderOptions();
+          this.updateMockupDisplay();
+        });
+      });
+
+      this.genderRadios.forEach(radio => {
+        radio.addEventListener('change', () => {
+          this.currentSelection.gender = radio.value;
+          this.updateRadioLabels('[data-gender-label]', radio.value);
+          this.updateMockupDisplay();
+        });
+      });
+
+      this.initializeUploadBoxes();
+      this.initializeDesignControls();
+      this.initializeForm();
+    }
+
+    updateRadioLabels(selector, value) {
+      this.querySelectorAll(selector).forEach(label => {
+        label.classList.remove('selected');
+      });
+      const selectedLabel = this.querySelector(`${selector}="${value}"]`);
+      if (selectedLabel) {
+        selectedLabel.classList.add('selected');
+      }
+    }
+
+    updateGenderOptions() {
+      const genderLabels = this.querySelectorAll('[data-gender-label]');
+      if (this.currentSelection.ageGroup === 'children') {
+        genderLabels[0].querySelector('span').textContent = 'Boys';
+        genderLabels[1].querySelector('span').textContent = 'Girls';
+        this.genderRadios[0].value = 'boys';
+        this.genderRadios[1].value = 'girls';
+        this.currentSelection.gender = this.querySelector('[data-gender-radio]:checked').value;
+      } else {
+        genderLabels[0].querySelector('span').textContent = 'Men';
+        genderLabels[1].querySelector('span').textContent = 'Women';
+        this.genderRadios[0].value = 'men';
+        this.genderRadios[1].value = 'women';
+        this.currentSelection.gender = this.querySelector('[data-gender-radio]:checked').value;
+      }
+    }
+
+    updateMockupDisplay() {
+      const { productType, ageGroup, gender } = this.currentSelection;
+      const mockupArray = this.mockups[productType][ageGroup][gender];
+
+      if (mockupArray && mockupArray.length > 0) {
+        this.currentSelection.mockupIndex = 0;
+        this.mockupImage.src = mockupArray[0];
+        this.renderThumbnails(mockupArray);
+      }
+    }
+
+    renderThumbnails(mockupArray) {
+      this.thumbnailGrid.innerHTML = '';
+      mockupArray.forEach((url, index) => {
+        const thumb = document.createElement('div');
+        thumb.className = 'ai-apparel-editor__thumbnail-{{ai_gen_id}}';
+        if (index === 0) thumb.classList.add('active');
+        
+        const img = document.createElement('img');
+        img.src = url;
+        img.className = 'ai-apparel-editor__thumbnail-img-{{ai_gen_id}}';
+        img.alt = `Mockup ${index + 1}`;
+        
+        thumb.appendChild(img);
+        thumb.addEventListener('click', () => {
+          this.selectMockup(index);
+        });
+        
+        this.thumbnailGrid.appendChild(thumb);
+      });
+    }
+
+    selectMockup(index) {
+      const { productType, ageGroup, gender } = this.currentSelection;
+      const mockupArray = this.mockups[productType][ageGroup][gender];
+      
+      if (mockupArray && mockupArray[index]) {
+        this.currentSelection.mockupIndex = index;
+        this.mockupImage.src = mockupArray[index];
+        
+        this.querySelectorAll('.ai-apparel-editor__thumbnail-{{ai_gen_id}}').forEach((thumb, i) => {
+          thumb.classList.toggle('active', i === index);
+        });
+      }
+    }
+
+    initializeUploadBoxes() {
+      this.querySelectorAll('[data-upload-box]').forEach(box => {
+        const designIndex = box.getAttribute('data-upload-box');
+        const input = box.querySelector(`[data-design-input="${designIndex}"]`);
+
+        box.addEventListener('click', () => input.click());
+
+        input.addEventListener('change', (e) => {
+          const file = e.target.files[0];
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+              this.addDesignToPreview(designIndex, event.target.result);
+              box.classList.add('has-image');
+              box.innerHTML = `<img src="${event.target.result}" class="ai-apparel-editor__upload-preview-{{ai_gen_id}}" alt="Design ${designIndex}">`;
+              
+              const controls = this.querySelector(`[data-design-controls="${designIndex}"]`);
+              if (controls) {
+                controls.classList.add('active');
+              }
+            };
+            reader.readAsDataURL(file);
+          }
+        });
+      });
+    }
+
+    addDesignToPreview(index, imageUrl) {
+      const existingLayer = this.previewContainer.querySelector(`[data-design-layer="${index}"]`);
+      if (existingLayer) {
+        existingLayer.remove();
+      }
+
+      const layer = document.createElement('div');
+      layer.className = 'ai-apparel-editor__design-layer-{{ai_gen_id}}';
+      layer.setAttribute('data-design-layer', index);
+      layer.style.top = '50%';
+      layer.style.left = '50%';
+      layer.style.width = '120px';
+      layer.style.height = '120px';
+      layer.style.transform = 'translate(-50%, -50%)';
+
+      const img = document.createElement('img');
+      img.src = imageUrl;
+      img.className = 'ai-apparel-editor__design-img-{{ai_gen_id}}';
+      layer.appendChild(img);
+
+      this.previewContainer.appendChild(layer);
+
+      this.designs[index] = {
+        element: layer,
+        size: 100,
+        rotation: 0,
+        x: 50,
+        y: 50
+      };
+
+      this.initializeDragging(layer, index);
+    }
+
+    initializeDragging(layer, index) {
+      const startDrag = (e) => {
+        e.preventDefault();
+        this.draggedDesign = index;
+        
+        const rect = this.previewContainer.getBoundingClientRect();
+        const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+        const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+        
+        this.dragOffset.x = clientX - rect.left - (this.designs[index].x * rect.width / 100);
+        this.dragOffset.y = clientY - rect.top - (this.designs[index].y * rect.height / 100);
+      };
+
+      const drag = (e) => {
+        if (this.draggedDesign !== index) return;
+        
+        const rect = this.previewContainer.getBoundingClientRect();
+        const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+        const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+        
+        const x = ((clientX - rect.left - this.dragOffset.x) / rect.width) * 100;
+        const y = ((clientY - rect.top - this.dragOffset.y) / rect.height) * 100;
+        
+        this.designs[index].x = Math.max(0, Math.min(100, x));
+        this.designs[index].y = Math.max(0, Math.min(100, y));
+        
+        this.updateDesignTransform(index);
+      };
+
+      const endDrag = () => {
+        this.draggedDesign = null;
+      };
+
+      layer.addEventListener('mousedown', startDrag);
+      layer.addEventListener('touchstart', startDrag);
+      document.addEventListener('mousemove', drag);
+      document.addEventListener('touchmove', drag);
+      document.addEventListener('mouseup', endDrag);
+      document.addEventListener('touchend', endDrag);
+    }
+
+    initializeDesignControls() {
+      for (let i = 1; i <= 4; i++) {
+        const sizeSlider = this.querySelector(`[data-size-slider="${i}"]`);
+        const rotationSlider = this.querySelector(`[data-rotation-slider="${i}"]`);
+        const sizeValue = this.querySelector(`[data-size-value="${i}"]`);
+        const rotationValue = this.querySelector(`[data-rotation-value="${i}"]`);
+
+        if (sizeSlider) {
+          sizeSlider.addEventListener('input', (e) => {
+            const value = e.target.value;
+            sizeValue.textContent = value + '%';
+            if (this.designs[i]) {
+              this.designs[i].size = value;
+              this.updateDesignTransform(i);
+            }
+          });
+        }
+
+        if (rotationSlider) {
+          rotationSlider.addEventListener('input', (e) => {
+            const value = e.target.value;
+            rotationValue.textContent = value + '°';
+            if (this.designs[i]) {
+              this.designs[i].rotation = value;
+              this.updateDesignTransform(i);
+            }
+          });
+        }
+      }
+    }
+
+    updateDesignTransform(index) {
+      const design = this.designs[index];
+      if (!design) return;
+
+      const baseSize = 120;
+      const scaledSize = (baseSize * design.size) / 100;
+      
+      design.element.style.width = scaledSize + 'px';
+      design.element.style.height = scaledSize + 'px';
+      design.element.style.left = design.x + '%';
+      design.element.style.top = design.y + '%';
+      design.element.style.transform = `translate(-50%, -50%) rotate(${design.rotation}deg)`;
+    }
+
+    initializeForm() {
+      this.form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const { productType, ageGroup, gender, mockupIndex } = this.currentSelection;
+        
+        const designData = {
+          productType: productType,
+          ageGroup: ageGroup,
+          gender: gender,
+          mockupVariant: mockupIndex + 1,
+          designs: []
+        };
+
+        Object.keys(this.designs).forEach(key => {
+          const design = this.designs[key];
+          designData.designs.push({
+            designNumber: key,
+            size: design.size + '%',
+            rotation: design.rotation + '°',
+            positionX: design.x.toFixed(1) + '%',
+            positionY: design.y.toFixed(1) + '%'
+          });
+        });
+
+        this.designDataInput.value = JSON.stringify(designData, null, 2);
+        
+        this.form.submit();
+        
+        this.successMessage.classList.add('show');
+        setTimeout(() => {
+          this.successMessage.classList.remove('show');
+        }, 5000);
+      });
+    }
+  }
+
+  customElements.define('apparel-mockup-editor-{{ai_gen_id}}', ApparelMockupEditor{{ai_gen_id}});
+})();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Apparel mockup editor",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Custom apparel designer"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Create your perfect design with our interactive editor"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#f9f9f9"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent",
+      "default": "#334fb4"
+    },
+    {
+      "type": "color",
+      "id": "button_color",
+      "label": "Button",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_color",
+      "label": "Button hover",
+      "default": "#334fb4"
+    },
+    {
+      "type": "header",
+      "content": "T-shirt - Adult men mockups"
+    },
+    {
+      "type": "image_picker",
+      "id": "tshirt_adult_men_1",
+      "label": "Mockup 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "tshirt_adult_men_2",
+      "label": "Mockup 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "tshirt_adult_men_3",
+      "label": "Mockup 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "tshirt_adult_men_4",
+      "label": "Mockup 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "tshirt_adult_men_5",
+      "label": "Mockup 5"
+    },
+    {
+      "type": "image_picker",
+      "id": "tshirt_adult_men_6",
+      "label": "Mockup 6"
+    },
+    {
+      "type": "image_picker",
+      "id": "tshirt_adult_men_7",
+      "label": "Mockup 7"
+    },
+    {
+      "type": "image_picker",
+      "id": "tshirt_adult_men_8",
+      "label": "Mockup 8"
+    },
+    {
+      "type": "image_picker",
+      "id": "tshirt_adult_men_9",
+      "label": "Mockup 9"
+    },
+    {
+      "type": "image_picker",
+      "id": "tshirt_adult_men_10",
+      "label": "Mockup 10"
+    },
+    {
+      "type": "header",
+      "content": "T-shirt - Adult women mockups"
+    },
+    {
+      "type": "image_picker",
+      "id": "tshirt_adult_women_1",
+      "label": "Mockup 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "tshirt_adult_women_2",
+      "label": "Mockup 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "tshirt_adult_women_3",
+      "label": "Mockup 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "tshirt_adult_women_4",
+      "label": "Mockup 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "tshirt_adult_women_5",
+      "label": "Mockup 5"
+    },
+    {
+      "type": "image_picker",
+      "id": "tshirt_adult_women_6",
+      "label": "Mockup 6"
+    },
+    {
+      "type": "image_picker",
+      "id": "tshirt_adult_women_7",
+      "label": "Mockup 7"
+    },
+    {
+      "type": "image_picker",
+      "id": "tshirt_adult_women_8",
+      "label": "Mockup 8"
+    },
+    {
+      "type": "image_picker",
+      "id": "tshirt_adult_women_9",
+      "label": "Mockup 9"
+    },
+    {
+      "type": "image_picker",
+      "id": "tshirt_adult_women_10",
+      "label": "Mockup 10"
+    },
+    {
+      "type": "header",
+      "content": "T-shirt - Child boys mockups"
+    },
+    {
+      "type": "image_picker",
+      "id": "tshirt_child_boys_1",
+      "label": "Mockup 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "tshirt_child_boys_2",
+      "label": "Mockup 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "tshirt_child_boys_3",
+      "label": "Mockup 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "tshirt_child_boys_4",
+      "label": "Mockup 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "tshirt_child_boys_5",
+      "label": "Mockup 5"
+    },
+    {
+      "type": "image_picker",
+      "id": "tshirt_child_boys_6",
+      "label": "Mockup 6"
+    },
+    {
+      "type": "image_picker",
+      "id": "tshirt_child_boys_7",
+      "label": "Mockup 7"
+    },
+    {
+      "type": "image_picker",
+      "id": "tshirt_child_boys_8",
+      "label": "Mockup 8"
+    },
+    {
+      "type": "image_picker",
+      "id": "tshirt_child_boys_9",
+      "label": "Mockup 9"
+    },
+    {
+      "type": "image_picker",
+      "id": "tshirt_child_boys_10",
+      "label": "Mockup 10"
+    },
+    {
+      "type": "header",
+      "content": "T-shirt - Child girls mockups"
+    },
+    {
+      "type": "image_picker",
+      "id": "tshirt_child_girls_1",
+      "label": "Mockup 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "tshirt_child_girls_2",
+      "label": "Mockup 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "tshirt_child_girls_3",
+      "label": "Mockup 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "tshirt_child_girls_4",
+      "label": "Mockup 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "tshirt_child_girls_5",
+      "label": "Mockup 5"
+    },
+    {
+      "type": "image_picker",
+      "id": "tshirt_child_girls_6",
+      "label": "Mockup 6"
+    },
+    {
+      "type": "image_picker",
+      "id": "tshirt_child_girls_7",
+      "label": "Mockup 7"
+    },
+    {
+      "type": "image_picker",
+      "id": "tshirt_child_girls_8",
+      "label": "Mockup 8"
+    },
+    {
+      "type": "image_picker",
+      "id": "tshirt_child_girls_9",
+      "label": "Mockup 9"
+    },
+    {
+      "type": "image_picker",
+      "id": "tshirt_child_girls_10",
+      "label": "Mockup 10"
+    },
+    {
+      "type": "header",
+      "content": "Hoodie - Adult men mockups"
+    },
+    {
+      "type": "image_picker",
+      "id": "hoodie_adult_men_1",
+      "label": "Mockup 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "hoodie_adult_men_2",
+      "label": "Mockup 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "hoodie_adult_men_3",
+      "label": "Mockup 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "hoodie_adult_men_4",
+      "label": "Mockup 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "hoodie_adult_men_5",
+      "label": "Mockup 5"
+    },
+    {
+      "type": "image_picker",
+      "id": "hoodie_adult_men_6",
+      "label": "Mockup 6"
+    },
+    {
+      "type": "image_picker",
+      "id": "hoodie_adult_men_7",
+      "label": "Mockup 7"
+    },
+    {
+      "type": "image_picker",
+      "id": "hoodie_adult_men_8",
+      "label": "Mockup 8"
+    },
+    {
+      "type": "image_picker",
+      "id": "hoodie_adult_men_9",
+      "label": "Mockup 9"
+    },
+    {
+      "type": "image_picker",
+      "id": "hoodie_adult_men_10",
+      "label": "Mockup 10"
+    },
+    {
+      "type": "header",
+      "content": "Hoodie - Adult women mockups"
+    },
+    {
+      "type": "image_picker",
+      "id": "hoodie_adult_women_1",
+      "label": "Mockup 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "hoodie_adult_women_2",
+      "label": "Mockup 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "hoodie_adult_women_3",
+      "label": "Mockup 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "hoodie_adult_women_4",
+      "label": "Mockup 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "hoodie_adult_women_5",
+      "label": "Mockup 5"
+    },
+    {
+      "type": "image_picker",
+      "id": "hoodie_adult_women_6",
+      "label": "Mockup 6"
+    },
+    {
+      "type": "image_picker",
+      "id": "hoodie_adult_women_7",
+      "label": "Mockup 7"
+    },
+    {
+      "type": "image_picker",
+      "id": "hoodie_adult_women_8",
+      "label": "Mockup 8"
+    },
+    {
+      "type": "image_picker",
+      "id": "hoodie_adult_women_9",
+      "label": "Mockup 9"
+    },
+    {
+      "type": "image_picker",
+      "id": "hoodie_adult_women_10",
+      "label": "Mockup 10"
+    },
+    {
+      "type": "header",
+      "content": "Hoodie - Child boys mockups"
+    },
+    {
+      "type": "image_picker",
+      "id": "hoodie_child_boys_1",
+      "label": "Mockup 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "hoodie_child_boys_2",
+      "label": "Mockup 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "hoodie_child_boys_3",
+      "label": "Mockup 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "hoodie_child_boys_4",
+      "label": "Mockup 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "hoodie_child_boys_5",
+      "label": "Mockup 5"
+    },
+    {
+      "type": "image_picker",
+      "id": "hoodie_child_boys_6",
+      "label": "Mockup 6"
+    },
+    {
+      "type": "image_picker",
+      "id": "hoodie_child_boys_7",
+      "label": "Mockup 7"
+    },
+    {
+      "type": "image_picker",
+      "id": "hoodie_child_boys_8",
+      "label": "Mockup 8"
+    },
+    {
+      "type": "image_picker",
+      "id": "hoodie_child_boys_9",
+      "label": "Mockup 9"
+    },
+    {
+      "type": "image_picker",
+      "id": "hoodie_child_boys_10",
+      "label": "Mockup 10"
+    },
+    {
+      "type": "header",
+      "content": "Hoodie - Child girls mockups"
+    },
+    {
+      "type": "image_picker",
+      "id": "hoodie_child_girls_1",
+      "label": "Mockup 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "hoodie_child_girls_2",
+      "label": "Mockup 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "hoodie_child_girls_3",
+      "label": "Mockup 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "hoodie_child_girls_4",
+      "label": "Mockup 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "hoodie_child_girls_5",
+      "label": "Mockup 5"
+    },
+    {
+      "type": "image_picker",
+      "id": "hoodie_child_girls_6",
+      "label": "Mockup 6"
+    },
+    {
+      "type": "image_picker",
+      "id": "hoodie_child_girls_7",
+      "label": "Mockup 7"
+    },
+    {
+      "type": "image_picker",
+      "id": "hoodie_child_girls_8",
+      "label": "Mockup 8"
+    },
+    {
+      "type": "image_picker",
+      "id": "hoodie_child_girls_9",
+      "label": "Mockup 9"
+    },
+    {
+      "type": "image_picker",
+      "id": "hoodie_child_girls_10",
+      "label": "Mockup 10"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Apparel mockup editor"
+    }
+  ]
+}
 {% endschema %}
