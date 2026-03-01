@@ -1,6 +1,921 @@
+{% doc %}
+  @prompt
+    A T-shirt, a hoodie mockup design is required. One category should contain 1 to 10 sample images in color.
+    All sample images should be uploaded.
+    
+    In it,
+    
+    When choosing a T-shirt - two options should be given as adults, children, then
+    01) Adults - 2 options for men or women
+    02) Children - 2 options for women or men
+    
+    Or
+    When choosing a hoodie - two options should be given as adults, children, adults, children, then
+    01) Adults - 2 options for men or women
+    02) Children - 2 options for women or men
+    
+    Customer needs an option to upload 4 designs. They should be separate, with transform controls to change size, position and rotation in the preview area.
+    
+    Send me an email and get the parts, customer details.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-mockup-designer-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    padding: 40px;
+    background-color: {{ block.settings.background_color }};
+    border-radius: 8px;
+  }
+
+  .ai-mockup-designer__container-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+
+  .ai-mockup-designer__left-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .ai-mockup-designer__right-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .ai-mockup-designer__section-{{ ai_gen_id }} {
+    background: {{ block.settings.section_bg_color }};
+    padding: 20px;
+    border-radius: 8px;
+  }
+
+  .ai-mockup-designer__heading-{{ ai_gen_id }} {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0 0 16px 0;
+    color: {{ block.settings.text_color }};
+  }
+
+  .ai-mockup-designer__subheading-{{ ai_gen_id }} {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 0 12px 0;
+    color: {{ block.settings.text_color }};
+  }
+
+  .ai-mockup-designer__label-{{ ai_gen_id }} {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: {{ block.settings.text_color }};
+  }
+
+  .ai-mockup-designer__select-{{ ai_gen_id }} {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid {{ block.settings.input_border_color }};
+    border-radius: 4px;
+    font-size: 14px;
+    background-color: #ffffff;
+    margin-bottom: 16px;
+  }
+
+  .ai-mockup-designer__radio-group-{{ ai_gen_id }} {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .ai-mockup-designer__radio-label-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    color: {{ block.settings.text_color }};
+  }
+
+  .ai-mockup-designer__radio-label-{{ ai_gen_id }} input {
+    cursor: pointer;
+  }
+
+  .ai-mockup-designer__preview-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+    background-color: {{ block.settings.preview_bg_color }};
+    border-radius: 8px;
+    overflow: hidden;
+    border: 2px solid {{ block.settings.input_border_color }};
+  }
+
+  .ai-mockup-designer__mockup-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .ai-mockup-designer__design-layer-{{ ai_gen_id }} {
+    position: absolute;
+    cursor: move;
+    user-select: none;
+    touch-action: none;
+  }
+
+  .ai-mockup-designer__design-layer-{{ ai_gen_id }}.active {
+    outline: 2px solid {{ block.settings.active_design_color }};
+    outline-offset: 2px;
+  }
+
+  .ai-mockup-designer__design-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    pointer-events: none;
+  }
+
+  .ai-mockup-designer__upload-grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .ai-mockup-designer__upload-item-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .ai-mockup-designer__file-input-{{ ai_gen_id }} {
+    padding: 8px;
+    border: 1px solid {{ block.settings.input_border_color }};
+    border-radius: 4px;
+    font-size: 12px;
+    background-color: #ffffff;
+  }
+
+  .ai-mockup-designer__controls-{{ ai_gen_id }} {
+    display: none;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .ai-mockup-designer__controls-{{ ai_gen_id }}.active {
+    display: flex;
+  }
+
+  .ai-mockup-designer__control-row-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .ai-mockup-designer__slider-{{ ai_gen_id }} {
+    width: 100%;
+  }
+
+  .ai-mockup-designer__button-{{ ai_gen_id }} {
+    padding: 10px 20px;
+    background-color: {{ block.settings.button_color }};
+    color: {{ block.settings.button_text_color }};
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .ai-mockup-designer__button-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_color }};
+  }
+
+  .ai-mockup-designer__form-section-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .ai-mockup-designer__input-{{ ai_gen_id }} {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid {{ block.settings.input_border_color }};
+    border-radius: 4px;
+    font-size: 14px;
+  }
+
+  .ai-mockup-designer__textarea-{{ ai_gen_id }} {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid {{ block.settings.input_border_color }};
+    border-radius: 4px;
+    font-size: 14px;
+    min-height: 100px;
+    resize: vertical;
+  }
+
+  .ai-mockup-designer__success-{{ ai_gen_id }} {
+    padding: 12px;
+    background-color: #d4edda;
+    color: #155724;
+    border-radius: 4px;
+    margin-top: 12px;
+  }
+
+  .ai-mockup-designer__error-{{ ai_gen_id }} {
+    padding: 12px;
+    background-color: #f8d7da;
+    color: #721c24;
+    border-radius: 4px;
+    margin-top: 12px;
+  }
+
+  @media screen and (max-width: 768px) {
+    .ai-mockup-designer__container-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+    }
+
+    .ai-mockup-designer-{{ ai_gen_id }} {
+      padding: 20px;
+    }
+  }
+{% endstyle %}
+
+<mockup-designer-{{ ai_gen_id }} class="ai-mockup-designer-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-mockup-designer__container-{{ ai_gen_id }}">
+    <div class="ai-mockup-designer__left-{{ ai_gen_id }}">
+      <div class="ai-mockup-designer__section-{{ ai_gen_id }}">
+        <h3 class="ai-mockup-designer__heading-{{ ai_gen_id }}">{{ block.settings.heading }}</h3>
+        
+        <label class="ai-mockup-designer__label-{{ ai_gen_id }}">Product type</label>
+        <select class="ai-mockup-designer__select-{{ ai_gen_id }}" data-product-type>
+          <option value="tshirt">T-shirt</option>
+          <option value="hoodie">Hoodie</option>
+        </select>
+
+        <label class="ai-mockup-designer__label-{{ ai_gen_id }}">Age group</label>
+        <select class="ai-mockup-designer__select-{{ ai_gen_id }}" data-age-group>
+          <option value="adults">Adults</option>
+          <option value="children">Children</option>
+        </select>
+
+        <label class="ai-mockup-designer__label-{{ ai_gen_id }}">Gender</label>
+        <div class="ai-mockup-designer__radio-group-{{ ai_gen_id }}">
+          <label class="ai-mockup-designer__radio-label-{{ ai_gen_id }}">
+            <input type="radio" name="gender-{{ ai_gen_id }}" value="men" checked data-gender>
+            <span>Men</span>
+          </label>
+          <label class="ai-mockup-designer__radio-label-{{ ai_gen_id }}">
+            <input type="radio" name="gender-{{ ai_gen_id }}" value="women" data-gender>
+            <span>Women</span>
+          </label>
+        </div>
+
+        <label class="ai-mockup-designer__label-{{ ai_gen_id }}">Color</label>
+        <select class="ai-mockup-designer__select-{{ ai_gen_id }}" data-color>
+          {% for i in (1..10) %}
+            {% assign color_key = 'color_' | append: i %}
+            {% assign color_name_key = 'color_' | append: i | append: '_name' %}
+            {% assign color_image_key = 'color_' | append: i | append: '_image' %}
+            {% if block.settings[color_image_key] %}
+              <option value="{{ i }}">{{ block.settings[color_name_key] }}</option>
+            {% endif %}
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="ai-mockup-designer__section-{{ ai_gen_id }}">
+        <h4 class="ai-mockup-designer__subheading-{{ ai_gen_id }}">Upload designs</h4>
+        <div class="ai-mockup-designer__upload-grid-{{ ai_gen_id }}">
+          {% for i in (1..4) %}
+            <div class="ai-mockup-designer__upload-item-{{ ai_gen_id }}">
+              <label class="ai-mockup-designer__label-{{ ai_gen_id }}">Design {{ i }}</label>
+              <input 
+                type="file" 
+                accept="image/*" 
+                class="ai-mockup-designer__file-input-{{ ai_gen_id }}"
+                data-design-upload="{{ i }}"
+              >
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      {% for i in (1..4) %}
+        <div class="ai-mockup-designer__section-{{ ai_gen_id }} ai-mockup-designer__controls-{{ ai_gen_id }}" data-controls="{{ i }}">
+          <h4 class="ai-mockup-designer__subheading-{{ ai_gen_id }}">Design {{ i }} controls</h4>
+          
+          <div class="ai-mockup-designer__control-row-{{ ai_gen_id }}">
+            <label class="ai-mockup-designer__label-{{ ai_gen_id }}">Size: <span data-size-value="{{ i }}">100</span>%</label>
+            <input 
+              type="range" 
+              min="10" 
+              max="200" 
+              value="100" 
+              class="ai-mockup-designer__slider-{{ ai_gen_id }}"
+              data-size-slider="{{ i }}"
+            >
+          </div>
+
+          <div class="ai-mockup-designer__control-row-{{ ai_gen_id }}">
+            <label class="ai-mockup-designer__label-{{ ai_gen_id }}">Rotation: <span data-rotation-value="{{ i }}">0</span>°</label>
+            <input 
+              type="range" 
+              min="0" 
+              max="360" 
+              value="0" 
+              class="ai-mockup-designer__slider-{{ ai_gen_id }}"
+              data-rotation-slider="{{ i }}"
+            >
+          </div>
+
+          <button 
+            class="ai-mockup-designer__button-{{ ai_gen_id }}"
+            data-remove-design="{{ i }}"
+          >
+            Remove design
+          </button>
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="ai-mockup-designer__right-{{ ai_gen_id }}">
+      <div class="ai-mockup-designer__section-{{ ai_gen_id }}">
+        <h4 class="ai-mockup-designer__subheading-{{ ai_gen_id }}">Preview</h4>
+        <div class="ai-mockup-designer__preview-{{ ai_gen_id }}" data-preview>
+          <img 
+            class="ai-mockup-designer__mockup-image-{{ ai_gen_id }}"
+            data-mockup-image
+            src=""
+            alt="Mockup preview"
+          >
+          {% for i in (1..4) %}
+            <div 
+              class="ai-mockup-designer__design-layer-{{ ai_gen_id }}"
+              data-design-layer="{{ i }}"
+              style="display: none; top: 50%; left: 50%; width: 100px; height: 100px; transform: translate(-50%, -50%);"
+            >
+              <img 
+                class="ai-mockup-designer__design-image-{{ ai_gen_id }}"
+                data-design-image="{{ i }}"
+                src=""
+                alt="Design {{ i }}"
+              >
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="ai-mockup-designer__section-{{ ai_gen_id }}">
+        <h4 class="ai-mockup-designer__subheading-{{ ai_gen_id }}">Customer details</h4>
+        {%- form 'contact' -%}
+          <input type="hidden" name="contact[subject]" value="Mockup Design Request">
+          <div class="ai-mockup-designer__form-section-{{ ai_gen_id }}">
+            <div>
+              <label class="ai-mockup-designer__label-{{ ai_gen_id }}">Name</label>
+              <input 
+                type="text" 
+                name="contact[name]"
+                class="ai-mockup-designer__input-{{ ai_gen_id }}"
+                required
+              >
+            </div>
+
+            <div>
+              <label class="ai-mockup-designer__label-{{ ai_gen_id }}">Email</label>
+              <input 
+                type="email" 
+                name="contact[email]"
+                class="ai-mockup-designer__input-{{ ai_gen_id }}"
+                required
+              >
+            </div>
+
+            <div>
+              <label class="ai-mockup-designer__label-{{ ai_gen_id }}">Phone</label>
+              <input 
+                type="tel" 
+                name="contact[phone]"
+                class="ai-mockup-designer__input-{{ ai_gen_id }}"
+              >
+            </div>
+
+            <div>
+              <label class="ai-mockup-designer__label-{{ ai_gen_id }}">Additional notes</label>
+              <textarea 
+                name="contact[body]"
+                class="ai-mockup-designer__textarea-{{ ai_gen_id }}"
+                data-message-field
+              ></textarea>
+            </div>
+
+            <button 
+              type="submit" 
+              class="ai-mockup-designer__button-{{ ai_gen_id }}"
+            >
+              Submit design request
+            </button>
+
+            {%- if form.posted_successfully? -%}
+              <div class="ai-mockup-designer__success-{{ ai_gen_id }}">
+                Thank you! We've received your mockup design request and will contact you soon.
+              </div>
+            {%- endif -%}
+
+            {%- if form.errors -%}
+              <div class="ai-mockup-designer__error-{{ ai_gen_id }}">
+                Please check your information and try again.
+              </div>
+            {%- endif -%}
+          </div>
+        {%- endform -%}
+      </div>
+    </div>
+  </div>
+</mockup-designer-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class MockupDesigner{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.designs = {};
+        this.currentMockup = null;
+        this.draggedElement = null;
+        this.dragOffset = { x: 0, y: 0 };
+      }
+
+      connectedCallback() {
+        this.productTypeSelect = this.querySelector('[data-product-type]');
+        this.ageGroupSelect = this.querySelector('[data-age-group]');
+        this.genderRadios = this.querySelectorAll('[data-gender]');
+        this.colorSelect = this.querySelector('[data-color]');
+        this.mockupImage = this.querySelector('[data-mockup-image]');
+        this.messageField = this.querySelector('[data-message-field]');
+
+        this.setupEventListeners();
+        this.updateMockup();
+      }
+
+      setupEventListeners() {
+        this.productTypeSelect.addEventListener('change', () => this.updateMockup());
+        this.ageGroupSelect.addEventListener('change', () => this.updateMockup());
+        this.genderRadios.forEach(radio => {
+          radio.addEventListener('change', () => this.updateMockup());
+        });
+        this.colorSelect.addEventListener('change', () => this.updateMockup());
+
+        for (let i = 1; i <= 4; i++) {
+          const uploadInput = this.querySelector(`[data-design-upload="${i}"]`);
+          const sizeSlider = this.querySelector(`[data-size-slider="${i}"]`);
+          const rotationSlider = this.querySelector(`[data-rotation-slider="${i}"]`);
+          const removeButton = this.querySelector(`[data-remove-design="${i}"]`);
+          const designLayer = this.querySelector(`[data-design-layer="${i}"]`);
+
+          if (uploadInput) {
+            uploadInput.addEventListener('change', (e) => this.handleFileUpload(e, i));
+          }
+
+          if (sizeSlider) {
+            sizeSlider.addEventListener('input', (e) => this.updateDesignSize(i, e.target.value));
+          }
+
+          if (rotationSlider) {
+            rotationSlider.addEventListener('input', (e) => this.updateDesignRotation(i, e.target.value));
+          }
+
+          if (removeButton) {
+            removeButton.addEventListener('click', () => this.removeDesign(i));
+          }
+
+          if (designLayer) {
+            designLayer.addEventListener('mousedown', (e) => this.startDrag(e, i));
+            designLayer.addEventListener('touchstart', (e) => this.startDrag(e, i));
+            designLayer.addEventListener('click', () => this.selectDesign(i));
+          }
+        }
+
+        document.addEventListener('mousemove', (e) => this.drag(e));
+        document.addEventListener('touchmove', (e) => this.drag(e));
+        document.addEventListener('mouseup', () => this.endDrag());
+        document.addEventListener('touchend', () => this.endDrag());
+      }
+
+      updateMockup() {
+        const productType = this.productTypeSelect.value;
+        const ageGroup = this.ageGroupSelect.value;
+        const gender = this.querySelector('[data-gender]:checked').value;
+        const colorIndex = this.colorSelect.value;
+
+        const mockupKey = `${productType}_${ageGroup}_${gender}_${colorIndex}`;
+        
+        {% for i in (1..10) %}
+          {% assign color_image_key = 'color_' | append: i | append: '_image' %}
+          {% if block.settings[color_image_key] %}
+            if (mockupKey.endsWith('_{{ i }}')) {
+              this.mockupImage.src = '{{ block.settings[color_image_key] | image_url: width: 800 }}';
+            }
+          {% endif %}
+        {% endfor %}
+      }
+
+      handleFileUpload(event, designIndex) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const designImage = this.querySelector(`[data-design-image="${designIndex}"]`);
+          const designLayer = this.querySelector(`[data-design-layer="${designIndex}"]`);
+          const controls = this.querySelector(`[data-controls="${designIndex}"]`);
+
+          if (designImage && designLayer) {
+            designImage.src = e.target.result;
+            designLayer.style.display = 'block';
+            if (controls) {
+              controls.classList.add('active');
+            }
+
+            this.designs[designIndex] = {
+              file: file,
+              size: 100,
+              rotation: 0,
+              x: 50,
+              y: 50
+            };
+
+            this.selectDesign(designIndex);
+            this.updateMessageField();
+          }
+        };
+        reader.readAsDataURL(file);
+      }
+
+      updateDesignSize(designIndex, size) {
+        const designLayer = this.querySelector(`[data-design-layer="${designIndex}"]`);
+        const sizeValue = this.querySelector(`[data-size-value="${designIndex}"]`);
+        
+        if (designLayer && this.designs[designIndex]) {
+          this.designs[designIndex].size = size;
+          const newSize = size;
+          designLayer.style.width = `${newSize}px`;
+          designLayer.style.height = `${newSize}px`;
+          
+          if (sizeValue) {
+            sizeValue.textContent = size;
+          }
+        }
+      }
+
+      updateDesignRotation(designIndex, rotation) {
+        const designLayer = this.querySelector(`[data-design-layer="${designIndex}"]`);
+        const rotationValue = this.querySelector(`[data-rotation-value="${designIndex}"]`);
+        
+        if (designLayer && this.designs[designIndex]) {
+          this.designs[designIndex].rotation = rotation;
+          const x = this.designs[designIndex].x || 50;
+          const y = this.designs[designIndex].y || 50;
+          designLayer.style.transform = `translate(-50%, -50%) rotate(${rotation}deg)`;
+          
+          if (rotationValue) {
+            rotationValue.textContent = rotation;
+          }
+        }
+      }
+
+      removeDesign(designIndex) {
+        const designLayer = this.querySelector(`[data-design-layer="${designIndex}"]`);
+        const controls = this.querySelector(`[data-controls="${designIndex}"]`);
+        const uploadInput = this.querySelector(`[data-design-upload="${designIndex}"]`);
+
+        if (designLayer) {
+          designLayer.style.display = 'none';
+        }
+        if (controls) {
+          controls.classList.remove('active');
+        }
+        if (uploadInput) {
+          uploadInput.value = '';
+        }
+
+        delete this.designs[designIndex];
+        this.updateMessageField();
+      }
+
+      selectDesign(designIndex) {
+        this.querySelectorAll('[data-design-layer]').forEach(layer => {
+          layer.classList.remove('active');
+        });
+
+        const designLayer = this.querySelector(`[data-design-layer="${designIndex}"]`);
+        if (designLayer) {
+          designLayer.classList.add('active');
+        }
+      }
+
+      startDrag(event, designIndex) {
+        event.preventDefault();
+        this.draggedElement = this.querySelector(`[data-design-layer="${designIndex}"]`);
+        this.selectDesign(designIndex);
+
+        const clientX = event.type.includes('touch') ? event.touches[0].clientX : event.clientX;
+        const clientY = event.type.includes('touch') ? event.touches[0].clientY : event.clientY;
+
+        const rect = this.draggedElement.getBoundingClientRect();
+        this.dragOffset.x = clientX - rect.left - rect.width / 2;
+        this.dragOffset.y = clientY - rect.top - rect.height / 2;
+      }
+
+      drag(event) {
+        if (!this.draggedElement) return;
+
+        const preview = this.querySelector('[data-preview]');
+        const previewRect = preview.getBoundingClientRect();
+
+        const clientX = event.type.includes('touch') ? event.touches[0].clientX : event.clientX;
+        const clientY = event.type.includes('touch') ? event.touches[0].clientY : event.clientY;
+
+        let x = clientX - previewRect.left - this.dragOffset.x;
+        let y = clientY - previewRect.top - this.dragOffset.y;
+
+        x = Math.max(0, Math.min(x, previewRect.width));
+        y = Math.max(0, Math.min(y, previewRect.height));
+
+        this.draggedElement.style.left = `${x}px`;
+        this.draggedElement.style.top = `${y}px`;
+
+        const designIndex = this.draggedElement.getAttribute('data-design-layer');
+        if (this.designs[designIndex]) {
+          this.designs[designIndex].x = (x / previewRect.width) * 100;
+          this.designs[designIndex].y = (y / previewRect.height) * 100;
+        }
+      }
+
+      endDrag() {
+        this.draggedElement = null;
+      }
+
+      updateMessageField() {
+        if (!this.messageField) return;
+
+        const productType = this.productTypeSelect.value;
+        const ageGroup = this.ageGroupSelect.value;
+        const gender = this.querySelector('[data-gender]:checked').value;
+        const color = this.colorSelect.options[this.colorSelect.selectedIndex].text;
+
+        let message = `Mockup Design Request:\n\n`;
+        message += `Product: ${productType}\n`;
+        message += `Age Group: ${ageGroup}\n`;
+        message += `Gender: ${gender}\n`;
+        message += `Color: ${color}\n\n`;
+        message += `Designs uploaded: ${Object.keys(this.designs).length}\n\n`;
+
+        Object.keys(this.designs).forEach(key => {
+          const design = this.designs[key];
+          message += `Design ${key}:\n`;
+          message += `- Size: ${design.size}%\n`;
+          message += `- Rotation: ${design.rotation}°\n`;
+          message += `- Position: ${design.x.toFixed(1)}%, ${design.y.toFixed(1)}%\n\n`;
+        });
+
+        this.messageField.value = message;
+      }
+    }
+
+    customElements.define('mockup-designer-{{ ai_gen_id }}', MockupDesigner{{ ai_gen_id }});
+  })();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Mockup designer",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Design your mockup"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#f9f9f9"
+    },
+    {
+      "type": "color",
+      "id": "section_bg_color",
+      "label": "Section background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "preview_bg_color",
+      "label": "Preview background",
+      "default": "#f4f4f4"
+    },
+    {
+      "type": "color",
+      "id": "input_border_color",
+      "label": "Input border",
+      "default": "#cccccc"
+    },
+    {
+      "type": "color",
+      "id": "button_color",
+      "label": "Button background",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_color",
+      "label": "Button hover",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "active_design_color",
+      "label": "Active design outline",
+      "default": "#334fb4"
+    },
+    {
+      "type": "header",
+      "content": "Color 1"
+    },
+    {
+      "type": "text",
+      "id": "color_1_name",
+      "label": "Name",
+      "default": "White"
+    },
+    {
+      "type": "image_picker",
+      "id": "color_1_image",
+      "label": "Mockup image"
+    },
+    {
+      "type": "header",
+      "content": "Color 2"
+    },
+    {
+      "type": "text",
+      "id": "color_2_name",
+      "label": "Name",
+      "default": "Black"
+    },
+    {
+      "type": "image_picker",
+      "id": "color_2_image",
+      "label": "Mockup image"
+    },
+    {
+      "type": "header",
+      "content": "Color 3"
+    },
+    {
+      "type": "text",
+      "id": "color_3_name",
+      "label": "Name"
+    },
+    {
+      "type": "image_picker",
+      "id": "color_3_image",
+      "label": "Mockup image"
+    },
+    {
+      "type": "header",
+      "content": "Color 4"
+    },
+    {
+      "type": "text",
+      "id": "color_4_name",
+      "label": "Name"
+    },
+    {
+      "type": "image_picker",
+      "id": "color_4_image",
+      "label": "Mockup image"
+    },
+    {
+      "type": "header",
+      "content": "Color 5"
+    },
+    {
+      "type": "text",
+      "id": "color_5_name",
+      "label": "Name"
+    },
+    {
+      "type": "image_picker",
+      "id": "color_5_image",
+      "label": "Mockup image"
+    },
+    {
+      "type": "header",
+      "content": "Color 6"
+    },
+    {
+      "type": "text",
+      "id": "color_6_name",
+      "label": "Name"
+    },
+    {
+      "type": "image_picker",
+      "id": "color_6_image",
+      "label": "Mockup image"
+    },
+    {
+      "type": "header",
+      "content": "Color 7"
+    },
+    {
+      "type": "text",
+      "id": "color_7_name",
+      "label": "Name"
+    },
+    {
+      "type": "image_picker",
+      "id": "color_7_image",
+      "label": "Mockup image"
+    },
+    {
+      "type": "header",
+      "content": "Color 8"
+    },
+    {
+      "type": "text",
+      "id": "color_8_name",
+      "label": "Name"
+    },
+    {
+      "type": "image_picker",
+      "id": "color_8_image",
+      "label": "Mockup image"
+    },
+    {
+      "type": "header",
+      "content": "Color 9"
+    },
+    {
+      "type": "text",
+      "id": "color_9_name",
+      "label": "Name"
+    },
+    {
+      "type": "image_picker",
+      "id": "color_9_image",
+      "label": "Mockup image"
+    },
+    {
+      "type": "header",
+      "content": "Color 10"
+    },
+    {
+      "type": "text",
+      "id": "color_10_name",
+      "label": "Name"
+    },
+    {
+      "type": "image_picker",
+      "id": "color_10_image",
+      "label": "Mockup image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Mockup designer"
+    }
+  ]
+}
 {% endschema %}
