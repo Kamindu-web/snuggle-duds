@@ -373,7 +373,7 @@
         <div class="ai-mockup-editor-button-group-{{ ai_gen_id }}">
           <button class="ai-mockup-editor-button-{{ ai_gen_id }} active" data-category="adults">Adults</button>
           <button class="ai-mockup-editor-button-{{ ai_gen_id }}" data-category="children">Children</button>
-          <button class="ai-mockup-editor-button-{{ ai_gen_id }}" data-category="other">Others</button>
+          <button class="ai-mockup-editor-button-{{ ai_gen_id }}" data-category="otherA1">OthersA1</button>
         </div>
       </div>
 
@@ -382,7 +382,7 @@
         <div class="ai-mockup-editor-button-group-{{ ai_gen_id }}">
           <button class="ai-mockup-editor-button-{{ ai_gen_id }} active" data-gender="men">Men</button>
           <button class="ai-mockup-editor-button-{{ ai_gen_id }}" data-gender="women">Women</button>
-          <button class="ai-mockup-editor-button-{{ ai_gen_id }}" data-gender="other">Others</button>
+          <button class="ai-mockup-editor-button-{{ ai_gen_id }}" data-gender="otherB1">OthersB1</button>
         </div>
       </div>
 
@@ -540,6 +540,52 @@
             girls: [
               {% for i in (1..10) %}
                 {% assign key = 'hoodie_girls_' | append: i %}
+                {% if block.settings[key] %}
+                  '{{ block.settings[key] | image_url: width: 800 }}'{% unless forloop.last %},{% endunless %}
+                {% else %}
+                  ''{% unless forloop.last %},{% endunless %}
+                {% endif %}
+              {% endfor %}
+            ]
+          }
+        }
+        other: {
+          cloth: {
+            adultother: [
+              {% for i in (1..10) %}
+                {% assign key = 'cloth_adultother_' | append: i %}
+                {% if block.settings[key] %}
+                  '{{ block.settings[key] | image_url: width: 800 }}'{% unless forloop.last %},{% endunless %}
+                {% else %}
+                  ''{% unless forloop.last %},{% endunless %}
+                {% endif %}
+              {% endfor %}
+            ],
+            kidsother: [
+              {% for i in (1..10) %}
+                {% assign key = 'cloth_kidsother_' | append: i %}
+                {% if block.settings[key] %}
+                  '{{ block.settings[key] | image_url: width: 800 }}'{% unless forloop.last %},{% endunless %}
+                {% else %}
+                  ''{% unless forloop.last %},{% endunless %}
+                {% endif %}
+              {% endfor %}
+            ]
+          },
+          otheritem: {
+            set01: [
+              {% for i in (1..10) %}
+                {% assign key = 'otheritem_set01_' | append: i %}
+                {% if block.settings[key] %}
+                  '{{ block.settings[key] | image_url: width: 800 }}'{% unless forloop.last %},{% endunless %}
+                {% else %}
+                  ''{% unless forloop.last %},{% endunless %}
+                {% endif %}
+              {% endfor %}
+            ],
+            set02: [
+              {% for i in (1..10) %}
+                {% assign key = 'otheritem_set02_' | append: i %}
                 {% if block.settings[key] %}
                   '{{ block.settings[key] | image_url: width: 800 }}'{% unless forloop.last %},{% endunless %}
                 {% else %}
