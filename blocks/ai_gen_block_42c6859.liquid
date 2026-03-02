@@ -699,32 +699,31 @@
     }
 
     updateGenderButtons() {
-  const genderButtons = this.querySelectorAll('[data-gender]');
+      const genderButtons = this.querySelectorAll('[data-gender]');
+      if (this.category === 'adults') {
+        genderButtons[0].textContent = 'Men';
+        genderButtons[0].dataset.gender = 'men';
+        genderButtons[1].textContent = 'Women';
+        genderButtons[1].dataset.gender = 'women';
+        this.gender = 'men';
+      } 
+    else if (this.category === 'otheritem') {
 
-  if (this.category === 'adults') {
-    genderButtons[0].textContent = 'Men';
-    genderButtons[0].dataset.gender = 'men';
-    genderButtons[1].textContent = 'Women';
-    genderButtons[1].dataset.gender = 'women';
-    this.gender = 'men';
-
-  } else if (this.category === 'otheritem') {
-
-    genderButtons[0].textContent = 'Other Items';
+    genderButtons[0].textContent = 'OtherItems';
     genderButtons[0].dataset.gender = 'otheritems';
     genderButtons[1].textContent = 'Cloth';
     genderButtons[1].dataset.gender = 'cloth';
     this.gender = 'otheritems';
 
-  } else {
-
-    genderButtons[0].textContent = 'Boys';
-    genderButtons[0].dataset.gender = 'boys';
-    genderButtons[1].textContent = 'Girls';
-    genderButtons[1].dataset.gender = 'girls';
-    this.gender = 'boys';
-  }
-}
+    }
+      
+      else {
+        genderButtons[0].textContent = 'Boys';
+        genderButtons[0].dataset.gender = 'boys';
+        genderButtons[1].textContent = 'Girls';
+        genderButtons[1].dataset.gender = 'girls';
+        this.gender = 'boys';
+      }
       genderButtons.forEach(b => b.classList.remove('active'));
       genderButtons[0].classList.add('active');
     }
