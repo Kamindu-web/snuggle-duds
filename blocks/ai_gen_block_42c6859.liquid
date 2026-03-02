@@ -550,8 +550,8 @@
           }
         },
         other: {
-          cloth: {
-            adultother: [
+          otheritem: {
+            otheritems: [
               {% for i in (1..10) %}
                 {% assign key = 'cloth_adultother_' | append: i %}
                 {% if block.settings[key] %}
@@ -561,7 +561,7 @@
                 {% endif %}
               {% endfor %}
             ],
-            kidsother: [
+            cloth: [
               {% for i in (1..10) %}
                 {% assign key = 'cloth_kidsother_' | append: i %}
                 {% if block.settings[key] %}
@@ -572,7 +572,7 @@
               {% endfor %}
             ]
           },
-          otheritem: {
+          cloth01: {
             set01: [
               {% for i in (1..10) %}
                 {% assign key = 'otheritem_set01_' | append: i %}
@@ -736,6 +736,14 @@
         genderButtons[1].dataset.gender = 'girls';
         this.gender = 'boys';
       }
+	else {
+        genderButtons[0].textContent = 'Cloth';
+        genderButtons[0].dataset.gender = 'cloth';
+        genderButtons[1].textContent = 'Otheritem';
+        genderButtons[1].dataset.gender = 'otheritems';
+        this.gender = 'otheritems';
+      }
+
       genderButtons.forEach(b => b.classList.remove('active'));
       genderButtons[0].classList.add('active');
     }
