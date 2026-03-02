@@ -547,6 +547,30 @@
               {% endfor %}
             ]
           }
+        },
+        other: {
+          otheritem: {
+            cloth: [
+              {% for i in (1..10) %}
+                {% assign key = 'cloth_adultother_' | append: i %}
+                {% if block.settings[key] %}
+                  '{{ block.settings[key] | image_url: width: 800 }}'{% unless forloop.last %},{% endunless %}
+                {% else %}
+                  ''{% unless forloop.last %},{% endunless %}
+                {% endif %}
+              {% endfor %}
+            ],
+            cloth: [
+              {% for i in (1..10) %}
+                {% assign key = 'cloth_kidsother_' | append: i %}
+                {% if block.settings[key] %}
+                  '{{ block.settings[key] | image_url: width: 800 }}'{% unless forloop.last %},{% endunless %}
+                {% else %}
+                  ''{% unless forloop.last %},{% endunless %}
+                {% endif %}
+              {% endfor %}
+            ]
+          }
         }
       };
     }
