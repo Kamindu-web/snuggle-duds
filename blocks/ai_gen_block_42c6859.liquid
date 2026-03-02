@@ -364,7 +364,6 @@
         <div class="ai-mockup-editor-button-group-{{ ai_gen_id }}">
           <button class="ai-mockup-editor-button-{{ ai_gen_id }} active" data-product-type="tshirt">T-Shirt</button>
           <button class="ai-mockup-editor-button-{{ ai_gen_id }}" data-product-type="hoodie">Hoodie</button>
-          <button class="ai-mockup-editor-button-{{ ai_gen_id }}" data-product-type="other01">Others</button>
         </div>
       </div>
 
@@ -373,7 +372,6 @@
         <div class="ai-mockup-editor-button-group-{{ ai_gen_id }}">
           <button class="ai-mockup-editor-button-{{ ai_gen_id }} active" data-category="adults">Adults</button>
           <button class="ai-mockup-editor-button-{{ ai_gen_id }}" data-category="children">Children</button>
-          <button class="ai-mockup-editor-button-{{ ai_gen_id }}" data-category="otheritem">OtherItem</button>
         </div>
       </div>
 
@@ -382,7 +380,6 @@
         <div class="ai-mockup-editor-button-group-{{ ai_gen_id }}">
           <button class="ai-mockup-editor-button-{{ ai_gen_id }} active" data-gender="men">Men</button>
           <button class="ai-mockup-editor-button-{{ ai_gen_id }}" data-gender="women">Women</button>
-      
         </div>
       </div>
 
@@ -548,8 +545,7 @@
               {% endfor %}
             ]
           }
-        },
-        
+        }
       };
     }
 
@@ -691,14 +687,6 @@
         genderButtons[1].dataset.gender = 'girls';
         this.gender = 'boys';
       }
-	    or {
-        genderButtons[0].textContent = 'Cloth';
-        genderButtons[0].dataset.gender = 'cloth';
-        genderButtons[1].textContent = 'Otheritem';
-        genderButtons[1].dataset.gender = 'otheritems';
-        this.gender = 'cloth';
-      }
-
       genderButtons.forEach(b => b.classList.remove('active'));
       genderButtons[0].classList.add('active');
     }
@@ -1439,20 +1427,6 @@
       "type": "image_picker",
       "id": "hoodie_girls_10",
       "label": "Girls mockup 10"
-    },
-    {
-      "type": "header",
-      "content": "Other mockups - Others"
-    },
-    {
-      "type": "image_picker",
-      "id": "other_men_1",
-      "label": "other mockup 1"
-    },
-    {
-      "type": "image_picker",
-      "id": "other_men_2",
-      "label": "Other mockup 2"
     }
   ],
   "presets": [
