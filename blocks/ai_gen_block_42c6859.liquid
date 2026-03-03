@@ -550,7 +550,7 @@
         },
         other: {
           otheritem: {
-            item: [
+            product: [
               {% for i in (1..10) %}
                 {% assign key = 'other_item_' | append: i %}
                 {% if block.settings[key] %}
@@ -709,11 +709,11 @@
       } 
     else if (this.category === 'otheritem') {
 
-    genderButtons[0].textContent = 'OtherItem';
-    genderButtons[0].dataset.gender = 'otheritem';
+    genderButtons[0].textContent = 'Product';
+    genderButtons[0].dataset.gender = 'product';
     genderButtons[1].textContent = 'Cloth';
     genderButtons[1].dataset.gender = 'cloth';
-    this.gender = 'otheritem';
+    this.gender = 'product';
 
     }
       
@@ -1527,60 +1527,60 @@
 
     {
       "type": "header",
-      "content": "Other mockups - OtherItem"
+      "content": "Other mockups - Product"
     },
     {
       "type": "image_picker",
-      "id": "other_item_1",
+      "id": "other_product_1",
       "label": "Item mockup 1"
     },
     {
       "type": "image_picker",
-      "id": "other_item_2",
+      "id": "other_product_2",
       "label": "Item mockup 2"
     }
     ,
     {
       "type": "image_picker",
-      "id": "other_item_3",
+      "id": "other_product_3",
       "label": "other mockup 3"
     },
     {
       "type": "image_picker",
-      "id": "other_item_4",
+      "id": "other_product_4",
       "label": "Other mockup 4"
     }
     ,
     {
       "type": "image_picker",
-      "id": "other_item_5",
+      "id": "other_product_5",
       "label": "other mockup 5"
     },
     {
       "type": "image_picker",
-      "id": "other_item_6",
+      "id": "other_product_6",
       "label": "Other mockup 6"
     }
     ,
     {
       "type": "image_picker",
-      "id": "other_item_7",
+      "id": "other_product_7",
       "label": "other mockup 7"
     },
     {
       "type": "image_picker",
-      "id": "other_item_8",
+      "id": "other_product_8",
       "label": "Other mockup 8"
     }
     ,
     {
       "type": "image_picker",
-      "id": "other_item_9",
+      "id": "other_product_9",
       "label": "other mockup 9"
     },
     {
       "type": "image_picker",
-      "id": "other_item_10",
+      "id": "other_product_10",
       "label": "Other mockup 10"
     }
   ],
