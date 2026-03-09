@@ -78,6 +78,41 @@
     "177225517845295d45": {
       "type": "_blocks",
       "blocks": {
+        "ai_gen_block_49df5f9_GMe7iV": {
+          "type": "ai_gen_block_49df5f9",
+          "settings": {
+            "heading": "<p>Create Your Custom Design</p>",
+            "recipient_email": "",
+            "success_message": "<p>Thank you! Your mockup has been submitted successfully. We will contact you shortly.</p>",
+            "desktop_width_percent": 100,
+            "background_color": "#f9f9f9",
+            "section_bg_color": "#ffffff",
+            "text_color": "#121212",
+            "button_bg_color": "#e0e0e0",
+            "button_text_color": "#121212",
+            "button_hover_bg_color": "#d0d0d0",
+            "button_active_bg_color": "#334fb4",
+            "button_active_border_color": "#334fb4",
+            "preview_bg_color": "#f4f4f4",
+            "thumbnail_hover_border": "#334fb4",
+            "thumbnail_selected_border": "#334fb4",
+            "design_active_border": "#334fb4",
+            "control_btn_bg": "#121212",
+            "control_btn_color": "#ffffff",
+            "upload_border_color": "#cccccc",
+            "upload_hover_border": "#334fb4",
+            "upload_hover_bg": "#f0f0f0",
+            "input_border_color": "#cccccc",
+            "submit_btn_bg": "#334fb4",
+            "submit_btn_color": "#ffffff",
+            "submit_btn_hover_bg": "#2a3f99",
+            "success_bg": "#d4edda",
+            "success_color": "#155724",
+            "heading_size": 32,
+            "border_radius": 8
+          },
+          "blocks": {}
+        },
         "ai_gen_block_990b673_zJd9E8": {
           "type": "ai_gen_block_990b673",
           "settings": {
@@ -153,6 +188,7 @@
         }
       },
       "block_order": [
+        "ai_gen_block_49df5f9_GMe7iV",
         "ai_gen_block_990b673_zJd9E8",
         "ai_gen_block_42c6859_EJCFDQ"
       ],
