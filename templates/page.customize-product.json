@@ -9,6 +9,91 @@
  */
 {
   "sections": {
+    "blocks_BGAnyY": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_42c6859_nU7YNF": {
+          "type": "ai_gen_block_42c6859",
+          "settings": {
+            "heading": "Design your custom apparel",
+            "desktop_width_percent": 100,
+            "background_color": "#ffffff",
+            "section_bg_color": "#f9f9f9",
+            "text_color": "#000000",
+            "button_bg_color": "#e0e0e0",
+            "button_text_color": "#000000",
+            "button_hover_bg_color": "#d0d0d0",
+            "button_active_bg_color": "#334fb4",
+            "button_active_text_color": "#ffffff",
+            "button_border_color": "#cccccc",
+            "submit_button_bg": "#334fb4",
+            "submit_button_text_color": "#ffffff",
+            "submit_button_hover_bg": "#2a3f99",
+            "submit_label": "Submit design",
+            "success_message": "Thank you! We'll email you shortly with your mockup details.",
+            "tshirt_men_1": "shopify://shop_images/sample_black_t_shirt_a_a5a609c6-8513-4447-90a5-519914435d51.jpg",
+            "tshirt_men_2": "shopify://shop_images/snuggle_duds_t_shirt_8.jpg",
+            "tshirt_men_3": "shopify://shop_images/snuggle_duds_t_shirt_4.png",
+            "tshirt_men_4": "shopify://shop_images/snuggle_duds_t_shirt_5.jpg",
+            "tshirt_men_5": "shopify://shop_images/snuggle_duds_t_shirt_3.jpg",
+            "tshirt_men_6": "shopify://shop_images/snuggle_duds_t_shirt_1.jpg",
+            "tshirt_men_7": "shopify://shop_images/snuugle_duds_polo_t_shirt_1.png",
+            "tshirt_men_8": "shopify://shop_images/snuugle_duds_polo_t_shirt_2.png",
+            "tshirt_women_1": "shopify://shop_images/snuugle_duds_polo_t_shirt_1.png",
+            "tshirt_women_2": "shopify://shop_images/snuugle_duds_polo_t_shirt_2.jpg",
+            "tshirt_women_3": "shopify://shop_images/sample_black_t_shirt_a_a5a609c6-8513-4447-90a5-519914435d51.jpg",
+            "tshirt_women_4": "shopify://shop_images/snuggle_duds_t_shirt_8.png",
+            "tshirt_women_5": "shopify://shop_images/snuggle_duds_t_shirt_7.jpg",
+            "tshirt_women_6": "shopify://shop_images/snuggle_duds_t_shirt_3.jpg",
+            "tshirt_women_7": "shopify://shop_images/snuggle_duds_t_shirt_2.jpg",
+            "tshirt_women_8": "shopify://shop_images/snuggle_duds_t_shirt_5.jpg",
+            "tshirt_boys_1": "shopify://shop_images/sample_black_t_shirt_a_a5a609c6-8513-4447-90a5-519914435d51.jpg",
+            "tshirt_boys_2": "shopify://shop_images/snuggle_duds_t_shirt_8.jpg",
+            "tshirt_boys_3": "shopify://shop_images/snuggle_duds_t_shirt_5.jpg",
+            "tshirt_boys_4": "shopify://shop_images/snuggle_duds_t_shirt_3.jpg",
+            "tshirt_boys_5": "shopify://shop_images/snuggle_duds_t_shirt_1.jpg",
+            "tshirt_boys_6": "shopify://shop_images/snuggle_duds_t_shirt_4.jpg",
+            "tshirt_boys_7": "shopify://shop_images/snuugle_duds_polo_t_shirt_1.jpg",
+            "tshirt_boys_8": "shopify://shop_images/snuugle_duds_polo_t_shirt_2.jpg",
+            "tshirt_girls_1": "shopify://shop_images/snuggle_duds_t_shirt_7.jpg",
+            "tshirt_girls_2": "shopify://shop_images/snuggle_duds_t_shirt_2.jpg",
+            "tshirt_girls_3": "shopify://shop_images/snuggle_duds_t_shirt_1.jpg",
+            "tshirt_girls_4": "shopify://shop_images/snuggle_duds_t_shirt_3.jpg",
+            "tshirt_girls_5": "shopify://shop_images/snuggle_duds_t_shirt_5.jpg",
+            "tshirt_girls_6": "shopify://shop_images/snuggle_duds_t_shirt_8.jpg",
+            "tshirt_girls_7": "shopify://shop_images/sample_black_t_shirt_a_a5a609c6-8513-4447-90a5-519914435d51.jpg",
+            "tshirt_girls_8": "shopify://shop_images/snuugle_duds_polo_t_shirt_2.jpg",
+            "tshirt_girls_9": "shopify://shop_images/snuugle_duds_polo_t_shirt_1.jpg",
+            "hoodie_men_1": "shopify://shop_images/snuggle_duds_hoodies_1.jpg",
+            "hoodie_men_2": "shopify://shop_images/snuggle_duds_hoodies_3.jpg",
+            "hoodie_men_3": "shopify://shop_images/snuggle_duds_hoodies_2.jpg",
+            "hoodie_men_4": "shopify://shop_images/Suggle_Duds_Long_sleeve_1.jpg",
+            "hoodie_men_5": "shopify://shop_images/Suggle_Duds_Long_sleeve_2.jpg",
+            "hoodie_women_1": "shopify://shop_images/snuggle_duds_hoodies_3.jpg",
+            "hoodie_women_2": "shopify://shop_images/snuggle_duds_hoodies_2.jpg",
+            "hoodie_women_3": "shopify://shop_images/snuggle_duds_hoodies_1.jpg",
+            "hoodie_women_4": "shopify://shop_images/Suggle_Duds_Long_sleeve_1.jpg",
+            "hoodie_women_5": "shopify://shop_images/Suggle_Duds_Long_sleeve_2.jpg",
+            "hoodie_boys_1": "shopify://shop_images/snuggle_duds_hoodies_1.jpg",
+            "hoodie_boys_2": "shopify://shop_images/snuggle_duds_hoodies_3.jpg",
+            "hoodie_boys_3": "shopify://shop_images/snuggle_duds_hoodies_2.jpg",
+            "hoodie_boys_4": "shopify://shop_images/Suggle_Duds_Long_sleeve_1.jpg",
+            "hoodie_boys_5": "shopify://shop_images/Suggle_Duds_Long_sleeve_2.jpg",
+            "hoodie_girls_1": "shopify://shop_images/snuggle_duds_hoodies_3.jpg",
+            "hoodie_girls_2": "shopify://shop_images/snuggle_duds_hoodies_1.jpg",
+            "hoodie_girls_3": "shopify://shop_images/snuggle_duds_hoodies_2.jpg",
+            "hoodie_girls_4": "shopify://shop_images/Suggle_Duds_Long_sleeve_1.jpg",
+            "hoodie_girls_5": "shopify://shop_images/Suggle_Duds_Long_sleeve_2.jpg"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_42c6859_nU7YNF"
+      ],
+      "name": "Mockup editor",
+      "settings": {}
+    },
     "main": {
       "type": "main-page",
       "disabled": true,
@@ -26,6 +111,7 @@
     }
   },
   "order": [
+    "blocks_BGAnyY",
     "main",
     "customized_form_ngXx9r"
   ]
