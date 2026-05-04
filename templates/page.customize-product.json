@@ -91,6 +91,7 @@
       "block_order": [
         "ai_gen_block_42c6859_nU7YNF"
       ],
+      "disabled": true,
       "name": "Mockup editor",
       "settings": {}
     },
